@@ -1,0 +1,72 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * YellowCard
+ *
+ * @ORM\Table(name="yellow_card")
+ * @ORM\Entity
+ */
+class YellowCard
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false, options={"unsigned"=true})
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="minute", type="smallint", nullable=false, options={"unsigned"=true})
+     */
+    private $minute;
+
+    /**
+     * @var \Game
+     *
+     * @ORM\ManyToOne(targetEntity="Game")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="game_id", referencedColumnName="id", nullable=false)
+     * })
+     */
+    private $game;
+
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getMinute(): ?int
+    {
+        return $this->minute;
+    }
+
+    public function setMinute(int $minute): self
+    {
+        $this->minute = $minute;
+
+        return $this;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+
+}
