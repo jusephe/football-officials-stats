@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * League
  *
  * @ORM\Table(name="league")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\LeagueRepository")
  */
 class League
 {

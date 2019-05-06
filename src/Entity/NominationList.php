@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * NominationList
  *
  * @ORM\Table(name="nomination_list", indexes={@ORM\Index(name="nomination_list_league_id_fk", columns={"league_id"}), @ORM\Index(name="nomination_list_official_id_fk", columns={"official_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\NominationListRepository")
  */
 class NominationList
 {

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Game
  *
  * @ORM\Table(name="game", indexes={@ORM\Index(name="game_ar2_official_id_fk", columns={"ar2_official_id"}), @ORM\Index(name="game_away_team_id_fk", columns={"away_team_id"}), @ORM\Index(name="game_league_id_fk", columns={"league_id"}), @ORM\Index(name="game_ar1_official_id_fk", columns={"ar1_official_id"}), @ORM\Index(name="game_assessor_id_fk", columns={"assessor_id"}), @ORM\Index(name="game_home_team_id_fk", columns={"home_team_id"}), @ORM\Index(name="game_referee_official_id_fk", columns={"referee_official_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\GameRepository")
  */
 class Game
 {

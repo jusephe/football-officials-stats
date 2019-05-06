@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Entity\Game;
@@ -32,7 +31,6 @@ class TestController extends AbstractController
      */
     public function db(Connection $connection)
     {
-
         $entityManager = $this->getDoctrine()->getManager();
 
         $rozh = $this->getDoctrine()
@@ -67,7 +65,7 @@ class TestController extends AbstractController
         // actually executes the queries (i.e. the INSERT query)
         $entityManager->flush();
 
-        return new Response('Saved new product with id '.$product->getId().' game: '.$game->getRound());
+        return new Response('Saved new product with id '.$product->getId().' // game round: '.$game->getRound());
     }
 
 }

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * RedCard
  *
  * @ORM\Table(name="red_card", indexes={@ORM\Index(name="red_card_offence_id_fk", columns={"offence_id"}), @ORM\Index(name="red_card_game_id_fk", columns={"game_id"}), @ORM\Index(name="red_card_team_id_fk", columns={"team_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\RedCardRepository")
  */
 class RedCard
 {
