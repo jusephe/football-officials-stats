@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * YellowCard
@@ -25,13 +26,16 @@ class YellowCard
      * @var int
      *
      * @ORM\Column(name="minute", type="smallint", nullable=false, options={"unsigned"=true})
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 150)
      */
     private $minute;
 
     /**
      * @var \Game
      *
-     * @ORM\ManyToOne(targetEntity="Game")
+     * @ORM\ManyToOne(targetEntity="Game", inversedBy="yellowCards")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="game_id", referencedColumnName="id", nullable=false)
      * })
@@ -68,5 +72,9 @@ class YellowCard
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->minute;
+    }
 
 }

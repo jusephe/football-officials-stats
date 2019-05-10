@@ -59,6 +59,11 @@ class Official
         return $this;
     }
 
+    public function getNameWithId(): ?string
+    {
+        return $this->name . ' (' . $this->id . ')';
+    }
+
     /**
      * @return Collection|NominationList[]
      */

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Game
@@ -27,6 +28,9 @@ class Game
      * @var int
      *
      * @ORM\Column(name="season", type="smallint", nullable=false, options={"unsigned"=true})
+     * @Assert\Range(
+     *      min = 1950,
+     *      max = 2070)
      */
     private $season;
 
@@ -41,6 +45,9 @@ class Game
      * @var int
      *
      * @ORM\Column(name="round", type="smallint", nullable=false, options={"unsigned"=true})
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 48)
      */
     private $round;
 
@@ -117,14 +124,23 @@ class Game
     /**
      * @var \RedCard
      *
-     * @ORM\OneToMany(targetEntity="RedCard", mappedBy="game")
+     * @ORM\OneToMany(targetEntity="RedCard", mappedBy="game", cascade={"persist"})
      */
     private $redCards;
+
+    /**
+     * @var \YellowCard
+     *
+     * @ORM\OneToMany(targetEntity="YellowCard", mappedBy="game", cascade={"persist"})
+     * @Assert\Valid
+     */
+    private $yellowCards;
 
 
     public function __construct()
     {
         $this->redCards = new ArrayCollection();
+        $this->yellowCards = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -283,6 +299,35 @@ class Game
         return $this;
     }
 
+    /**
+     * @return Collection|YellowCard[]
+     */
+    public function getYellowCards(): Collection
+    {
+        return $this->yellowCards;
+    }
 
+    public function addYellowCard(YellowCard $yellowCard): self
+    {
+        if (!$this->yellowCards->contains($yellowCard)) {
+            $this->yellowCards[] = $yellowCard;
+            $yellowCard->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeYellowCard(YellowCard $yellowCard): self
+    {
+        if ($this->yellowCards->contains($yellowCard)) {
+            $this->yellowCards->removeElement($yellowCard);
+            // set the owning side to null (unless already changed)
+            if ($yellowCard->getGame() === $this) {
+                $yellowCard->setGame(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

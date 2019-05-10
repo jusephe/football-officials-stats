@@ -1,0 +1,5 @@
+textarea.form-control {
+    width: 40em;
+    max-width: 100%;
+    resize: both;
+}

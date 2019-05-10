@@ -1,0 +1,16 @@
+form {
+    max-width: 40em;
+    margin-bottom: 4rem;
+}
+
+.btn-custom {
+    width: 10em;
+}
+
+div#game_redCards > div.form-group:not(:last-child) div[id^="game_redCards_"] {
+    margin-bottom: 4rem;
+}
+
+label, legend {
+    font-weight: bold;
+}
