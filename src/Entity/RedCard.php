@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * RedCard
@@ -25,6 +26,11 @@ class RedCard
      * @var string
      *
      * @ORM\Column(name="person", type="string", length=80, nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 80
+     * )
      */
     private $person;
 
@@ -32,6 +38,9 @@ class RedCard
      * @var int|null
      *
      * @ORM\Column(name="minute", type="smallint", nullable=true, options={"unsigned"=true})
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 150)
      */
     private $minute;
 
@@ -39,6 +48,10 @@ class RedCard
      * @var string|null
      *
      * @ORM\Column(name="description", type="string", length=1000, nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 1000
+     * )
      */
     private $description;
 
@@ -77,6 +90,7 @@ class RedCard
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="game_id", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotBlank
      */
     private $game;
 
@@ -87,6 +101,7 @@ class RedCard
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="offence_id", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotBlank
      */
     private $offence;
 
@@ -97,6 +112,7 @@ class RedCard
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="team_id", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotBlank
      */
     private $team;
 

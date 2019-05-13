@@ -116,6 +116,11 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('add_game');
         }
 
+        if ($form->isSubmitted() && ! $form->isValid()) {
+            $this->addFlash('alert alert-danger',
+                'Zápas nebyl vložen! Opravte označené chyby ve formuláři.');
+        }
+
         return $this->render('admin/add_game_form.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -134,6 +139,24 @@ class AdminController extends AbstractController
      * @Route("/admin/nomination-list", name="nomination_list")
      */
     public function nominationList()
+    {
+
+        return $this->render('admin/base.html.twig');
+    }
+
+    /**
+     * @Route("/admin/teams", name="teams")
+     */
+    public function teams()
+    {
+
+        return $this->render('admin/base.html.twig');
+    }
+
+    /**
+     * @Route("/admin/leagues", name="leagues")
+     */
+    public function leagues()
     {
 
         return $this->render('admin/base.html.twig');

@@ -28,6 +28,7 @@ class Game
      * @var int
      *
      * @ORM\Column(name="season", type="smallint", nullable=false, options={"unsigned"=true})
+     * @Assert\NotBlank
      * @Assert\Range(
      *      min = 1950,
      *      max = 2070)
@@ -38,6 +39,7 @@ class Game
      * @var bool
      *
      * @ORM\Column(name="is_autumn", type="boolean", nullable=false)
+     * @Assert\NotBlank
      */
     private $isAutumn;
 
@@ -45,6 +47,7 @@ class Game
      * @var int
      *
      * @ORM\Column(name="round", type="smallint", nullable=false, options={"unsigned"=true})
+     * @Assert\NotBlank
      * @Assert\Range(
      *      min = 1,
      *      max = 48)
@@ -88,6 +91,7 @@ class Game
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="away_team_id", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotBlank
      */
     private $awayTeam;
 
@@ -98,6 +102,7 @@ class Game
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="home_team_id", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotBlank
      */
     private $homeTeam;
 
@@ -108,6 +113,7 @@ class Game
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="league_id", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotBlank
      */
     private $league;
 
@@ -118,6 +124,7 @@ class Game
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="referee_official_id", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotBlank
      */
     private $refereeOfficial;
 
@@ -125,6 +132,7 @@ class Game
      * @var \RedCard
      *
      * @ORM\OneToMany(targetEntity="RedCard", mappedBy="game", cascade={"persist"})
+     * @Assert\Valid
      */
     private $redCards;
 

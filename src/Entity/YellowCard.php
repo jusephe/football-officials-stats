@@ -26,6 +26,7 @@ class YellowCard
      * @var int
      *
      * @ORM\Column(name="minute", type="smallint", nullable=false, options={"unsigned"=true})
+     * @Assert\NotBlank
      * @Assert\Range(
      *      min = 1,
      *      max = 150)
@@ -39,6 +40,7 @@ class YellowCard
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="game_id", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotBlank
      */
     private $game;
 
@@ -70,11 +72,6 @@ class YellowCard
         $this->game = $game;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->minute;
     }
 
 }

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * League
@@ -24,9 +25,25 @@ class League
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=20, nullable=false)
+     * @ORM\Column(name="full_name", type="string", length=80, nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 80
+     * )
      */
-    private $name;
+    private $fullName;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="short_name", type="string", length=20, nullable=true)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 20
+     * )
+     */
+    private $shortName;
 
 
     public function getId(): ?int
@@ -34,17 +51,28 @@ class League
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getFullName(): ?string
     {
-        return $this->name;
+        return $this->fullName;
     }
 
-    public function setName(string $name): self
+    public function setFullName(string $fullName): self
     {
-        $this->name = $name;
+        $this->fullName = $fullName;
 
         return $this;
     }
 
+    public function getShortName(): ?string
+    {
+        return $this->shortName;
+    }
+
+    public function setShortName(?string $shortName): self
+    {
+        $this->shortName = $shortName;
+
+        return $this;
+    }
 
 }

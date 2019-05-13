@@ -20,11 +20,6 @@ class GameType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('league', EntityType::class, [
-                'label' => 'Soutěž:',
-                'class' => League::class,
-                'choice_label' => 'name',
-            ])
             ->add('season', IntegerType::class, [
                 'label' => 'Sezóna:',
             ])
@@ -39,22 +34,31 @@ class GameType extends AbstractType
             ->add('round', IntegerType::class, [
                 'label' => 'Kolo:',
             ])
+            ->add('league', EntityType::class, [
+                'label' => 'Soutěž:',
+                'class' => League::class,
+                'choice_label' => 'fullName',
+                'placeholder' => 'Vyberte soutěž',
+            ])
             ->add('homeTeam', EntityType::class, [
                 'label' => 'Domácí:',
                 'class' => Team::class,
                 'choice_label' => 'fullName',
+                'placeholder' => 'Vyberte domácí tým',
             ])
             ->add('awayTeam', EntityType::class, [
                 'label' => 'Hosté:',
                 'class' => Team::class,
                 'choice_label' => 'fullName',
+                'placeholder' => 'Vyberte hostující tým',
             ])
             ->add('refereeOfficial', EntityType::class, [
                 'label' => 'Rozhodčí:',
                 'class' => Official::class,
                 'choice_label' => function ($official) {
                     return $official->getNameWithId();
-                }
+                },
+                'placeholder' => 'Vyberte rozhodčího',
             ])
             ->add('ar1Official', EntityType::class, [
                 'label' => 'AR1:',

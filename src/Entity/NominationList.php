@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NominationList
@@ -17,6 +18,11 @@ class NominationList
      *
      * @ORM\Column(name="season_with_part", type="string", length=12, nullable=false)
      * @ORM\Id
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 12
+     * )
      */
     private $seasonWithPart;
 
@@ -27,6 +33,7 @@ class NominationList
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="league_id", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotBlank
      */
     private $league;
 
@@ -38,6 +45,7 @@ class NominationList
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="official_id", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotBlank
      */
     private $official;
 

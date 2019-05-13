@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="post", indexes={@ORM\Index(name="post_admin_id_fk", columns={"admin_id"})})
@@ -19,6 +20,11 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255
+     * )
      */
     private $title;
 
@@ -34,6 +40,7 @@ class Post
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime
      */
     private $published;
 

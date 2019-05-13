@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Assessor
@@ -17,6 +18,11 @@ class Assessor
      *
      * @ORM\Column(name="id", type="string", length=8, nullable=false)
      * @ORM\Id
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 7,
+     *      max = 8
+     * )
      */
     private $id;
 
@@ -24,6 +30,11 @@ class Assessor
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=80, nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 80
+     * )
      */
     private $name;
 

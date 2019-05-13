@@ -8,11 +8,15 @@
 
 {% block main %}
 
-    <div class="mb-4 mb-md-5">
+    <div class="mb-3">
         {{ form_start(form) }}
             {{ form_widget(form) }}
             <input type="submit" class="btn btn-primary" value="Odeslat"/>
         {{ form_end(form) }}
+    </div>
+
+    <div class="mb-4 mb-md-5">
+        <a href="{{ path('add_game_form') }}">Přidat zápas ručně</a>
     </div>
 
     <p>
