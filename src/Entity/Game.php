@@ -39,7 +39,7 @@ class Game
      * @var bool
      *
      * @ORM\Column(name="is_autumn", type="boolean", nullable=false)
-     * @Assert\NotBlank
+     * @Assert\NotNull
      */
     private $isAutumn;
 

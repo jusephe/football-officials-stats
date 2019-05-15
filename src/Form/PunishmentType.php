@@ -20,34 +20,42 @@ class PunishmentType extends AbstractType
         $builder
             ->add('minute', IntegerType::class, [
                 'label' => 'Minuta:',
+                'required' => false,
             ])
             ->add('person', TextType::class, [
                 'label' => 'Osoba:',
-            ])
-            ->add('description', TextareaType::class, [
-                'label' => 'Popis:',
-            ])
-            ->add('weeks', IntegerType::class, [
-                'label' => 'Týdny:',
-            ])
-            ->add('games', IntegerType::class, [
-                'label' => 'Zápasy:',
-            ])
-            ->add('fine', IntegerType::class, [
-                'label' => 'Pokuta:',
-            ])
-            ->add('fee', IntegerType::class, [
-                'label' => 'Poplatek:',
-            ])
-            ->add('offence', EntityType::class, [
-                'label' => 'Důvod:',
-                'class' => Offence::class,
-                'choice_label' => 'fullName',
             ])
             ->add('team', EntityType::class, [
                 'label' => 'Tým:',
                 'class' => Team::class,
                 'choice_label' => 'fullName',
+                'placeholder' => 'Vyberte tým',
+            ])
+            ->add('offence', EntityType::class, [
+                'label' => 'Důvod:',
+                'class' => Offence::class,
+                'choice_label' => 'fullName',
+                'placeholder' => 'Vyberte důvod',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Popis:',
+                'required' => false,
+            ])
+            ->add('weeks', IntegerType::class, [
+                'label' => 'Týdny:',
+                'required' => false,
+            ])
+            ->add('games', IntegerType::class, [
+                'label' => 'Zápasy:',
+                'required' => false,
+            ])
+            ->add('fine', IntegerType::class, [
+                'label' => 'Pokuta:',
+                'required' => false,
+            ])
+            ->add('fee', IntegerType::class, [
+                'label' => 'Poplatek:',
+                'required' => false,
             ]);
     }
 

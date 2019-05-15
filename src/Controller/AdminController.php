@@ -24,7 +24,9 @@ class AdminController extends AbstractController
     public function addGame(Request $request)
     {
         $sourceCodeForm = $this->createFormBuilder()
-            ->add('sourceCode', TextareaType::class, ['label' => 'Zdrojový kód: '])
+            ->add('sourceCode', TextareaType::class, [
+                'label' => 'Zdrojový kód: '
+            ])
             ->getForm();
 
         $sourceCodeForm->handleRequest($request);

@@ -24,19 +24,21 @@ class RedType extends AbstractType
             ->add('person', TextType::class, [
                 'label' => 'Osoba:',
             ])
-            ->add('description', TextareaType::class, [
-                'label' => 'Popis:',
-                'required' => false,
+            ->add('team', EntityType::class, [
+                'label' => 'Tým:',
+                'class' => Team::class,
+                'choice_label' => 'fullName',
+                'placeholder' => 'Vyberte tým',
             ])
             ->add('offence', EntityType::class, [
                 'label' => 'Důvod:',
                 'class' => Offence::class,
                 'choice_label' => 'fullName',
+                'placeholder' => 'Vyberte důvod',
             ])
-            ->add('team', EntityType::class, [
-                'label' => 'Tým:',
-                'class' => Team::class,
-                'choice_label' => 'fullName',
+            ->add('description', TextareaType::class, [
+                'label' => 'Popis:',
+                'required' => false,
             ]);
     }
 

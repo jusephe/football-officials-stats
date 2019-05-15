@@ -22,6 +22,7 @@ class GameType extends AbstractType
         $builder
             ->add('season', IntegerType::class, [
                 'label' => 'Sezóna:',
+                'help' => 'Uveďte rok, kdy sezóna začala. Např. pro sezónu 2019/20 vložte 2019.',
             ])
             ->add('isAutumn', ChoiceType::class, [
                 'choices' => [
@@ -89,14 +90,18 @@ class GameType extends AbstractType
                 'entry_type' => YellowType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false,
+                'error_bubbling' => false,
             ])
             ->add('redCards', CollectionType::class, [
                 'label' => 'Červené karty:',
                 'entry_type' => RedType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false,
+                'error_bubbling' => false,
             ]);
     }
 

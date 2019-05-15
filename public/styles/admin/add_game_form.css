@@ -7,8 +7,8 @@ form {
     width: 10em;
 }
 
-div#game_redCards > div.form-group:not(:last-child) div[id^="game_redCards_"] {
-    margin-bottom: 4rem;
+div#game_redCards > div.form-group.row:not(:nth-last-child(-n+2)) {
+    margin-bottom: 3rem;
 }
 
 label, legend {

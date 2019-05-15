@@ -12,13 +12,14 @@
     <p>
         Překontrolujte, prosím, data ve formuláři a poté je uložte do systému.
     </p>
-    <p>
-        (Pro sezónu uveďte rok, kdy začala. Např. pro sezónu 2019/20 vložte 2019.)
-    </p>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" class="btn btn-primary btn-custom" value="Uložit zápas"/>
     {{ form_end(form) }}
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('scripts/admin/add_game_form.js') }}"></script>
 {% endblock %}
