@@ -3,14 +3,15 @@ form {
     margin-bottom: 4rem;
 }
 
-.btn-custom {
-    width: 10em;
+legend, label:not(.form-check-label) {
+    font-weight: bold;
 }
 
+/* space between red cards */
 div#game_redCards > div.form-group.row:not(:nth-last-child(-n+2)) {
     margin-bottom: 3rem;
 }
 
-label, legend {
-    font-weight: bold;
+.btn-save-game {
+    width: 10em;
 }

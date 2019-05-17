@@ -3,13 +3,16 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * League
  *
- * @ORM\Table(name="league")
+ * @ORM\Table(name="league", uniqueConstraints={@UniqueConstraint(name="league__un", columns={"full_name"})})
  * @ORM\Entity(repositoryClass="App\Repository\LeagueRepository")
+ * @UniqueEntity("fullName")
  */
 class League
 {
@@ -25,7 +28,7 @@ class League
     /**
      * @var string
      *
-     * @ORM\Column(name="full_name", type="string", length=80, nullable=false)
+     * @ORM\Column(name="full_name", type="string", length=80, nullable=false, unique=true)
      * @Assert\NotBlank
      * @Assert\Length(
      *      min = 2,
@@ -35,9 +38,10 @@ class League
     private $fullName;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="short_name", type="string", length=20, nullable=true)
+     * @ORM\Column(name="short_name", type="string", length=20, nullable=false)
+     * @Assert\NotBlank
      * @Assert\Length(
      *      min = 2,
      *      max = 20

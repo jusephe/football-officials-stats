@@ -2,20 +2,29 @@
 
 {% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
 
-{% block css %}<link rel="stylesheet" type="text/css" href="{{ asset('styles/admin/add_game_form.css') }}">{% endblock %}
+{% block css %}<link rel="stylesheet" type="text/css" href="{{ asset('styles/admin/form.css') }}">{% endblock %}
 
 {% block title %}Rozhodčí PFS - Přidat zápas{% endblock %}
 
 {% block heading %}Přidat zápas{% endblock %}
 
 {% block main %}
+
+    {{ crawler }}
+
+    <p>
+        XXXXXX    XXXXXXXXXXXXXXX    XXXXXXXXXXXXXXXXXXXX  XXXXXXXXXXXXXXXXXXXXXXXXXXX       XXXXXXXXXXXXXXXXXXXX
+    </p>
+
+    {{ crawlerH }}
+
     <p>
         Překontrolujte, prosím, data ve formuláři a poté je uložte do systému.
     </p>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" class="btn btn-primary btn-custom" value="Uložit zápas"/>
+        <input type="submit" class="btn btn-primary btn-save-game" value="Uložit zápas"/>
     {{ form_end(form) }}
 
 {% endblock %}
