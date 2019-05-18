@@ -3,13 +3,22 @@
 namespace App\Form;
 
 use App\Entity\League;
+use App\Functionality\LeagueFunctionality;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LeagueType extends AbstractType
 {
+    private $leagueFunctionality;
+
+    public function __construct(LeagueFunctionality $leagueFunctionality)
+    {
+        $this->leagueFunctionality = $leagueFunctionality;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -17,9 +26,13 @@ class LeagueType extends AbstractType
                 'label' => 'Celý název:',
                 'help' => 'Vyplňte celé jméno soutěže, tak jak je uváděno v oficiálních zápisech.',
             ])
-            ->add('shortName', TextType::class, [
-                'label' => 'Zkrácený název:',
-                'help' => 'Vyplňte zkrácené jméno soutěže (např. Přebor), dejte pozor ať je úplně stejné jako u jiných soutěží stejné úrovně!',
+            ->add("shortName", ChoiceType::class, [
+                "label" => "Zkrácený název:",
+                "choices" => $this->leagueFunctionality->getDistinctShortNames(),
+                'placeholder' => 'Vyberte zkrácený název',
+                'choice_label' => function ($choice) {
+                    return $choice;  // short name
+                },
             ]);
     }
 

@@ -12,6 +12,9 @@ div#game_redCards > div.form-group.row:not(:nth-last-child(-n+2)) {
     margin-bottom: 3rem;
 }
 
+.btn-save {
+    width: 8em;
+}
 .btn-save-game {
     width: 10em;
 }

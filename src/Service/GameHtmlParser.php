@@ -9,16 +9,19 @@ use App\Entity\Official;
 use App\Entity\RedCard;
 use App\Entity\Team;
 use App\Entity\YellowCard;
+use App\Repository\LeagueRepository;
 use Symfony\Component\DomCrawler\Crawler;
 use Doctrine\ORM\EntityManagerInterface;
 
 class GameHtmlParser
 {
     private $em;
+    private $leagueRepository;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, LeagueRepository $leagueRepository)
     {
         $this->em = $em;
+        $this->leagueRepository = $leagueRepository;
     }
 
     public function createGame($sourceCode)

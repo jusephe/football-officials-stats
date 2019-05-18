@@ -6,8 +6,10 @@ use App\Entity\Game;
 use App\Entity\League;
 use App\Form\GameType;
 use App\Form\LeagueType;
+use App\Repository\LeagueRepository;
 use App\Service\GameHtmlParser;
 use Demontpx\ParsedownBundle\Parsedown;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -19,14 +21,13 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/add-game", name="add_game")
      */
-    public function addGame(Request $request, GameHtmlParser $gameHtmlParser)
+    public function addGame(Request $request, GameHtmlParser $gameHtmlParser, LeagueRepository $leagueRepository)
     {
         $sourceCodeForm = $this->createFormBuilder()
             ->add('sourceCode', TextareaType::class, [
                 'label' => 'Zdrojový kód: '
             ])
             ->getForm();
-
         $sourceCodeForm->handleRequest($request);
 
         if ($sourceCodeForm->isSubmitted() && $sourceCodeForm->isValid()) {
@@ -50,19 +51,20 @@ class AdminController extends AbstractController
             // multiple spaces to only one
             $leagueName = preg_replace('/\s+/', ' ', $leagueName);
 
-            $league = $this->getDoctrine()->getRepository(League::class)->findOneBy(['fullName' => $leagueName]);
+            $league = $leagueRepository->findOneBy(['fullName' => $leagueName]);
             if ($league === null) {
+                $this->addFlash('alert alert-danger',
+                    'Nenalezena příslušná soutěž! Přidejte ji ve formuláři níže a pak prosím zkuste zápas vložit znovu.');
+
                 $league = new League();
                 $league->setFullName($leagueName);
+
                 $leagueForm = $this->createForm(LeagueType::class, $league, [
                     'action' => $this->generateUrl('create_league'),
                 ]);
 
-                $this->addFlash('alert alert-danger',
-                    'Nenalezena příslušná soutěž! Přidejte ji ve formuláři níže a pak prosím zkuste zápas vložit znovu.');
                 return $this->render('admin/create_league.html.twig', [
                     'form' => $leagueForm->createView(),
-                    'league' => $league,
                 ]);
             }
             $game->setLeague($league);
@@ -80,6 +82,11 @@ class AdminController extends AbstractController
             $year = substr(strrchr($date, "."), 1, 4);
             if ($year === $season) $game->setIsAutumn(true);
             else $game->setIsAutumn(false);
+
+
+            
+
+
 
 
             
@@ -109,17 +116,14 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/add-game-form", name="add_game_form")
      */
-    public function addGameForm(Request $request)
+    public function addGameForm(Request $request, EntityManagerInterface $entityManager)
     {
         $game = new Game();
 
-        $form = $this->createForm(GameType::class, $game);
-
-        $form->handleRequest($request);
+        $form = $this->createForm(GameType::class, $game)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-
             $entityManager->persist($game);
             $entityManager->flush();
 
@@ -170,11 +174,11 @@ class AdminController extends AbstractController
      * @Route("/admin/leagues/create", name="create_league", defaults={"id": null})
      * @Route("/admin/leagues/{id}/edit", name="edit_league", requirements={"id"="\d+"})
      */
-    public function leagueForm($id, Request $request)
+    public function leagueForm($id, Request $request, EntityManagerInterface $entityManager)
     {
         if ( $id === null ) $league = new League();  // create
         else {  // edit
-            $league = $this->getDoctrine()->getRepository(League::class)->find($id);
+            $league = $entityManager->getRepository(League::class)->find($id);
             if ( $league === null ) throw $this->createNotFoundException('Taková soutěž neexistuje!');
         }
 
@@ -182,11 +186,11 @@ class AdminController extends AbstractController
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($league);
             $entityManager->flush();
 
             $this->addFlash('alert alert-success', 'Soutěž byla úspěšně uložena.');
+
             return $this->redirectToRoute('leagues');
         }
 

@@ -10,13 +10,9 @@
 
 {% block main %}
 
-    <p>
-        Zkrácený název musí odpovídat zkrácenému názvu u soutěží stejné úrovně!
-    </p>
-
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" class="btn btn-primary" value="Uložit"/>
+        <input type="submit" class="btn btn-primary btn-save" value="Uložit"/>
     {{ form_end(form) }}
 
 {% endblock %}
