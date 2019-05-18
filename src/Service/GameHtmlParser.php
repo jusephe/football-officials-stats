@@ -15,22 +15,21 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class GameHtmlParser
 {
-    private $em;
-    private $leagueRepository;
+    private $entityManager;
 
-    public function __construct(EntityManagerInterface $em, LeagueRepository $leagueRepository)
+    public function __construct(EntityManagerInterface $entityManager)  // staci, jednotlive repository volat pres EM
     {
-        $this->em = $em;
-        $this->leagueRepository = $leagueRepository;
+        $this->entityManager = $entityManager;
     }
 
     public function createGame($sourceCode)
     {
-        $em = $this->em;
+        $em = $this->entityManager;
 
 
 
         // sem vlozit kod z controlleru
+
 
 
         /*  na smazani

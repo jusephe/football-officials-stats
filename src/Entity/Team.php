@@ -26,10 +26,14 @@ class Team
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="club_id", type="integer", nullable=false, options={"unsigned"=true})
+     * @ORM\Column(name="club_id", type="string", length=10, nullable=false)
      * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 6,
+     *      max = 9
+     * )
      */
     private $clubId;
 
@@ -62,12 +66,12 @@ class Team
         return $this->id;
     }
 
-    public function getClubId(): ?int
+    public function getClubId(): ?string
     {
         return $this->clubId;
     }
 
-    public function setClubId(int $clubId): self
+    public function setClubId(string $clubId): self
     {
         $this->clubId = $clubId;
 
@@ -97,6 +101,5 @@ class Team
 
         return $this;
     }
-
 
 }
