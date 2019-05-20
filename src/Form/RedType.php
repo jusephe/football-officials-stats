@@ -20,6 +20,7 @@ class RedType extends AbstractType
         $builder
             ->add('minute', IntegerType::class, [
                 'label' => 'Minuta:',
+                'required' => false,
             ])
             ->add('person', TextType::class, [
                 'label' => 'Osoba:',
@@ -33,7 +34,7 @@ class RedType extends AbstractType
             ->add('offence', EntityType::class, [
                 'label' => 'Důvod:',
                 'class' => Offence::class,
-                'choice_label' => 'fullName',
+                'choice_label' => 'shortName',
                 'placeholder' => 'Vyberte důvod',
             ])
             ->add('description', TextareaType::class, [

@@ -23,10 +23,9 @@ class YellowCard
     private $id;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(name="minute", type="smallint", nullable=false, options={"unsigned"=true})
-     * @Assert\NotBlank
+     * @ORM\Column(name="minute", type="smallint", nullable=true, options={"unsigned"=true})
      * @Assert\Range(
      *      min = 1,
      *      max = 150)
@@ -55,7 +54,7 @@ class YellowCard
         return $this->minute;
     }
 
-    public function setMinute(int $minute): self
+    public function setMinute(?int $minute): self
     {
         $this->minute = $minute;
 

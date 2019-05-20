@@ -32,24 +32,6 @@ class GameHtmlParser
 
 
 
-        /*  na smazani
-        $yellow = new YellowCard();
-        $yellow->setMinute(17);
-        $game->addYellowCard($yellow);
-
-        $red = new RedCard();
-        $red->setMinute(17);
-        $red->setPerson('Tomas Repka');
-        $red->setTeam($tym);
-        $red->setOffence($off);
-        $game->addRedCard($red);
-
-        $game->setRefereeOfficial($rozh);
-        $game->setAwayTeam($tym);
-        $game->setHomeTeam($tym);
-        */
-
-
         //return $game;
     }
 

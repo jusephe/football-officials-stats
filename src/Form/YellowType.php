@@ -15,6 +15,7 @@ class YellowType extends AbstractType
         $builder
             ->add('minute', IntegerType::class, [
                 'label' => 'Minuta:',
+                'required' => false,
             ]);
     }
 

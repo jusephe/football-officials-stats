@@ -24,14 +24,14 @@ class Offence
     /**
      * @var string
      *
-     * @ORM\Column(name="short_name", type="string", length=28, nullable=false)
+     * @ORM\Column(name="short_name", type="string", length=35, nullable=false)
      */
     private $shortName;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="full_name", type="string", length=50, nullable=true)
+     * @ORM\Column(name="full_name", type="string", length=80, nullable=false)
      */
     private $fullName;
 
@@ -58,12 +58,11 @@ class Offence
         return $this->fullName;
     }
 
-    public function setFullName(?string $fullName): self
+    public function setFullName(string $fullName): self
     {
         $this->fullName = $fullName;
 
         return $this;
     }
-
 
 }
