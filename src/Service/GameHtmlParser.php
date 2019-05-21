@@ -3,36 +3,33 @@
 namespace App\Service;
 
 use App\Entity\Game;
-use App\Entity\League;
-use App\Entity\Offence;
-use App\Entity\Official;
-use App\Entity\RedCard;
-use App\Entity\Team;
-use App\Entity\YellowCard;
-use App\Repository\LeagueRepository;
 use Symfony\Component\DomCrawler\Crawler;
-use Doctrine\ORM\EntityManagerInterface;
 
 class GameHtmlParser
 {
-    private $entityManager;
+    private $ISFACRGameParser;
 
-    public function __construct(EntityManagerInterface $entityManager)  // staci, jednotlive repository volat pres EM
+    public function __construct(ISFACRGameHtmlParser $ISFACRGameHtmlParser)
     {
-        $this->entityManager = $entityManager;
+        $this->ISFACRGameParser = $ISFACRGameHtmlParser;
     }
 
     public function createGame($sourceCode)
     {
-        $em = $this->entityManager;
+        $game = new Game();
 
+        $crawler = new Crawler($sourceCode);
+        $title = trim($crawler->filter('title')->text());
 
+        switch ($title) {
+            case 'IS FAČR':
+                $this->ISFACRGameParser->parseHtml($crawler, $game);
+        break;
+            default:
+                throw new \InvalidArgumentException('Zdroj nebyl rozpoznán! Kontaktujte správce systému.');
+        }
 
-        // sem vlozit kod z controlleru
-
-
-
-        //return $game;
+        return $game;
     }
 
 }
