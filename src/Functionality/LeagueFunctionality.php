@@ -13,7 +13,7 @@ class LeagueFunctionality
         $this->em = $em;
     }
 
-    public function getDistinctShortNames( ): array
+    public function getDistinctShortNames(): array
     {
         $qb = $this->em->createQueryBuilder()
             ->select('l.shortName')

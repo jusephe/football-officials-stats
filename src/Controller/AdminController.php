@@ -10,7 +10,8 @@ use App\Exception\TeamNotFound;
 use App\Form\GameType;
 use App\Form\LeagueType;
 use App\Form\TeamType;
-use App\Service\GameHtmlParser;
+use App\Service\GameBuilder;
+use App\Service\StatsUpdater;
 use Demontpx\ParsedownBundle\Parsedown;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +24,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/add-game", name="add_game")
      */
-    public function addGame(Request $request, GameHtmlParser $gameHtmlParser)
+    public function addGame(Request $request, GameBuilder $gameBuilder)
     {
         $sourceCodeForm = $this->createFormBuilder()
             ->add('sourceCode', TextareaType::class, [
@@ -36,7 +37,7 @@ class AdminController extends AbstractController
             $sourceCode = $sourceCodeForm['sourceCode']->getData();
 
             try {
-                $game = $gameHtmlParser->createGame($sourceCode);
+                $game = $gameBuilder->createGameFromHtml($sourceCode);
             }
             catch (\InvalidArgumentException $e) {
                 $this->addFlash('alert alert-danger', $e->getMessage());
@@ -114,6 +115,19 @@ class AdminController extends AbstractController
         return $this->render('admin/add_game_form.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/admin/update-stats", name="update_stats")
+     */
+    public function updateStats(StatsUpdater $statsUpdater)
+    {
+        $statsUpdater->updateAllStats();
+
+        $this->addFlash('alert alert-success',
+            'Statistiky byly úspěšně aktualizovány.');
+
+        return $this->render('admin/base.html.twig');
     }
 
     /**
@@ -228,7 +242,7 @@ class AdminController extends AbstractController
     {
         $text = $parsedown->text('Hello _Parsedown_!'); # prints: <p>Hello <em>Parsedown</em>!</p>
 
-        return $this->render('test.html.twig', ['text' => $text]);
+        return $this->render('test.html.twig', ['user' => $text]);
     }
 
 }

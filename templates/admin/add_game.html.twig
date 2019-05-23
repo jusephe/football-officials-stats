@@ -24,6 +24,14 @@
         Po vložení jednoho či více celých kol je potřeba aktualizovat tabulky se statistikami pomocí tlačítka níže.
     </p>
 
-    <button type="button" class="btn btn-primary">Aktualizovat statistiky</button>
+    <button type="button" class="btn btn-primary" id="update_stats">Aktualizovat statistiky</button>
 
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $('#update_stats').on('click', function () {
+            location.href = "{{ path('update_stats') }}";
+        });
+    </script>
 {% endblock %}
