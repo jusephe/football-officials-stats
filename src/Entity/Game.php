@@ -59,8 +59,20 @@ class Game
      *
      * @ORM\ManyToOne(targetEntity="Official")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ar1_official_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="referee_official_id", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotBlank
+     */
+    private $refereeOfficial;
+
+    /**
+     * @var \Official
+     *
+     * @ORM\ManyToOne(targetEntity="Official")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ar1_official_id", referencedColumnName="id", nullable=false)
+     * })
+     * @Assert\NotBlank
      */
     private $ar1Official;
 
@@ -69,8 +81,9 @@ class Game
      *
      * @ORM\ManyToOne(targetEntity="Official")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ar2_official_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="ar2_official_id", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotBlank
      */
     private $ar2Official;
 
@@ -79,8 +92,9 @@ class Game
      *
      * @ORM\ManyToOne(targetEntity="Assessor")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="assessor_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="assessor_id", referencedColumnName="id", nullable=false)
      * })
+     * @Assert\NotBlank
      */
     private $assessor;
 
@@ -116,17 +130,6 @@ class Game
      * @Assert\NotBlank
      */
     private $league;
-
-    /**
-     * @var \Official
-     *
-     * @ORM\ManyToOne(targetEntity="Official")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="referee_official_id", referencedColumnName="id", nullable=false)
-     * })
-     * @Assert\NotBlank
-     */
-    private $refereeOfficial;
 
     /**
      * @var \RedCard
@@ -188,6 +191,18 @@ class Game
     public function setRound(int $round): self
     {
         $this->round = $round;
+
+        return $this;
+    }
+
+    public function getRefereeOfficial(): ?Official
+    {
+        return $this->refereeOfficial;
+    }
+
+    public function setRefereeOfficial(?Official $refereeOfficial): self
+    {
+        $this->refereeOfficial = $refereeOfficial;
 
         return $this;
     }
@@ -260,18 +275,6 @@ class Game
     public function setLeague(?League $league): self
     {
         $this->league = $league;
-
-        return $this;
-    }
-
-    public function getRefereeOfficial(): ?Official
-    {
-        return $this->refereeOfficial;
-    }
-
-    public function setRefereeOfficial(?Official $refereeOfficial): self
-    {
-        $this->refereeOfficial = $refereeOfficial;
 
         return $this;
     }

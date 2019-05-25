@@ -23,12 +23,14 @@ class YellowCard
     private $id;
 
     /**
-     * @var int|null
+     * @var string
      *
-     * @ORM\Column(name="minute", type="smallint", nullable=true, options={"unsigned"=true})
-     * @Assert\Range(
+     * @ORM\Column(name="minute", type="string", length=3, nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Length(
      *      min = 1,
-     *      max = 150)
+     *      max = 3
+     * )
      */
     private $minute;
 
@@ -49,12 +51,12 @@ class YellowCard
         return $this->id;
     }
 
-    public function getMinute(): ?int
+    public function getMinute(): ?string
     {
         return $this->minute;
     }
 
-    public function setMinute(?int $minute): self
+    public function setMinute(string $minute): self
     {
         $this->minute = $minute;
 

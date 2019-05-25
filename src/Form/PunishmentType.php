@@ -18,7 +18,7 @@ class PunishmentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('minute', IntegerType::class, [
+            ->add('minute', TextType::class, [
                 'label' => 'Minuta:',
                 'required' => false,
             ])

@@ -200,9 +200,6 @@ class ISFACRGameHtmlParser
                 }
                 if ($firstYellowMinute !== '') {  // with yellow card
                     $yellow1 = new YellowCard();
-                    if (!ctype_digit($firstYellowMinute)) {  // it is not card during game
-                        $firstYellowMinute = null;
-                    }
                     $yellow1->setMinute($firstYellowMinute);
                     $game->addYellowCard($yellow1);
 
@@ -213,9 +210,6 @@ class ISFACRGameHtmlParser
                     }
                     if ($secondYellowMinute !== '') {  // with second yellow card
                         $yellow2 = new YellowCard();
-                        if (!ctype_digit($secondYellowMinute)) {  // it is not card during game
-                            $secondYellowMinute = null;
-                        }
                         $yellow2->setMinute($secondYellowMinute);
                         $game->addYellowCard($yellow2);
                     }
@@ -237,9 +231,6 @@ class ISFACRGameHtmlParser
                 $minute = $crawler_playerRow->filter('td')->eq(2)->text();
                 if (strpos($minute, '+')) {  // something like 45+2, need to convert to 45
                     $minute = substr($minute, 0, 2);
-                }
-                if (!ctype_digit($minute)) {  // it is not card during game
-                    $minute = null;
                 }
 
                 $fullDescription = trim($crawler_part->filter('tr')->eq($i+1)->text());

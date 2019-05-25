@@ -67,7 +67,7 @@ class GameType extends AbstractType
                 'choice_label' => function ($official) {
                     return $official->getNameWithId();
                 },
-                'required' => false,
+                'help' => '(N) za jménem rozhodčího v zápise znamená, že je to laik.',
             ])
             ->add('ar2Official', EntityType::class, [
                 'label' => 'AR2:',
@@ -75,7 +75,7 @@ class GameType extends AbstractType
                 'choice_label' => function ($official) {
                     return $official->getNameWithId();
                 },
-                'required' => false,
+                'help' => '(N) za jménem rozhodčího v zápise znamená, že je to laik.',
             ])
             ->add('assessor', EntityType::class, [
                 'label' => 'Delegát:',
@@ -83,7 +83,6 @@ class GameType extends AbstractType
                 'choice_label' => function ($assessor) {
                     return $assessor->getNameWithId();
                 },
-                'required' => false,
             ])
             ->add('yellowCards', CollectionType::class, [
                 'label' => 'Žluté karty:',

@@ -7,7 +7,6 @@ use App\Entity\RedCard;
 use App\Entity\Team;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,9 +17,8 @@ class RedType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('minute', IntegerType::class, [
+            ->add('minute', TextType::class, [
                 'label' => 'Minuta:',
-                'required' => false,
             ])
             ->add('person', TextType::class, [
                 'label' => 'Osoba:',
