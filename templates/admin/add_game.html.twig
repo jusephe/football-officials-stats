@@ -11,7 +11,7 @@
     <div class="mb-3">
         {{ form_start(form) }}
             {{ form_widget(form) }}
-            <input type="submit" class="btn btn-primary" value="Odeslat"/>
+            <input type="submit" class="btn btn-primary btn-send" value="Odeslat"/>
         {{ form_end(form) }}
     </div>
 
@@ -24,7 +24,10 @@
         Po vložení jednoho či více celých kol je potřeba aktualizovat tabulky se statistikami pomocí tlačítka níže.
     </p>
 
-    <button type="button" class="btn btn-primary" id="update_stats">Aktualizovat statistiky</button>
+    <button type="button" class="btn btn-primary mb-1" id="update_stats">Aktualizovat statistiky</button>
+    <p class="text-muted">
+        (Operace může chvíli trvat, mějte prosím strpení.)
+    </p>
 
 {% endblock %}
 
