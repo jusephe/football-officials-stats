@@ -1,5 +1,13 @@
-p {
+body {
+    padding-bottom: 3.125rem;
+}
+
+p, ul {
     max-width: 40em;
+}
+
+ul {
+    list-style-type: none;
 }
 
 /* better menu links visibility */

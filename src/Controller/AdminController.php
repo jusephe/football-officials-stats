@@ -7,14 +7,19 @@ use App\Entity\League;
 use App\Entity\Team;
 use App\Exception\LeagueNotFound;
 use App\Exception\TeamNotFound;
+use App\Form\GamePunishmentsType;
 use App\Form\GameType;
 use App\Form\LeagueType;
 use App\Form\TeamType;
+use App\Functionality\GameFunctionality;
+use App\Repository\GameRepository;
 use App\Service\GameBuilder;
 use App\Service\StatsUpdater;
 use Demontpx\ParsedownBundle\Parsedown;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -127,16 +132,96 @@ class AdminController extends AbstractController
         $this->addFlash('alert alert-success',
             'Statistiky byly úspěšně aktualizovány.');
 
-        return $this->render('admin/base.html.twig');
+        return $this->redirectToRoute('add_game');
     }
 
     /**
      * @Route("/admin/punishments", name="punishments")
      */
-    public function punishments()
+    public function punishments(Request $request, GameRepository $gameRepository, GameFunctionality $gameFunctionality)
     {
+        $form = $this->createFormBuilder()
+            ->add('league', EntityType::class, [
+                'label' => 'Soutěž:',
+                'class' => League::class,
+                'choice_label' => 'fullName',
+            ])
+            ->add("season", ChoiceType::class, [
+                "label" => "Sezóna:",
+                "choices" => $gameFunctionality->getDistinctSeasons(),
+                'choice_label' => function ($choice) {
+                    return $choice;  // pure season
+                },
+            ])
+            ->add("round", ChoiceType::class, [
+                "label" => "Kolo:",
+                "choices" => $gameFunctionality->getDistinctRounds(),
+                'choice_label' => function ($choice) {
+                    return $choice;  // pure round
+                },
+            ])
+            ->getForm();
+        $form->handleRequest($request);
 
-        return $this->render('admin/base.html.twig');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $games = $gameRepository->findBy([
+                'league' => $form['league']->getData(),
+                'season' => $form['season']->getData(),
+                'round' => $form['round']->getData()
+            ]);
+
+            if (empty($games)) {
+                $this->addFlash('alert alert-danger', 'Pro zadané údaje nebyly nalezeny žádné zápasy!');
+            }
+
+            return $this->render('admin/punishments.html.twig', [
+                'form' => $form->createView(),
+                'games' => $games,
+            ]);
+        }
+
+        return $this->render('admin/punishments.html.twig', [
+            'form' => $form->createView(),
+            'games' => null,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/add-punishments/{id}", name="add_punishments", requirements={"id"="\d+"})
+     */
+    public function addPunishments($id, Request $request, EntityManagerInterface $entityManager)
+    {
+        $game = $entityManager->getRepository(Game::class)->find($id);
+
+        if ( $game === null ) {
+            throw $this->createNotFoundException('Zápas nebyl nalezen!');
+        }
+
+        $form = $this->createForm(GamePunishmentsType::class, $game)
+            ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($game);
+            $entityManager->flush();
+
+            $this->addFlash('alert alert-success',
+                'Tresty byly úspěšně uloženy.');
+
+            return $this->render('admin/add_punishments.html.twig', [
+                'form' => $form->createView(),
+                'game' => $game,
+            ]);
+        }
+
+        if ($form->isSubmitted() && ! $form->isValid()) {
+            $this->addFlash('alert alert-danger',
+                'Tresty nebyly uloženy! Opravte označené chyby ve formuláři.');
+        }
+
+        return $this->render('admin/add_punishments.html.twig', [
+            'form' => $form->createView(),
+            'game' => $game,
+        ]);
     }
 
     /**

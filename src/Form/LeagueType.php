@@ -31,7 +31,7 @@ class LeagueType extends AbstractType
                 "choices" => $this->leagueFunctionality->getDistinctShortNames(),
                 'placeholder' => 'Vyberte zkrácený název',
                 'choice_label' => function ($choice) {
-                    return $choice;  // short name
+                    return $choice;  // pure short name
                 },
             ]);
     }

@@ -17,24 +17,23 @@ class PunishmentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $game = $options['game'];
+
         $builder
-            ->add('minute', TextType::class, [
-                'label' => 'Minuta:',
-                'required' => false,
-            ])
             ->add('person', TextType::class, [
                 'label' => 'Osoba:',
             ])
             ->add('team', EntityType::class, [
                 'label' => 'Tým:',
                 'class' => Team::class,
+                'choices' => [$game->getHomeTeam(), $game->getAwayTeam()],
                 'choice_label' => 'fullName',
                 'placeholder' => 'Vyberte tým',
             ])
             ->add('offence', EntityType::class, [
                 'label' => 'Důvod:',
                 'class' => Offence::class,
-                'choice_label' => 'fullName',
+                'choice_label' => 'shortName',
                 'placeholder' => 'Vyberte důvod',
             ])
             ->add('description', TextareaType::class, [
@@ -64,6 +63,8 @@ class PunishmentType extends AbstractType
         $resolver->setDefaults([
             'data_class' => RedCard::class,
         ]);
+
+        $resolver->setRequired(['game']);
     }
 
 }

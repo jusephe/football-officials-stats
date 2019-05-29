@@ -1,6 +1,5 @@
 form {
     max-width: 40em;
-    margin-bottom: 4rem;
 }
 
 legend, label:not(.form-check-label) {
@@ -9,6 +8,10 @@ legend, label:not(.form-check-label) {
 
 /* space between red cards */
 div#game_redCards > div.form-group.row:not(:nth-last-child(-n+2)) {
+    margin-bottom: 3rem;
+}
+/* space between red cards in add punishments page*/
+div#game_punishments_redCards > div.form-group.row:not(:nth-last-child(-n+2)) {
     margin-bottom: 3rem;
 }
 

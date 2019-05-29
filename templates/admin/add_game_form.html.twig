@@ -15,13 +15,14 @@
     </p>
 
     <p>
-        U karet udělených v nastavení poločasů uvádějte hodnoty 45 nebo 90. V případě nahrání zdrojového kódu je toto provedeno automaticky.
-        Pokud karta nebyla udělena v průběhu hry, ponechte pole "Minuta" prázdné.
+        U&nbsp;karet udělených v&nbsp;nastavení poločasů uvádějte hodnoty 45 nebo 90.
+        V&nbsp;případě nahrání zdrojového kódu je to provedeno automaticky.
+        Pokud karta nebyla udělena v&nbsp;průběhu hry, ponechte pole "Minuta" prázdné.
     </p>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" class="btn btn-primary btn-save-game" value="Uložit zápas"/>
+    {{ form_widget(form) }}
+    <input type="submit" class="btn btn-primary btn-save-game" value="Uložit zápas"/>
     {{ form_end(form) }}
 
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * RedCard
@@ -116,6 +117,22 @@ class RedCard
      * @Assert\NotBlank
      */
     private $team;
+
+    // check if team is either home or away team of the game
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        $game = $this->getGame();
+        $teamsOfGame = [$game->getHomeTeam(), $game->getAwayTeam()];
+
+        if (!in_array($this->getTeam(), $teamsOfGame)) {
+            $context->buildViolation('Tento tým nehrál v tomto zápase!')
+                ->atPath('team')
+                ->addViolation();
+        }
+    }
 
 
     public function getId(): ?int
