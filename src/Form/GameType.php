@@ -91,7 +91,6 @@ class GameType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                'error_bubbling' => false,
             ])
             ->add('redCards', CollectionType::class, [
                 'label' => 'Červené karty:',
@@ -100,7 +99,6 @@ class GameType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                'error_bubbling' => false,
             ]);
     }
 

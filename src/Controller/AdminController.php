@@ -4,12 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\League;
+use App\Entity\NominationList;
+use App\Entity\Official;
 use App\Entity\Team;
 use App\Exception\LeagueNotFound;
 use App\Exception\TeamNotFound;
 use App\Form\GamePunishmentsType;
 use App\Form\GameType;
 use App\Form\LeagueType;
+use App\Form\NominationListType;
+use App\Form\OfficialsNominationListsType;
 use App\Form\TeamType;
 use App\Functionality\GameFunctionality;
 use App\Repository\GameRepository;
@@ -20,9 +24,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class AdminController extends AbstractController
 {
@@ -52,7 +60,7 @@ class AdminController extends AbstractController
                 ]);
             }
             catch (LeagueNotFound $e) {
-                $this->addFlash('alert alert-danger',
+                $this->addFlash('alert alert-warning',
                     'Nenalezena příslušná soutěž! Přidejte ji ve formuláři níže a pak prosím zkuste zápas vložit znovu.');
 
                 $league = $e->getLeague();
@@ -65,7 +73,7 @@ class AdminController extends AbstractController
                 ]);
             }
             catch (TeamNotFound $e) {
-                $this->addFlash('alert alert-danger',
+                $this->addFlash('alert alert-warning',
                     'Nenalezen příslušný tým! Přidejte jej ve formuláři níže a pak prosím zkuste zápas vložit znovu.');
 
                 $team = $e->getTeam();
@@ -171,7 +179,7 @@ class AdminController extends AbstractController
             ]);
 
             if (empty($games)) {
-                $this->addFlash('alert alert-danger', 'Pro zadané údaje nebyly nalezeny žádné zápasy!');
+                $this->addFlash('alert alert-warning', 'Pro zadané údaje nebyly nalezeny žádné zápasy!');
             }
 
             return $this->render('admin/punishments.html.twig', [
@@ -193,7 +201,7 @@ class AdminController extends AbstractController
     {
         $game = $entityManager->getRepository(Game::class)->find($id);
 
-        if ( $game === null ) {
+        if ($game === null) {
             throw $this->createNotFoundException('Zápas nebyl nalezen!');
         }
 
@@ -227,10 +235,93 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/nomination-list", name="nomination_list")
      */
-    public function nominationList()
+    public function nominationList(Request $request)
     {
+        $form = $this->createFormBuilder()
+            ->add('year', IntegerType::class, [
+                'label' => 'Rok:',
+                'constraints' => [
+                    new Range(['min' => 1950, 'max' => 2070]),
+                ],
+            ])
+            ->add("partOfSeason", ChoiceType::class, [
+                "label" => "Část:",
+                "choices" => ['Jaro' => 'Jaro', 'Podzim' => 'Podzim'],
+                'placeholder' => 'Vyberte část',
+            ])
+            ->getForm();
+        $form->handleRequest($request);
 
-        return $this->render('admin/base.html.twig');
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('add_nomination_list', [
+                'year' => $form['year']->getData(),
+                'part' => $form['partOfSeason']->getData(),
+            ]);
+        }
+
+        return $this->render('admin/nomination_list.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/add-nomination-list/{year}/{part}", name="add_nomination_list")
+     */
+    public function addNominationList($year, $part, Request $request, EntityManagerInterface $entityManager)
+    {
+        $possibleOfficials = $entityManager->getRepository(Official::class)->findWithoutNominationList($year, $part);
+
+        if (empty($possibleOfficials)) {
+            $this->addFlash('alert alert-info', 'Pro daný půlrok nebyli nalezeni žádní rozhodčí bez zadané listiny.');
+
+            return $this->redirectToRoute('nomination_list');
+        }
+
+        $newLists = array();
+        foreach ($possibleOfficials as $official) {
+            $list = new NominationList();
+            $list->setOfficial($official);
+            $list->setYear($year);
+            $list->setPartOfSeason($part);
+            $newLists[] = $list;
+        }
+
+        $form = $this->createFormBuilder()
+            ->add('nominationLists', CollectionType::class, [
+                'label' => false,
+                'entry_type' => NominationListType::class,
+                'data' => $newLists,
+                'entry_options' => ['label' => false],
+                'constraints' => [
+                    new Valid(),
+                ],
+            ])
+            ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $nominationLists = $form['nominationLists']->getData();
+
+            foreach ($nominationLists as $nominationList) {
+                $official = $nominationList->getOfficial();
+                $official->addNominationList($nominationList);
+                $entityManager->persist($official);
+                $entityManager->persist($nominationList);
+            }
+            $entityManager->flush();
+
+            $this->addFlash('alert alert-success', 'Listiny byly úspěšně uloženy.');
+
+            return $this->redirectToRoute('nomination_list');
+        }
+
+        if ($form->isSubmitted() && ! $form->isValid()) {
+            $this->addFlash('alert alert-danger', 'Listiny nebyly uloženy! Opravte označené chyby ve formuláři.');
+        }
+
+        return $this->render('admin/add_nomination_list.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
@@ -248,10 +339,10 @@ class AdminController extends AbstractController
      */
     public function leagueForm($id, Request $request, EntityManagerInterface $entityManager)
     {
-        if ( $id === null ) $league = new League();  // create
+        if ($id === null) $league = new League();  // create
         else {  // edit
             $league = $entityManager->getRepository(League::class)->find($id);
-            if ( $league === null ) throw $this->createNotFoundException('Taková soutěž neexistuje!');
+            if ($league === null) throw $this->createNotFoundException('Taková soutěž neexistuje!');
         }
 
         $form = $this->createForm(LeagueType::class, $league)
@@ -287,10 +378,10 @@ class AdminController extends AbstractController
      */
     public function teamForm($id, Request $request, EntityManagerInterface $entityManager)
     {
-        if ( $id === null ) $team = new Team();  // create
+        if ($id === null) $team = new Team();  // create
         else {  // edit
             $team = $entityManager->getRepository(Team::class)->find($id);
-            if ( $team === null ) throw $this->createNotFoundException('Takový tým neexistuje!');
+            if ($team === null) throw $this->createNotFoundException('Takový tým neexistuje!');
         }
 
         $form = $this->createForm(TeamType::class, $team)

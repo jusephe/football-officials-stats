@@ -61,6 +61,9 @@ class RedCard
      * @var int|null
      *
      * @ORM\Column(name="weeks", type="smallint", nullable=true, options={"unsigned"=true})
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 5200)
      */
     private $weeks;
 
@@ -68,6 +71,9 @@ class RedCard
      * @var int|null
      *
      * @ORM\Column(name="games", type="smallint", nullable=true, options={"unsigned"=true})
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 255)
      */
     private $games;
 
@@ -75,6 +81,9 @@ class RedCard
      * @var int|null
      *
      * @ORM\Column(name="fine", type="integer", nullable=true, options={"unsigned"=true})
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 20000000)
      */
     private $fine;
 
@@ -82,6 +91,9 @@ class RedCard
      * @var int|null
      *
      * @ORM\Column(name="fee", type="smallint", nullable=true, options={"unsigned"=true})
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 50000)
      */
     private $fee;
 

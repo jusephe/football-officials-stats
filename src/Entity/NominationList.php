@@ -4,38 +4,36 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * NominationList
  *
- * @ORM\Table(name="nomination_list", indexes={@ORM\Index(name="nomination_list_league_id_fk", columns={"league_id"}), @ORM\Index(name="nomination_list_official_id_fk", columns={"official_id"})})
+ * @ORM\Table(name="nomination_list", indexes={@ORM\Index(name="nomination_list_official_id_fk", columns={"official_id"})})
  * @ORM\Entity(repositoryClass="App\Repository\NominationListRepository")
  */
 class NominationList
 {
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="season_with_part", type="string", length=12, nullable=false)
+     * @ORM\Column(name="year", type="smallint", nullable=false, options={"unsigned"=true})
      * @ORM\Id
      * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 5,
-     *      max = 12
-     * )
+     * @Assert\Range(
+     *      min = 1950,
+     *      max = 2070)
      */
-    private $seasonWithPart;
+    private $year;
 
     /**
-     * @var \League
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="League")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="league_id", referencedColumnName="id", nullable=false)
-     * })
+     * @ORM\Column(name="part_of_season", type="string", columnDefinition="ENUM('Jaro', 'Podzim')", nullable=false)
+     * @ORM\Id
      * @Assert\NotBlank
      */
-    private $league;
+    private $partOfSeason;
 
     /**
      * @var \Official
@@ -49,20 +47,67 @@ class NominationList
      */
     private $official;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="league_level_name", type="string", length=20, nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 20
+     * )
+     */
+    private $leagueLevelName;
 
-    public function getSeasonWithPart(): ?string
+
+    // check for valid enum value
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
     {
-        return $this->seasonWithPart;
+        $parts = ['Jaro', 'Podzim'];
+
+        if (!in_array($this->getPartOfSeason(), $parts)) {
+            $context->buildViolation('Nepovolená hodnota! Možné hodnoty jsou "Jaro" a "Podzim".')
+                ->atPath('partOfSeason')
+                ->addViolation();
+        }
     }
 
-    public function getLeague(): ?League
+
+    public function getYear(): ?int
     {
-        return $this->league;
+        return $this->year;
     }
 
-    public function setLeague(?League $league): self
+    public function setYear(int $year): self
     {
-        $this->league = $league;
+        $this->year = $year;
+
+        return $this;
+    }
+
+    public function getPartOfSeason(): ?string
+    {
+        return $this->partOfSeason;
+    }
+
+    public function setPartOfSeason(string $partOfSeason): self
+    {
+        $this->partOfSeason = $partOfSeason;
+
+        return $this;
+    }
+
+    public function getLeagueLevelName(): ?string
+    {
+        return $this->leagueLevelName;
+    }
+
+    public function setLeagueLevelName(string $leagueLevelName): self
+    {
+        $this->leagueLevelName = $leagueLevelName;
 
         return $this;
     }
@@ -78,6 +123,5 @@ class NominationList
 
         return $this;
     }
-
 
 }

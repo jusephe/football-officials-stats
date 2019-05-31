@@ -19,6 +19,32 @@ class OfficialRepository extends ServiceEntityRepository
         parent::__construct($registry, Official::class);
     }
 
+
+    public function findWithoutNominationList($year, $part)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT IDENTITY (nl.official)
+                  FROM App\Entity\NominationList nl
+                  WHERE (nl.year = :year AND nl.partOfSeason = :part)'
+        );
+        $query->setParameter('year', $year)
+            ->setParameter('part', $part);
+
+        $officialsWithEntry = $query->execute();
+
+
+        $queryBuilder = $this->createQueryBuilder('o');
+        if ($officialsWithEntry) {
+            $queryBuilder->andWhere('o.id NOT IN (:officialsWithEntry)')
+                ->setParameter('officialsWithEntry', $officialsWithEntry);
+        }
+        $queryBuilder->orderBy('o.name', 'ASC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Official[] Returns an array of Official objects
     //  */
