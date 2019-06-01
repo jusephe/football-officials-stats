@@ -1,0 +1,33 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block css %}<link rel="stylesheet" type="text/css" href="{{ asset('styles/admin/form.css') }}">{% endblock %}
+
+{% block title %}Rozhodčí PFS - Listiny{% endblock %}
+
+{% block heading %}Listiny{% endblock %}
+
+{% block main %}
+
+    <p>
+        Zde je možné přidat k&nbsp;jednotlivým rozhodčím listinu, na kterou byli v&nbsp;daném půlroce umístěni.<br>
+        Nejprve zadejte požadovaný rok a část sezóny.
+    </p>
+
+    <div class="mb-5">
+        {{ form_start(seasonForm) }}
+        {{ form_widget(seasonForm) }}
+        <input type="submit" class="btn btn-primary" value="Potvrdit"/>
+        {{ form_end(seasonForm) }}
+    </div>
+
+    <h2 class="h4">Změna listin</h2>
+    <p>
+        Pokud potřebujete změnit u některého rozhodčího jeho přiřazené listiny, vyberte jej ze seznamu níže.
+    </p>
+
+    {{ form_start(searchForm) }}
+    {{ form_widget(searchForm) }}
+    <input type="submit" class="btn btn-primary" value="Zvolit"/>
+    {{ form_end(searchForm) }}
+
+{% endblock %}

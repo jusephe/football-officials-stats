@@ -2,26 +2,23 @@
 
 namespace App\Form;
 
-use App\Entity\Game;
+use App\Entity\Official;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GamePunishmentsType extends AbstractType
+class OfficialNominatonListsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('redCards', CollectionType::class, [
-                'label' => 'Vyloučení:',
-                'entry_type' => PunishmentType::class,
+            ->add('nominationLists', CollectionType::class, [
+                'label' => false,
+                'entry_type' => EditNominationListType::class,
                 'entry_options' => [
                     'label' => false,
-                    'game' => $options['data'],  // pass Game to child type - for restricting possible teams
                 ],
-                'allow_add' => true,
-                'allow_delete' => true,
                 'by_reference' => false,
             ]);
     }
@@ -29,7 +26,7 @@ class GamePunishmentsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Game::class,
+            'data_class' => Official::class,
         ]);
     }
 

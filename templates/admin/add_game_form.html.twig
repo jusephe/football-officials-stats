@@ -1,12 +1,10 @@
 {% extends 'admin/base.html.twig' %}
 
-{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
-
 {% block css %}<link rel="stylesheet" type="text/css" href="{{ asset('styles/admin/form.css') }}">{% endblock %}
 
-{% block title %}Rozhodčí PFS - Přidat zápas{% endblock %}
+{% block title %}Rozhodčí PFS - Přidání zápasu{% endblock %}
 
-{% block heading %}Přidat zápas{% endblock %}
+{% block heading %}Přidání zápasu{% endblock %}
 
 {% block main %}
 
@@ -17,7 +15,7 @@
     <p>
         U&nbsp;karet udělených v&nbsp;nastavení poločasů uvádějte hodnoty 45 nebo 90.
         V&nbsp;případě nahrání zdrojového kódu je to provedeno automaticky.
-        Pokud karta nebyla udělena v&nbsp;průběhu hry, ponechte pole "Minuta" prázdné.
+        Přípustné jsou i&nbsp;nečíselné hodnoty v případě, že karta nebyla udělena v&nbsp;průběhu hry.
     </p>
 
     {{ form_start(form) }}

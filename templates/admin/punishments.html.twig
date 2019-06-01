@@ -1,7 +1,5 @@
 {% extends 'admin/base.html.twig' %}
 
-{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
-
 {% block css %}<link rel="stylesheet" type="text/css" href="{{ asset('styles/admin/form.css') }}">{% endblock %}
 
 {% block title %}Rozhodčí PFS - Tresty{% endblock %}
@@ -28,7 +26,7 @@
     <ul class="list-group">
         {% for game in games %}
             <li>
-                <a href="{{ path('add_punishments', {'id': game.id}) }}" class="list-group-item list-group-item-action text-primary">
+                <a href="{{ path('add_punishments', {'gameId': game.id}) }}" class="list-group-item list-group-item-action text-primary">
                     {{ game.homeTeam.shortName }} - {{ game.awayTeam.shortName }}
                 </a>
             </li>

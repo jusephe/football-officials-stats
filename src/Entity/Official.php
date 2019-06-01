@@ -43,7 +43,8 @@ class Official
     /**
      * @var \NominationList
      *
-     * @ORM\OneToMany(targetEntity="NominationList", mappedBy="official")
+     * @ORM\OneToMany(targetEntity="NominationList", mappedBy="official", cascade={"persist"})
+     * @Assert\Valid
      */
     private $nominationLists;
 

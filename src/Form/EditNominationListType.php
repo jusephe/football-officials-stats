@@ -3,30 +3,30 @@
 namespace App\Form;
 
 use App\Entity\NominationList;
-use App\Entity\Official;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class NominationListType extends AbstractType
+class EditNominationListType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('official', EntityType::class, [
-                'label' => 'Rozhodčí:',
-                'class' => Official::class,
-                'choice_label' => function ($official) {
-                    return $official->getNameWithId();
-                },
+            ->add('year', IntegerType::class, [
+                'label' => 'Rok:',
+                'disabled' => true,
+            ])
+            ->add("partOfSeason", ChoiceType::class, [
+                "label" => "Část:",
+                "choices" => ['Jaro' => 'Jaro', 'Podzim' => 'Podzim'],
                 'disabled' => true,
             ])
             ->add('leagueLevelName', TextType::class, [
                 'label' => 'Listina:',
             ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
