@@ -19,6 +19,10 @@ class OfficialRepository extends ServiceEntityRepository
         parent::__construct($registry, Official::class);
     }
 
+    public function findAllOrderByName()
+    {
+        return $this->findBy([], ['name' => 'ASC']);
+    }
 
     public function findWithoutNominationList($year, $part)
     {

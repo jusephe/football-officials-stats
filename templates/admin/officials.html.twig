@@ -1,0 +1,36 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Rozhodčí PFS - Rozhodčí{% endblock %}
+
+{% block heading %}Rozhodčí{% endblock %}
+
+{% block main %}
+
+    <p>
+        U&nbsp;rozhodčího lze změnit jméno, které může být jiné než je uváděno v&nbsp;oficiálních zápisech a přesto bude vše funkční,
+        změní se pouze údaj zobrazovaný pro návštěvníky webu. Pokud se některý rozhodčí na základě GDPR rozhodl
+        své jméno na webu skrýt, můžete mu ho změnit na Vámi zvolený údaj.
+    </p>
+
+    <a href="{{ path('create_official') }}" class="d-inline-block mb-3">+ Přidat nového rozhodčího</a>
+
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Příjmení a jméno</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for official in officials %}
+            <tr>
+                <td>{{ official.name }}</td>
+                <td class="text-right">
+                    <a href="{{ path('edit_official', {'id': official.id}) }}">Editovat</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

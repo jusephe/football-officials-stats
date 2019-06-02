@@ -13,11 +13,11 @@ div#form_nominationLists > div > div[class='col-sm-10'] {
     flex: 0 0 100%;
 }
 /* form formatting - edit */
-div#official_nominaton_lists > div > div[class='col-sm-10'] {
+div#official_nomination_lists > div > div[class='col-sm-10'] {
     max-width:100%;
     flex: 0 0 100%;
 }
-div#official_nominaton_lists_nominationLists > div > div[class='col-sm-10'] {
+div#official_nomination_lists_nominationLists > div > div[class='col-sm-10'] {
     max-width:100%;
     flex: 0 0 100%;
 }

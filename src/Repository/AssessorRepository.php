@@ -19,6 +19,11 @@ class AssessorRepository extends ServiceEntityRepository
         parent::__construct($registry, Assessor::class);
     }
 
+    public function findAllOrderByName()
+    {
+        return $this->findBy([], ['name' => 'ASC']);
+    }
+
     // /**
     //  * @return Assessor[] Returns an array of Assessor objects
     //  */

@@ -19,6 +19,11 @@ class TeamRepository extends ServiceEntityRepository
         parent::__construct($registry, Team::class);
     }
 
+    public function findAllOrderByFullName()
+    {
+        return $this->findBy([], ['fullName' => 'ASC']);
+    }
+
     // /**
     //  * @return Team[] Returns an array of Team objects
     //  */

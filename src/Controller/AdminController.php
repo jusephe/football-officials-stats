@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Assessor;
 use App\Entity\Game;
 use App\Entity\League;
 use App\Entity\NominationList;
@@ -9,15 +10,20 @@ use App\Entity\Official;
 use App\Entity\Team;
 use App\Exception\LeagueNotFound;
 use App\Exception\TeamNotFound;
+use App\Form\AssessorType;
 use App\Form\GamePunishmentsType;
 use App\Form\GameType;
 use App\Form\LeagueType;
 use App\Form\AddNominationListType;
-use App\Form\OfficialNominatonListsType;
+use App\Form\OfficialNominationListsType;
+use App\Form\OfficialType;
 use App\Form\TeamType;
 use App\Functionality\GameFunctionality;
+use App\Repository\AssessorRepository;
 use App\Repository\GameRepository;
+use App\Repository\LeagueRepository;
 use App\Repository\OfficialRepository;
+use App\Repository\TeamRepository;
 use App\Service\GameBuilder;
 use App\Service\StatsUpdater;
 use Demontpx\ParsedownBundle\Parsedown;
@@ -359,7 +365,7 @@ class AdminController extends AbstractController
             throw $this->createNotFoundException('Rozhodčí nebyl nalezen!');
         }
 
-        $form = $this->createForm(OfficialNominatonListsType::class, $official)
+        $form = $this->createForm(OfficialNominationListsType::class, $official)
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -389,10 +395,13 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/leagues", name="leagues")
      */
-    public function leagues()
+    public function leagues(LeagueRepository $leagueRepository)
     {
+        $leagues = $leagueRepository->findAll();
 
-        return $this->render('admin/base.html.twig');
+        return $this->render('admin/leagues.html.twig', [
+            'leagues' => $leagues
+        ]);
     }
 
     /**
@@ -428,10 +437,13 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/teams", name="teams")
      */
-    public function teams()
+    public function teams(TeamRepository $teamRepository)
     {
+        $teams = $teamRepository->findAllOrderByFullName();
 
-        return $this->render('admin/base.html.twig');
+        return $this->render('admin/teams.html.twig', [
+            'teams' => $teams
+        ]);
     }
 
     /**
@@ -465,12 +477,87 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/officials-asssessors", name="officialsAssessors")
+     * @Route("/admin/officials", name="officials")
      */
-    public function officialsAssessors()
+    public function officials(OfficialRepository $officialRepository)
     {
+        $officials = $officialRepository->findAllOrderByName();
 
-        return $this->render('admin/base.html.twig');
+        return $this->render('admin/officials.html.twig', [
+            'officials' => $officials
+        ]);
+    }
+
+    /**
+     * @Route("/admin/officials/create", name="create_official", defaults={"id": null})
+     * @Route("/admin/officials/{id}/edit", name="edit_official")
+     */
+    public function officialForm($id, Request $request, EntityManagerInterface $entityManager)
+    {
+        if ($id === null) $official = new Official();  // create
+        else {  // edit
+            $official = $entityManager->getRepository(Official::class)->find($id);
+            if ($official === null) throw $this->createNotFoundException('Takový rozhodčí neexistuje!');
+        }
+
+        $form = $this->createForm(OfficialType::class, $official)
+            ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($official);
+            $entityManager->flush();
+
+            $this->addFlash('alert alert-success', 'Rozhodčí byl úspěšně uložen.');
+
+            return $this->redirectToRoute('officials');
+        }
+
+        return $this->render($id ? 'admin/edit_official.html.twig' : 'admin/create_official.html.twig', [
+            'form' => $form->createView(),
+            'official' => $official,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/assessors", name="assessors")
+     */
+    public function assessors(AssessorRepository $assessorRepository)
+    {
+        $assessors = $assessorRepository->findAllOrderByName();
+
+        return $this->render('admin/assessors.html.twig', [
+            'assessors' => $assessors
+        ]);
+    }
+
+    /**
+     * @Route("/admin/assessors/create", name="create_assessor", defaults={"id": null})
+     * @Route("/admin/assessors/{id}/edit", name="edit_assessor")
+     */
+    public function assessorForm($id, Request $request, EntityManagerInterface $entityManager)
+    {
+        if ($id === null) $assessor = new Assessor();  // create
+        else {  // edit
+            $assessor = $entityManager->getRepository(Assessor::class)->find($id);
+            if ($assessor === null) throw $this->createNotFoundException('Takový delegát neexistuje!');
+        }
+
+        $form = $this->createForm(AssessorType::class, $assessor)
+            ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($assessor);
+            $entityManager->flush();
+
+            $this->addFlash('alert alert-success', 'Delegát byl úspěšně uložen.');
+
+            return $this->redirectToRoute('assessors');
+        }
+
+        return $this->render($id ? 'admin/edit_assessor.html.twig' : 'admin/create_assessor.html.twig', [
+            'form' => $form->createView(),
+            'assessor' => $assessor,
+        ]);
     }
 
     /**

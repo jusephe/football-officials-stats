@@ -1,0 +1,16 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block css %}<link rel="stylesheet" type="text/css" href="{{ asset('styles/admin/form.css') }}">{% endblock %}
+
+{% block title %}Rozhodčí PFS - Editace delegáta{% endblock %}
+
+{% block heading %}Editace delegáta {{ assessor.name }}{% endblock %}
+
+{% block main %}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" class="btn btn-primary btn-save" value="Uložit"/>
+    {{ form_end(form) }}
+
+{% endblock %}

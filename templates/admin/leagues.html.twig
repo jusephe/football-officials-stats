@@ -1,0 +1,37 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Rozhodčí PFS - Soutěže{% endblock %}
+
+{% block heading %}Soutěže{% endblock %}
+
+{% block main %}
+
+    <p>
+        V&nbsp;případě, že některá soutěž změnila časem své jméno, jsou dvě možnosti. Buď změňte název soutěže na nový,
+        nebo můžete nechat soutěž s&nbsp;původním názvem v&nbsp;systému a přidat soutěž s&nbsp;novým názvem.
+    </p>
+
+    <a href="{{ path('create_league') }}" class="d-inline-block mb-3">+ Přidat novou soutěž</a>
+
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Celý název</th>
+            <th scope="col">Zkrácený název</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for league in leagues %}
+            <tr>
+                <td>{{ league.fullName }}</td>
+                <td>{{ league.shortName }}</td>
+                <td class="text-right">
+                    <a href="{{ path('edit_league', {'id': league.id}) }}">Editovat</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

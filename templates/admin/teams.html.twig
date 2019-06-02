@@ -1,0 +1,30 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Rozhodčí PFS - Týmy{% endblock %}
+
+{% block heading %}Týmy{% endblock %}
+
+{% block main %}
+
+    <a href="{{ path('create_team') }}" class="d-inline-block mb-3">+ Přidat nový tým</a>
+
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Celý název</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for team in teams %}
+            <tr>
+                <td>{{ team.fullName }}</td>
+                <td class="text-right">
+                    <a href="{{ path('edit_team', {'id': team.id}) }}">Editovat</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
