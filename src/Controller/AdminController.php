@@ -7,6 +7,7 @@ use App\Entity\Game;
 use App\Entity\League;
 use App\Entity\NominationList;
 use App\Entity\Official;
+use App\Entity\Post;
 use App\Entity\Team;
 use App\Exception\LeagueNotFound;
 use App\Exception\TeamNotFound;
@@ -17,15 +18,17 @@ use App\Form\LeagueType;
 use App\Form\AddNominationListType;
 use App\Form\OfficialNominationListsType;
 use App\Form\OfficialType;
+use App\Form\PostType;
 use App\Form\TeamType;
 use App\Functionality\GameFunctionality;
 use App\Repository\AssessorRepository;
 use App\Repository\GameRepository;
 use App\Repository\LeagueRepository;
 use App\Repository\OfficialRepository;
+use App\Repository\PostRepository;
+use App\Repository\StatsRepository;
 use App\Repository\TeamRepository;
 use App\Service\GameBuilder;
-use App\Service\StatsUpdater;
 use Demontpx\ParsedownBundle\Parsedown;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -140,9 +143,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/update-stats", name="update_stats")
      */
-    public function updateStats(StatsUpdater $statsUpdater)
+    public function updateStats(StatsRepository $statsRepository)
     {
-        $statsUpdater->updateAllStats();
+        $statsRepository->updateAllStats();
 
         $this->addFlash('alert alert-success',
             'Statistiky byly úspěšně aktualizovány.');
@@ -399,7 +402,7 @@ class AdminController extends AbstractController
     {
         $leagues = $leagueRepository->findAll();
 
-        return $this->render('admin/leagues.html.twig', [
+        return $this->render('admin/basics/leagues.html.twig', [
             'leagues' => $leagues
         ]);
     }
@@ -428,7 +431,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('leagues');
         }
 
-        return $this->render($id ? 'admin/edit_league.html.twig' : 'admin/create_league.html.twig', [
+        return $this->render($id ? 'admin/basics/edit_league.html.twig' : 'admin/basics/create_league.html.twig', [
             'form' => $form->createView(),
             'league' => $league,
         ]);
@@ -441,7 +444,7 @@ class AdminController extends AbstractController
     {
         $teams = $teamRepository->findAllOrderByFullName();
 
-        return $this->render('admin/teams.html.twig', [
+        return $this->render('admin/basics/teams.html.twig', [
             'teams' => $teams
         ]);
     }
@@ -470,7 +473,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('teams');
         }
 
-        return $this->render($id ? 'admin/edit_team.html.twig' : 'admin/create_team.html.twig', [
+        return $this->render($id ? 'admin/basics/edit_team.html.twig' : 'admin/basics/create_team.html.twig', [
             'form' => $form->createView(),
             'team' => $team,
         ]);
@@ -483,7 +486,7 @@ class AdminController extends AbstractController
     {
         $officials = $officialRepository->findAllOrderByName();
 
-        return $this->render('admin/officials.html.twig', [
+        return $this->render('admin/basics/officials.html.twig', [
             'officials' => $officials
         ]);
     }
@@ -512,7 +515,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('officials');
         }
 
-        return $this->render($id ? 'admin/edit_official.html.twig' : 'admin/create_official.html.twig', [
+        return $this->render($id ? 'admin/basics/edit_official.html.twig' : 'admin/basics/create_official.html.twig', [
             'form' => $form->createView(),
             'official' => $official,
         ]);
@@ -525,7 +528,7 @@ class AdminController extends AbstractController
     {
         $assessors = $assessorRepository->findAllOrderByName();
 
-        return $this->render('admin/assessors.html.twig', [
+        return $this->render('admin/basics/assessors.html.twig', [
             'assessors' => $assessors
         ]);
     }
@@ -554,20 +557,83 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('assessors');
         }
 
-        return $this->render($id ? 'admin/edit_assessor.html.twig' : 'admin/create_assessor.html.twig', [
+        return $this->render($id ? 'admin/basics/edit_assessor.html.twig' : 'admin/basics/create_assessor.html.twig', [
             'form' => $form->createView(),
             'assessor' => $assessor,
         ]);
     }
 
     /**
-     * @Route("/admin/news", name="news")
+     * @Route("/admin/posts", name="posts")
      */
-    public function news(Parsedown $parsedown)
+    public function posts(PostRepository $postRepository)
     {
-        $text = $parsedown->text('Hello _Parsedown_!'); # prints: <p>Hello <em>Parsedown</em>!</p>
+        $posts = $postRepository->findAllOrderByPublished();
 
-        return $this->render('test.html.twig', ['user' => $text]);
+        return $this->render('admin/posts.html.twig', [
+            'posts' => $posts
+        ]);
+    }
+
+    /**
+     * @Route("/admin/posts/create", name="create_post", defaults={"id": null})
+     * @Route("/admin/posts/{id}/edit", name="edit_post")
+     */
+    public function postForm($id, Request $request, EntityManagerInterface $entityManager, Parsedown $parsedown)
+    {
+        if ($id === null) $post = new Post();  // create
+        else {  // edit
+            $post = $entityManager->getRepository(Post::class)->find($id);
+            if ($post === null) throw $this->createNotFoundException('Taková novinka neexistuje!');
+        }
+
+        $form = $this->createForm(PostType::class, $post)
+            ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $text = $parsedown->text($form['contentsMd']->getData()); # prints: <p>Hello <em>Parsedown</em>!</p>
+
+            $post->setContentsHtml($text);
+            $post->setAdmin($this->getUser());
+            if($post->getPublished() === null) {  // set published only when creating new
+                $now = new \DateTime();
+                $now->format('Y-m-d H:i:s');
+                $post->setPublished($now);
+            }
+
+            $entityManager->persist($post);
+            $entityManager->flush();
+
+            $this->addFlash('alert alert-success', 'Novinka byla úspěšně uložena.');
+
+            return $this->redirectToRoute('posts');
+        }
+
+        return $this->render($id ? 'admin/edit_post.html.twig' : 'admin/create_post.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/posts/{id}/delete", methods={"POST"}, name="delete_post", requirements={"id"="\d+"})
+     */
+    public function deletePost($id, Request $request, EntityManagerInterface $entityManager) {
+
+        $post = $entityManager->getRepository(Post::class)->find($id);
+        if ( $post === null ) {
+            throw $this->createNotFoundException('Taková novinka neexistuje!');
+        }
+
+        if (!$this->isCsrfTokenValid('post_delete', $request->request->get('token'))) {
+            return $this->redirectToRoute('posts');
+        }
+
+        $entityManager->remove($post);
+        $entityManager->flush();
+
+        $this->addFlash('alert alert-success', 'Novinka byla úspěšně smazána.');
+
+        return $this->redirectToRoute('posts');
     }
 
 }

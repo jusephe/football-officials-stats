@@ -14,12 +14,12 @@ class Post
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer", options={"unsigned"=true})
+     * @ORM\Column(type="integer", nullable=false, options={"unsigned"=true})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @Assert\NotBlank
      * @Assert\Length(
      *      min = 2,
@@ -33,7 +33,7 @@ class Post
      *
      * @ORM\ManyToOne(targetEntity="Admin")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="admin_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="admin_id", referencedColumnName="id", nullable=true)
      * })
      */
     private $admin;
@@ -45,9 +45,14 @@ class Post
     private $published;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="contents_md", type="text", nullable=true)
      */
-    private $contents;
+    private $contentsMd;
+
+    /**
+     * @ORM\Column(name="contents_html", type="text", nullable=true)
+     */
+    private $contentsHtml;
 
 
     public function getId(): ?int
@@ -79,14 +84,26 @@ class Post
         return $this;
     }
 
-    public function getContents(): ?string
+    public function getContentsMd(): ?string
     {
-        return $this->contents;
+        return $this->contentsMd;
     }
 
-    public function setContents(?string $contents): self
+    public function setContentsMd(?string $contentsMd): self
     {
-        $this->contents = $contents;
+        $this->contentsMd = $contentsMd;
+
+        return $this;
+    }
+
+    public function getContentsHtml(): ?string
+    {
+        return $this->contentsHtml;
+    }
+
+    public function setContentsHtml(?string $contentsHtml): self
+    {
+        $this->contentsHtml = $contentsHtml;
 
         return $this;
     }

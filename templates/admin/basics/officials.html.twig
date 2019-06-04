@@ -12,7 +12,7 @@
         své jméno na webu skrýt, můžete mu ho změnit na Vámi zvolený údaj.
     </p>
 
-    <a href="{{ path('create_official') }}" class="d-inline-block mb-3">+ Přidat nového rozhodčího</a>
+    <a href="{{ path('create_official') }}" role="button" class="btn btn-primary mb-3">+ Přidat nového rozhodčího</a>
 
     <table class="table">
         <thead class="thead-light">
@@ -24,9 +24,11 @@
         <tbody>
         {% for official in officials %}
             <tr>
-                <td>{{ official.name }}</td>
+                <td class="align-middle">{{ official.name }}</td>
                 <td class="text-right">
-                    <a href="{{ path('edit_official', {'id': official.id}) }}">Editovat</a>
+                    <a href="{{ path('edit_official', {'id': official.id}) }}" role="button" class="btn btn-sm btn-primary">
+                        Editovat
+                    </a>
                 </td>
             </tr>
         {% endfor %}

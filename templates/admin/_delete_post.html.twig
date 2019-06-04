@@ -1,0 +1,6 @@
+<form action="{{ url('delete_post', {id: post.id}) }}" method="POST">
+    <input type="hidden" name="token" value="{{ csrf_token('post_delete') }}" />
+    <button type="submit" class="btn btn-sm btn-danger">
+        Smazat
+    </button>
+</form>

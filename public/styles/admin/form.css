@@ -1,9 +1,13 @@
-form {
+form:not(.post) {
     max-width: 40em;
 }
 
 legend, label:not(.form-check-label) {
     font-weight: bold;
+}
+
+form.post textarea {
+    height: 50vh;
 }
 
 /* space between red cards */

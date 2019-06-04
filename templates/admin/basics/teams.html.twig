@@ -6,7 +6,7 @@
 
 {% block main %}
 
-    <a href="{{ path('create_team') }}" class="d-inline-block mb-3">+ Přidat nový tým</a>
+    <a href="{{ path('create_team') }}" role="button" class="btn btn-primary mb-3">+ Přidat nový tým</a>
 
     <table class="table">
         <thead class="thead-light">
@@ -18,9 +18,11 @@
         <tbody>
         {% for team in teams %}
             <tr>
-                <td>{{ team.fullName }}</td>
+                <td class="align-middle">{{ team.fullName }}</td>
                 <td class="text-right">
-                    <a href="{{ path('edit_team', {'id': team.id}) }}">Editovat</a>
+                    <a href="{{ path('edit_team', {'id': team.id}) }}" role="button" class="btn btn-sm btn-primary">
+                        Editovat
+                    </a>
                 </td>
             </tr>
         {% endfor %}

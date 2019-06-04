@@ -11,7 +11,7 @@
         nebo můžete nechat soutěž s&nbsp;původním názvem v&nbsp;systému a přidat soutěž s&nbsp;novým názvem.
     </p>
 
-    <a href="{{ path('create_league') }}" class="d-inline-block mb-3">+ Přidat novou soutěž</a>
+    <a href="{{ path('create_league') }}" role="button" class="btn btn-primary mb-3">+ Přidat novou soutěž</a>
 
     <table class="table">
         <thead class="thead-light">
@@ -24,10 +24,12 @@
         <tbody>
         {% for league in leagues %}
             <tr>
-                <td>{{ league.fullName }}</td>
-                <td>{{ league.shortName }}</td>
+                <td class="align-middle">{{ league.fullName }}</td>
+                <td class="align-middle">{{ league.shortName }}</td>
                 <td class="text-right">
-                    <a href="{{ path('edit_league', {'id': league.id}) }}">Editovat</a>
+                    <a href="{{ path('edit_league', {'id': league.id}) }}" role="button" class="btn btn-sm btn-primary">
+                        Editovat
+                    </a>
                 </td>
             </tr>
         {% endfor %}
