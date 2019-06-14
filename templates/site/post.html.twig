@@ -1,0 +1,12 @@
+{% extends 'site/base.html.twig' %}
+
+{% block title %}Rozhodčí PFS - {{ post.title }}{% endblock %}
+
+{% block heading %}{{ post.title }}{% endblock %}
+
+{% block main %}
+
+    {{ post.published|date("d. m. Y") }}
+    {{ post.contentsHtml|markdown }}
+
+{% endblock %}

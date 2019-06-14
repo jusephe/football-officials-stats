@@ -577,7 +577,7 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/admin/posts/create", name="create_post", defaults={"id": null})
-     * @Route("/admin/posts/{id}/edit", name="edit_post")
+     * @Route("/admin/posts/{id}/edit", name="edit_post", requirements={"id"="\d+"})
      */
     public function postForm($id, Request $request, EntityManagerInterface $entityManager, Parsedown $parsedown)
     {

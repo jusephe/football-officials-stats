@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/site/base.css') }}">
+    {% block css %}{% endblock %}
+    <title>{% block title %}Rozhodčí PFS{% endblock %}</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="{{ path('index') }}">Rozhodčí PFS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"
+                aria-controls="menu" aria-expanded="false" aria-label="Menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('about') }}">O projektu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('prebor') }}">Přebor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('a_trida') }}">1.A třída</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('site_officials') }}">Rozhodčí</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('site_assessors') }}">Delegáti</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main role="main" class="pt-2 pt-md-3">
+    <div class="container">
+        <h1 class="h2">{% block heading %}{% endblock %}</h1>
+
+        {% block main %}
+
+        {% endblock %}
+    </div>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="{{ asset('scripts/base.js') }}"></script>
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

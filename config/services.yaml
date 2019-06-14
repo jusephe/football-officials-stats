@@ -18,10 +18,18 @@ services:
         resource: '../src/Admin/*'
         exclude: '../src/Admin/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
+    App\Site\:
+        resource: '../src/Site/*'
+        exclude: '../src/Site/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Admin\Controller\:
         resource: '../src/Admin/Controller'
+        tags: ['controller.service_arguments']
+
+    App\Site\Controller\:
+        resource: '../src/Site/Controller'
         tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed
