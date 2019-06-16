@@ -1,0 +1,37 @@
+{% extends 'site/base.html.twig' %}
+
+{% block title %}Rozhodčí PFS - Přebor{% endblock %}
+
+{% block heading %}Přebor{% endblock %}
+
+{% block main %}
+
+    <div class="table-responsive">
+        <table class="table">
+            <tbody>
+            {% for season in seasons %}
+                {% set seasonYear = (season.season+1)|split('', 2) %}
+                <tr>
+                    <td class="font-weight-bold" style="width: 6em">
+                        {{ season.season }}/{{ seasonYear.1 }}
+                    </td>
+                    <td style="width: 7.2em">
+                        <a href="#">Celá sezona</a>
+                    </td>
+                    <td style="width: 4em">
+                        {% if season.autumn == true %}
+                            <a href="#">Podzim</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if season.spring == true %}
+                            <a href="#">Jaro</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

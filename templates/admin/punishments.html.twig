@@ -23,10 +23,10 @@
         {{ form_end(form) }}
     </div>
 
-    <ul class="list-group">
+    <ul class="list-group list-group-flush">
         {% for game in games %}
             <li>
-                <a href="{{ path('add_punishments', {'gameId': game.id}) }}" class="list-group-item list-group-item-action text-primary">
+                <a href="{{ path('add_punishments', {'gameId': game.id}) }}" class="list-group-item">
                     {{ game.homeTeam.shortName }} - {{ game.awayTeam.shortName }}
                 </a>
             </li>

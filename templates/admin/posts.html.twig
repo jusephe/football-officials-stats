@@ -22,7 +22,7 @@
             {% for post in posts %}
                 <tr>
                     <td class="align-middle">{{ post.title }}</td>
-                    <td class="align-middle">{{ post.published|date("d. m. Y") }}</td>
+                    <td class="align-middle">{{ post.published|date("j. n. Y") }}</td>
                     <td class="text-right">
                         <a href="{{ path('edit_post', {'id': post.id}) }}" role="button" class="btn btn-sm btn-primary">
                             Editovat

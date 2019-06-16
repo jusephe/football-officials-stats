@@ -6,7 +6,7 @@
 
 {% block main %}
 
-    {{ post.published|date("d. m. Y") }}
+    {{ post.published|date("j. n. Y") }}
     {{ post.contentsHtml|markdown }}
 
 {% endblock %}

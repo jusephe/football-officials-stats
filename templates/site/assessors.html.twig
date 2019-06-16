@@ -1,0 +1,19 @@
+{% extends 'site/base.html.twig' %}
+
+{% block title %}Rozhodčí PFS - Delegáti{% endblock %}
+
+{% block heading %}Delegáti{% endblock %}
+
+{% block main %}
+
+    <ul class="list-group list-group-flush">
+        {% for assessor in assessors %}
+            <li>
+                <a href="{{ path('assessor_profile', {'id': assessor.id}) }}" class="list-group-item">
+                    {{ assessor.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
