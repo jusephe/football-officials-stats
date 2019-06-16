@@ -16,16 +16,16 @@
                         {{ season.season }}/{{ seasonYear.1 }}
                     </td>
                     <td style="width: 7.2em">
-                        <a href="#">Celá sezona</a>
+                        <a href="{{ path('season_stats', {'league': 'prebor', 'season': season.season}) }}">Celá sezóna</a>
                     </td>
                     <td style="width: 4em">
                         {% if season.autumn == true %}
-                            <a href="#">Podzim</a>
+                            <a href="{{ path('season_stats', {'league': 'prebor', 'season': season.season, 'part': 'podzim'}) }}">Podzim</a>
                         {% endif %}
                     </td>
                     <td>
                         {% if season.spring == true %}
-                            <a href="#">Jaro</a>
+                            <a href="{{ path('season_stats', {'league': 'prebor', 'season': season.season, 'part': 'jaro'}) }}">Jaro</a>
                         {% endif %}
                     </td>
                 </tr>

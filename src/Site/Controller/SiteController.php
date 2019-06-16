@@ -41,7 +41,7 @@ class SiteController extends AbstractController
      */
     public function about()
     {
-        return $this->render('site/base.html.twig');
+        return $this->render('site/about.html.twig');
     }
 
     /**
@@ -62,6 +62,17 @@ class SiteController extends AbstractController
         $seasonsWithParts = $seasonsListMaker->createSeasonsList('1.A třída');
 
         return $this->render('site/a_trida.html.twig', ['seasons' => $seasonsWithParts]);
+    }
+
+    /**
+     * @Route("/{league}/{season}/{part}", name="season_stats", defaults={"part": null}, requirements={"season"="\d+"})
+     */
+    public function seasonStats($league, $season, $part)
+    {
+
+
+
+        return $this->render('site/base.html.twig');
     }
 
     /**

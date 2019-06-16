@@ -35,6 +35,8 @@ class SeasonsListMaker
             }
         }
 
+        krsort($seasonsWithParts);
+
         return $seasonsWithParts;
     }
 }
