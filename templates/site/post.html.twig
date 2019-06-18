@@ -1,8 +1,8 @@
 {% extends 'site/base.html.twig' %}
 
-{% block title %}Rozhodčí PFS - {{ post.title }}{% endblock %}
+{% set page_title = post.title %}
 
-{% block heading %}{{ post.title }}{% endblock %}
+{% block heading %}{{ page_title }}{% endblock %}
 
 {% block main %}
 

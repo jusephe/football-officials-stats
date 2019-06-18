@@ -7,7 +7,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('styles/site/base.css') }}">
     {% block css %}{% endblock %}
-    <title>{% block title %}Rozhodčí PFS{% endblock %}</title>
+    <title>Rozhodčí PFS{% if page_title is defined %} | {{ page_title }}{% endif %}</title>
 </head>
 
 <body>
@@ -42,7 +42,7 @@
 </nav>
 
 <main role="main" class="pt-2 pt-md-3">
-    <div class="container">
+    <div class="container container-main">
         <h1 class="h2">{% block heading %}{% endblock %}</h1>
 
         {% block main %}

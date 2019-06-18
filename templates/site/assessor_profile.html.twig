@@ -1,8 +1,8 @@
 {% extends 'site/base.html.twig' %}
 
-{% block title %}Rozhodčí PFS - {{ assessor.name }}{% endblock %}
+{% set page_title = assessor.name %}
 
-{% block heading %}{{ assessor.name }}{% endblock %}
+{% block heading %}{{ page_title }}{% endblock %}
 
 {% block main %}
 

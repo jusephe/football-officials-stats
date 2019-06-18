@@ -5,6 +5,7 @@ namespace App\Site\Controller;
 use App\Admin\Repository\AssessorRepository;
 use App\Admin\Repository\OfficialRepository;
 use App\Admin\Repository\PostRepository;
+use App\Site\Repository\StatsRepository;
 use App\Site\Service\SeasonsListMaker;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,7 +27,7 @@ class SiteController extends AbstractController
     /**
      * @Route("/novinky/{id}", name="post", requirements={"id"="\d+"})
      */
-    public function post($id, PostRepository $postRepository)
+    public function post(PostRepository $postRepository, $id)
     {
         $post = $postRepository->find($id);
         if ($post === null) throw $this->createNotFoundException('Taková novinka neexistuje!');
@@ -65,14 +66,35 @@ class SiteController extends AbstractController
     }
 
     /**
-     * @Route("/{league}/{season}/{part}", name="season_stats", defaults={"part": null}, requirements={"season"="\d+"})
+     * @Route("/{league}/{season}/{part}", name="season_stats", requirements={
+     *     "league"="prebor|a-trida",
+     *     "season"="\d+",
+     *     "part"="podzim|jaro"
+     * })
      */
-    public function seasonStats($league, $season, $part)
+    public function seasonStats(StatsRepository $statsRepository, $league, $season, $part = null)
     {
+        switch ($league) {
+            case 'prebor':
+                $league = 'Přebor';
+                break;
+            case 'a-trida':
+                $league = '1.A třída';
+                break;
+        }
 
+        $stats = $statsRepository->getSeasonStats($league, $season, $part);
 
+        if (empty($stats['RefereeMatches'])) {
+            throw $this->createNotFoundException('Pro tuto sezónu nejsou statistiky k dispozici!');
+        }
 
-        return $this->render('site/base.html.twig');
+        return $this->render('site/season_stats.html.twig', [
+            'stats' => $stats,
+            'league' => $league,
+            'season' => $season,
+            'part' => $part,
+        ]);
     }
 
     /**
@@ -90,7 +112,7 @@ class SiteController extends AbstractController
     /**
      * @Route("/rozhodci/{id}", name="official_profile")
      */
-    public function officialProfile($id, OfficialRepository $officialRepository)
+    public function officialProfile(OfficialRepository $officialRepository, $id)
     {
         $official = $officialRepository->find($id);
         if ($official === null) throw $this->createNotFoundException('Takový rozhodčí neexistuje!');
@@ -115,7 +137,7 @@ class SiteController extends AbstractController
     /**
      * @Route("/delegati/{id}", name="assessor_profile")
      */
-    public function assessorProfile($id, AssessorRepository $assessorRepository)
+    public function assessorProfile(AssessorRepository $assessorRepository, $id)
     {
         $assessor = $assessorRepository->find($id);
         if ($assessor === null) throw $this->createNotFoundException('Takový delegát neexistuje!');

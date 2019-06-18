@@ -1,8 +1,8 @@
 {% extends 'site/base.html.twig' %}
 
-{% block title %}Rozhodčí PFS - Přebor{% endblock %}
+{% set page_title = 'Přebor' %}
 
-{% block heading %}Přebor{% endblock %}
+{% block heading %}{{ page_title }}{% endblock %}
 
 {% block main %}
 
@@ -10,10 +10,10 @@
         <table class="table">
             <tbody>
             {% for season in seasons %}
-                {% set seasonYear = (season.season+1)|split('', 2) %}
+                {% set seasonEndYear = (season.season+1)|split('', 2) %}
                 <tr>
                     <td class="font-weight-bold" style="width: 6em">
-                        {{ season.season }}/{{ seasonYear.1 }}
+                        {{ season.season }}/{{ seasonEndYear.1 }}
                     </td>
                     <td style="width: 7.2em">
                         <a href="{{ path('season_stats', {'league': 'prebor', 'season': season.season}) }}">Celá sezóna</a>

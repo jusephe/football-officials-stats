@@ -2,7 +2,7 @@ body {
     padding-bottom: 3.125rem;
 }
 
-p, ul, table {
+div.container-main > * {
     max-width: 40em;
 }
 

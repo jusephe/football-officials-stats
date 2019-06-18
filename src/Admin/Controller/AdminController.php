@@ -207,7 +207,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/punishments/add/{gameId}", name="add_punishments", requirements={"gameId"="\d+"})
      */
-    public function addPunishments($gameId, Request $request, EntityManagerInterface $entityManager)
+    public function addPunishments(Request $request, EntityManagerInterface $entityManager, $gameId)
     {
         $game = $entityManager->getRepository(Game::class)->find($gameId);
 
@@ -300,7 +300,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/nomination-lists/add/{year}/{part}", name="add_nomination_lists")
      */
-    public function addNominationLists($year, $part, Request $request, EntityManagerInterface $entityManager)
+    public function addNominationLists(Request $request, EntityManagerInterface $entityManager, $year, $part)
     {
         $possibleOfficials = $entityManager->getRepository(Official::class)->findWithoutNominationList($year, $part);
 
@@ -360,7 +360,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/nomination-lists/edit/{officialId}", name="edit_nomination_lists")
      */
-    public function editNominationLists($officialId, Request $request, EntityManagerInterface $entityManager)
+    public function editNominationLists(Request $request, EntityManagerInterface $entityManager, $officialId)
     {
         $official = $entityManager->getRepository(Official::class)->find($officialId);
 
@@ -411,7 +411,7 @@ class AdminController extends AbstractController
      * @Route("/admin/leagues/create", name="create_league", defaults={"id": null})
      * @Route("/admin/leagues/{id}/edit", name="edit_league", requirements={"id"="\d+"})
      */
-    public function leagueForm($id, Request $request, EntityManagerInterface $entityManager)
+    public function leagueForm(Request $request, EntityManagerInterface $entityManager, $id)
     {
         if ($id === null) $league = new League();  // create
         else {  // edit
@@ -453,7 +453,7 @@ class AdminController extends AbstractController
      * @Route("/admin/teams/create", name="create_team", defaults={"id": null})
      * @Route("/admin/teams/{id}/edit", name="edit_team", requirements={"id"="\d+"})
      */
-    public function teamForm($id, Request $request, EntityManagerInterface $entityManager)
+    public function teamForm(Request $request, EntityManagerInterface $entityManager, $id)
     {
         if ($id === null) $team = new Team();  // create
         else {  // edit
@@ -495,7 +495,7 @@ class AdminController extends AbstractController
      * @Route("/admin/officials/create", name="create_official", defaults={"id": null})
      * @Route("/admin/officials/{id}/edit", name="edit_official")
      */
-    public function officialForm($id, Request $request, EntityManagerInterface $entityManager)
+    public function officialForm(Request $request, EntityManagerInterface $entityManager, $id)
     {
         if ($id === null) $official = new Official();  // create
         else {  // edit
@@ -537,7 +537,7 @@ class AdminController extends AbstractController
      * @Route("/admin/assessors/create", name="create_assessor", defaults={"id": null})
      * @Route("/admin/assessors/{id}/edit", name="edit_assessor")
      */
-    public function assessorForm($id, Request $request, EntityManagerInterface $entityManager)
+    public function assessorForm(Request $request, EntityManagerInterface $entityManager, $id)
     {
         if ($id === null) $assessor = new Assessor();  // create
         else {  // edit
@@ -579,7 +579,7 @@ class AdminController extends AbstractController
      * @Route("/admin/posts/create", name="create_post", defaults={"id": null})
      * @Route("/admin/posts/{id}/edit", name="edit_post", requirements={"id"="\d+"})
      */
-    public function postForm($id, Request $request, EntityManagerInterface $entityManager, Parsedown $parsedown)
+    public function postForm(Request $request, EntityManagerInterface $entityManager, Parsedown $parsedown, $id)
     {
         if ($id === null) $post = new Post();  // create
         else {  // edit
@@ -617,7 +617,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/posts/{id}/delete", methods={"POST"}, name="delete_post", requirements={"id"="\d+"})
      */
-    public function deletePost($id, Request $request, EntityManagerInterface $entityManager) {
+    public function deletePost(Request $request, EntityManagerInterface $entityManager, $id) {
 
         $post = $entityManager->getRepository(Post::class)->find($id);
         if ( $post === null ) {

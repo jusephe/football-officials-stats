@@ -13,12 +13,14 @@ class SeasonsListMaker
         $this->statsFunctionality = $statsFunctionality;
     }
 
+    // returns ordered array of [season, autumn, spring]
     public function createSeasonsList($league)
     {
         $partsOfSeasons = $this->statsFunctionality->getSeasonsWithPart($league);
 
         $seasonsWithParts = array();
 
+        // transform [season, isAutumn] to [season, autumn, spring]
         foreach ($partsOfSeasons as $item) {
             $season = $item['season'];
             if ( !array_key_exists($season, $seasonsWithParts) ) {
@@ -35,7 +37,7 @@ class SeasonsListMaker
             }
         }
 
-        krsort($seasonsWithParts);
+        krsort($seasonsWithParts); // newest seasons will be on top
 
         return $seasonsWithParts;
     }
