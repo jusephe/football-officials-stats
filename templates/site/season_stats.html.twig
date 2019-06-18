@@ -1,7 +1,7 @@
 {% extends 'site/base.html.twig' %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 {% endblock %}
 
 {% set seasonEndYear = (season+1)|split('', 2) %}
@@ -15,26 +15,29 @@
 
 {% block main %}
 
-    <table class="stat-table">
-        <thead>
-        <tr>
-            <th scope="col">Rozhodčí</th>
-            <th scope="col">Počet zápasů</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for stat in stats.RefereeMatches %}
+    <div class="table-responsive">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
             <tr>
-                <td>{{ stat.name }}</td>
-                <td>{{ stat.number_of_matches }}</td>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Počet zápasů</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for stat in stats.RefereeMatches %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.number_of_matches }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}
 
 {% block scripts %}
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('scripts/site/datatables.js') }}"></script>
 {% endblock %}
