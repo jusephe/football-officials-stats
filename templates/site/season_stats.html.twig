@@ -15,12 +15,13 @@
 
 {% block main %}
 
-    <div class="table-responsive">
+    <h2 class="h4">Zápasy v roli hlavního rozhodčího</h2>
+    <div class="table-responsive mb-5">
         <table class="table table-sm table-striped stat-table">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">Rozhodčí</th>
-                <th scope="col">Počet zápasů</th>
+                <th scope="col">Počet</th>
             </tr>
             </thead>
             <tbody>
@@ -33,6 +34,422 @@
             </tbody>
         </table>
     </div>
+
+    <h2 class="h4">Zápasy v roli Asistent rozhodčího 1</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.Ar1Matches %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.number_of_matches }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Zápasy v roli Asistent rozhodčího 2</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.Ar2Matches %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.number_of_matches }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Zápasy jako asistent rozhodčího celkem</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.Ar1AndAr2Matches %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.number_of_matches }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Zápasy celkem (v jakékoliv roli)</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.OfficialMatches %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.number_of_matches }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Počet udělených žlutých karet</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.RefereeYellow %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.number_of_cards }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Průměrný počet žlutých karet na jedno utkání</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Průměr</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.RefereeYellowAvg %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.cards_avg|number_format(2) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Počet udělených červených karet</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.RefereeRed %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.number_of_cards }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Průměrný počet červených karet na jedno utkání</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Průměr</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.RefereeRedAvg %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.cards_avg|number_format(2) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Zápasy hlavního rozhodčího s konkrétním asistentem</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table-3cols">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Asistent</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.RefereeAr %}
+                <tr>
+                    <td>{{ stat.referee_name }}</td>
+                    <td>{{ stat.ar_name }}</td>
+                    <td>{{ stat.number_of_matches }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Zápasy dvojice rozhodčích bez ohledu na roli</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table-3cols">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.OfficialOfficial %}
+                <tr>
+                    <td>{{ stat.official1_name }}</td>
+                    <td>{{ stat.official2_name }}</td>
+                    <td>{{ stat.number_of_matches }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Zápasy hlavního rozhodčího s konkrétním delegátem</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table-3cols">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Delegát</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.RefereeAssessor %}
+                <tr>
+                    <td>{{ stat.referee_name }}</td>
+                    <td>{{ stat.assessor_name }}</td>
+                    <td>{{ stat.number_of_matches }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Zápasy rozhodčího (v jakékoliv roli) s konkrétním delegátem</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table-3cols">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Delegát</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.OfficialAssessor %}
+                <tr>
+                    <td>{{ stat.official_name }}</td>
+                    <td>{{ stat.assessor_name }}</td>
+                    <td>{{ stat.number_of_matches }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Zápasy rozhodčího (v jakékoliv roli) s konkrétním týmem</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table-3cols">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Tým</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.OfficialTeam %}
+                <tr>
+                    <td>{{ stat.official_name }}</td>
+                    <td>{{ stat.team_name }}</td>
+                    <td>{{ stat.number_of_matches }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Zápasy rozhodčího (v jakékoliv roli) na domácím hřišti týmu</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table-3cols">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Tým</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.OfficialHomeTeam %}
+                <tr>
+                    <td>{{ stat.official_name }}</td>
+                    <td>{{ stat.team_name }}</td>
+                    <td>{{ stat.number_of_matches }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Zápasy delegáta celkem</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Delegát</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.AssessorMatches %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.number_of_matches }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Počet žlutých karet v zápasech delegáta</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Delegát</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.AssessorYellow %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.number_of_cards }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Průměrný počet žlutých karet v zápasech delegáta</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Delegát</th>
+                <th scope="col">Průměr</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.AssessorYellowAvg %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.cards_avg|number_format(2) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Počet červených karet v zápasech delegáta</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Delegát</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.AssessorRed %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.number_of_cards }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Průměrný počet červených karet v zápasech delegáta</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Delegát</th>
+                <th scope="col">Průměr</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.AssessorRedAvg %}
+                <tr>
+                    <td>{{ stat.name }}</td>
+                    <td>{{ stat.cards_avg|number_format(2) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="h4">Zápasy delegáta s konkrétním týmem</h2>
+    <div class="table-responsive mb-5">
+        <table class="table table-sm table-striped stat-table-3cols">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Delegát</th>
+                <th scope="col">Tým</th>
+                <th scope="col">Počet</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stat in stats.AssessorTeam %}
+                <tr>
+                    <td>{{ stat.assessor_name }}</td>
+                    <td>{{ stat.team_name }}</td>
+                    <td>{{ stat.number_of_matches }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
 
 {% endblock %}
 
