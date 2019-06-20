@@ -7,6 +7,7 @@ use App\Admin\Repository\OfficialRepository;
 use App\Admin\Repository\PostRepository;
 use App\Site\Repository\StatsRepository;
 use App\Site\Service\SeasonsListMaker;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -89,11 +90,17 @@ class SiteController extends AbstractController
             throw $this->createNotFoundException('Pro tuto sezónu nejsou statistiky k dispozici!');
         }
 
+        $redOffenceChart = new PieChart();
+        $redOffenceChart->getData()->setArrayToDataTable($stats['RefereeRedOffence']);
+        $redOffenceChart->getOptions()->setPieSliceText('value');
+        $redOffenceChart->getOptions()->getChartArea()->setWidth('90%');
+
         return $this->render('site/season_stats.html.twig', [
-            'stats' => $stats,
             'league' => $league,
             'season' => $season,
             'part' => $part,
+            'stats' => $stats,
+            'redOffenceChart' => $redOffenceChart,
         ]);
     }
 

@@ -1,0 +1,19 @@
+<h2 class="h4">Zápasy celkem (v jakékoliv roli)</h2>
+<div class="table-responsive mb-5">
+    <table class="table table-sm table-striped stat-table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Rozhodčí</th>
+            <th scope="col">Počet</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for stat in stats.OfficialMatches %}
+            <tr>
+                <td>{{ stat.name }}</td>
+                <td>{{ stat.number_of_matches }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

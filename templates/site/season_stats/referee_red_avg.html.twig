@@ -1,0 +1,19 @@
+<h2 class="h4">Průměrný počet červených karet na jedno utkání</h2>
+<div class="table-responsive mb-5">
+    <table class="table table-sm table-striped stat-table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Rozhodčí</th>
+            <th scope="col">Průměr</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for stat in stats.RefereeRedAvg %}
+            <tr>
+                <td>{{ stat.name }}</td>
+                <td>{{ stat.cards_avg|number_format(2) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,21 @@
+<h2 class="h4">Zápasy rozhodčího (v jakékoliv roli) s konkrétním týmem</h2>
+<div class="table-responsive mb-5">
+    <table class="table table-sm table-striped stat-table-3cols">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Rozhodčí</th>
+            <th scope="col">Tým</th>
+            <th scope="col">Počet</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for stat in stats.OfficialTeam %}
+            <tr>
+                <td>{{ stat.official_name }}</td>
+                <td>{{ stat.team_name }}</td>
+                <td>{{ stat.number_of_matches }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

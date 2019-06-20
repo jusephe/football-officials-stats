@@ -1,0 +1,19 @@
+<h2 class="h4">Počet žlutých karet v zápasech delegáta</h2>
+<div class="table-responsive mb-5">
+    <table class="table table-sm table-striped stat-table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Delegát</th>
+            <th scope="col">Počet</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for stat in stats.AssessorYellow %}
+            <tr>
+                <td>{{ stat.name }}</td>
+                <td>{{ stat.number_of_cards }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

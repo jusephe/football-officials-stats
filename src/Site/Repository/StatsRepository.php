@@ -16,15 +16,13 @@ class StatsRepository
 
     public function getSeasonStats($league, $season, $part)
     {
-        $idsOfLeaguesSelectedLeagueLevel = $this->connection->fetchAll('SELECT league.id
+        $leaguesIdsOfSelectedLeagueLevel = $this->connection->fetchAll('SELECT league.id
                                                                         FROM league 
                                                                         WHERE league.short_name = ?',
                                                                         [$league]);
-        
         $leaguesIds = array();
-        
-        foreach ($idsOfLeaguesSelectedLeagueLevel as $item) {
-            $leaguesIds[] = $item['id'];
+        foreach ($leaguesIdsOfSelectedLeagueLevel as $leagueId) {
+            $leaguesIds[] = $leagueId['id'];
         }
         
         $stats = array();
@@ -37,10 +35,12 @@ class StatsRepository
 
         $stats['RefereeYellow'] = $this->getSeasonStatRefereeYellow($leaguesIds, $season, $part);
         $stats['RefereeYellowAvg'] = $this->getSeasonStatRefereeYellowAvg($leaguesIds, $season, $part);
-        //$stats['RefereeYellowFirst'] = $this->getSeasonStatRefereeYellowFirst($leaguesIds, $season, $part);
+        $stats['RefereeYellowFirst'] = $this->getSeasonStatRefereeYellowFirst($leaguesIds, $season, $part);
         $stats['RefereeRed'] = $this->getSeasonStatRefereeRed($leaguesIds, $season, $part);
         $stats['RefereeRedAvg'] = $this->getSeasonStatRefereeRedAvg($leaguesIds, $season, $part);
-        //$stats['RefereeRedOffence'] = $this->getSeasonStatRefereeRedOffence($leaguesIds, $season, $part);
+        $stats['RefereeRedOffence'] = $this->transformStatRefereeRedOffence(
+            $this->getSeasonStatRefereeRedOffence($leaguesIds, $season, $part)
+        );
 
         $stats['RefereeAr'] = $this->getSeasonStatRefereeAr($leaguesIds, $season, $part);
         $stats['OfficialOfficial'] = $this->getSeasonStatOfficialOfficial($leaguesIds, $season, $part);
@@ -295,6 +295,32 @@ class StatsRepository
 
     private function getSeasonStatRefereeYellowFirst($leaguesIds, $season, $part)
     {
+        if ($part === null) {
+            return $this->connection->fetchAll('SELECT official.name, AVG(stat.minute) AS first_avg_min
+                                                FROM stat_referee_yellow_first AS stat
+                                                JOIN official
+                                                ON stat.official_id = official.id
+                                                WHERE stat.league_id IN (?)
+                                                AND stat.season = ?
+                                                GROUP BY stat.official_id',
+                                                [$leaguesIds, $season],
+                                                [\Doctrine\DBAL\Connection::PARAM_INT_ARRAY, ParameterType::INTEGER]);
+        }
+        else {
+            $isAutumn = 1;
+            if ($part === 'jaro') $isAutumn = 0;
+
+            return $this->connection->fetchAll('SELECT official.name, AVG(stat.minute) AS first_avg_min
+                                                FROM stat_referee_yellow_first AS stat
+                                                JOIN official
+                                                ON stat.official_id = official.id
+                                                WHERE stat.league_id IN (?)
+                                                AND stat.season = ?
+                                                AND stat.is_autumn = ?
+                                                GROUP BY stat.official_id',
+                                                [$leaguesIds, $season, $isAutumn],
+                                                [\Doctrine\DBAL\Connection::PARAM_INT_ARRAY, ParameterType::INTEGER, ParameterType::INTEGER]);
+        }
     }
 
     private function getSeasonStatRefereeRed($leaguesIds, $season, $part)
@@ -382,6 +408,47 @@ class StatsRepository
 
     private function getSeasonStatRefereeRedOffence($leaguesIds, $season, $part)
     {
+        if ($part === null) {
+            return $this->connection->fetchAll('SELECT offence.short_name, SUM(stat.number_of_cards) AS number_of_cards
+                                                FROM stat_referee_red_offence AS stat
+                                                JOIN offence
+                                                ON stat.offence_id = offence.id
+                                                WHERE stat.league_id IN (?)
+                                                AND stat.season = ?
+                                                GROUP BY stat.offence_id
+                                                ORDER BY number_of_cards DESC',
+                                                [$leaguesIds, $season],
+                                                [\Doctrine\DBAL\Connection::PARAM_INT_ARRAY, ParameterType::INTEGER]);
+        }
+        else {
+            $isAutumn = 1;
+            if ($part === 'jaro') $isAutumn = 0;
+
+            return $this->connection->fetchAll('SELECT offence.short_name, SUM(stat.number_of_cards) AS number_of_cards
+                                                FROM stat_referee_red_offence AS stat
+                                                JOIN offence
+                                                ON stat.offence_id = offence.id
+                                                WHERE stat.league_id IN (?)
+                                                AND stat.season = ?
+                                                AND stat.is_autumn = ?
+                                                GROUP BY stat.offence_id
+                                                ORDER BY number_of_cards DESC',
+                                                [$leaguesIds, $season, $isAutumn],
+                                                [\Doctrine\DBAL\Connection::PARAM_INT_ARRAY, ParameterType::INTEGER, ParameterType::INTEGER]);
+        }
+    }
+
+    // transforms to array which can be use as source for chart with CMENGoogleChartsBundle
+    private function transformStatRefereeRedOffence($statArray)
+    {
+        $newStatArray = array();
+
+        $newStatArray[] = ['Důvod', 'Počet'];
+        foreach ($statArray as $row) {
+            $newStatArray[] = [ $row['short_name'], (int)$row['number_of_cards'] ];
+        }
+
+        return $newStatArray;
     }
 
 
