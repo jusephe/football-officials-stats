@@ -1,19 +1,19 @@
-<h2 class="h4">Zápasy v roli hlavního rozhodčího</h2>
-<div class="table-responsive mb-5">
-    <table class="table table-sm table-striped stat-table">
-        <thead class="thead-dark">
+{% extends 'site/season_stats/base.html.twig' %}
+
+{% set statTableClass = 'stat-table' %}
+
+{% block title %}Zápasy v roli hlavního rozhodčího{% endblock %}
+
+{% block head %}
+    <th scope="col">Rozhodčí</th>
+    <th scope="col">Počet</th>
+{% endblock %}
+
+{% block body %}
+    {% for stat in stats.RefereeMatches %}
         <tr>
-            <th scope="col">Rozhodčí</th>
-            <th scope="col">Počet</th>
+            <td>{{ stat.name }}</td>
+            <td>{{ stat.number_of_matches }}</td>
         </tr>
-        </thead>
-        <tbody>
-        {% for stat in stats.RefereeMatches %}
-            <tr>
-                <td>{{ stat.name }}</td>
-                <td>{{ stat.number_of_matches }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+    {% endfor %}
+{% endblock %}

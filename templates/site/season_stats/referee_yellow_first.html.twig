@@ -1,19 +1,19 @@
-<h2 class="h4">Minuta, ve které je průměrně udělena první žlutá karta</h2>
-<div class="table-responsive mb-5">
-    <table class="table table-sm table-striped stat-table">
-        <thead class="thead-dark">
+{% extends 'site/season_stats/base.html.twig' %}
+
+{% set statTableClass = 'stat-table' %}
+
+{% block title %}Minuta, ve které je průměrně udělena první žlutá karta{% endblock %}
+
+{% block head %}
+    <th scope="col">Rozhodčí</th>
+    <th scope="col">Minuta</th>
+{% endblock %}
+
+{% block body %}
+    {% for stat in stats.RefereeYellowFirst %}
         <tr>
-            <th scope="col">Rozhodčí</th>
-            <th scope="col">Minuta</th>
+            <td>{{ stat.name }}</td>
+            <td>{{ stat.first_avg_min|number_format(1) }}</td>
         </tr>
-        </thead>
-        <tbody>
-        {% for stat in stats.RefereeYellowFirst %}
-            <tr>
-                <td>{{ stat.name }}</td>
-                <td>{{ stat.first_avg_min|number_format(1) }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+    {% endfor %}
+{% endblock %}

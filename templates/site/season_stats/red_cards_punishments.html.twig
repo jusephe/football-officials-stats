@@ -1,0 +1,37 @@
+<div class="mb-4 full-width">
+    <a class="collapsed" data-toggle="collapse" href="#red_cards_table" aria-expanded="false" aria-controls="red_cards_table">
+        <h2 class="h4"> Jednotlivé červené karty + tresty</h2>
+    </a>
+    <div class="collapse table-responsive" id="red_cards_table">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Kolo</th>
+                <th scope="col">Důvod</th>
+                <th scope="col">Rozhodčí</th>
+                <th scope="col">Osoba</th>
+                <th scope="col">Trest</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for redCard in redCards %}
+                <tr>
+                    <td>{{ redCard.game.round }}.</td>
+                    <td>{{ redCard.offence.shortName }}</td>
+                    <td>{{ redCard.game.refereeOfficial.name }}</td>
+                    <td>{{ redCard.person }} ({{ redCard.team.shortName }})</td>
+                    <td>{% if redCard.games is not empty %}{{ redCard.games }} utkání +{% endif %}
+                        {% if redCard.weeks is not empty %}
+                            {% if redCard.weeks == 1 %} {{ redCard.weeks }} týden +
+                            {% elseif redCard.weeks == 2 or redCard.weeks == 3 or redCard.weeks == 4 %} {{ redCard.weeks }} týdny +
+                            {% else %} {{ redCard.weeks }} týdnů +
+                            {% endif %}
+                        {% endif %}
+                        {% if redCard.fine is not empty %} {{ redCard.fine }}&nbsp;Kč pokuta +{% endif %}
+                        {% if redCard.fee is not empty %} {{ redCard.fee }}&nbsp;Kč poplatek{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

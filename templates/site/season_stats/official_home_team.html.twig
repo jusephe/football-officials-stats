@@ -1,21 +1,21 @@
-<h2 class="h4">Zápasy rozhodčího (v jakékoliv roli) na domácím hřišti týmu</h2>
-<div class="table-responsive mb-5">
-    <table class="table table-sm table-striped stat-table-3cols">
-        <thead class="thead-dark">
+{% extends 'site/season_stats/base.html.twig' %}
+
+{% set statTableClass = 'stat-table-3cols' %}
+
+{% block title %}Zápasy rozhodčího (v jakékoliv roli) na domácím hřišti týmu{% endblock %}
+
+{% block head %}
+    <th scope="col">Rozhodčí</th>
+    <th scope="col">Tým</th>
+    <th scope="col">Počet</th>
+{% endblock %}
+
+{% block body %}
+    {% for stat in stats.OfficialHomeTeam %}
         <tr>
-            <th scope="col">Rozhodčí</th>
-            <th scope="col">Tým</th>
-            <th scope="col">Počet</th>
+            <td>{{ stat.official_name }}</td>
+            <td>{{ stat.team_name }}</td>
+            <td>{{ stat.number_of_matches }}</td>
         </tr>
-        </thead>
-        <tbody>
-        {% for stat in stats.OfficialHomeTeam %}
-            <tr>
-                <td>{{ stat.official_name }}</td>
-                <td>{{ stat.team_name }}</td>
-                <td>{{ stat.number_of_matches }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+    {% endfor %}
+{% endblock %}

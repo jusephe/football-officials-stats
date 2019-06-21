@@ -1,19 +1,19 @@
-<h2 class="h4">Počet červených karet v zápasech delegáta</h2>
-<div class="table-responsive mb-5">
-    <table class="table table-sm table-striped stat-table">
-        <thead class="thead-dark">
+{% extends 'site/season_stats/base.html.twig' %}
+
+{% set statTableClass = 'stat-table' %}
+
+{% block title %}Počet červených karet v zápasech delegáta{% endblock %}
+
+{% block head %}
+    <th scope="col">Delegát</th>
+    <th scope="col">Počet</th>
+{% endblock %}
+
+{% block body %}
+    {% for stat in stats.AssessorRed %}
         <tr>
-            <th scope="col">Delegát</th>
-            <th scope="col">Počet</th>
+            <td>{{ stat.name }}</td>
+            <td>{{ stat.number_of_cards }}</td>
         </tr>
-        </thead>
-        <tbody>
-        {% for stat in stats.AssessorRed %}
-            <tr>
-                <td>{{ stat.name }}</td>
-                <td>{{ stat.number_of_cards }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+    {% endfor %}
+{% endblock %}

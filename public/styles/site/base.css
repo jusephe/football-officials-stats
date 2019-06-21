@@ -6,6 +6,10 @@ div.container-main > * {
     max-width: 40em;
 }
 
+div.container-main > .full-width {
+    max-width: 100%;
+}
+
 ul {
     list-style-type: none;
 }
@@ -47,4 +51,15 @@ ul {
 /* fix */
 .dropdown-item.active, .dropdown-item:active {
     background-color: #007bff;
+}
+
+.pie-chart {
+    height: 24em;
+}
+
+*[data-toggle="collapse"] *:before {
+    content: "\25BE";
+}
+*[data-toggle="collapse"].collapsed *:before {
+    content: "\25B8";
 }

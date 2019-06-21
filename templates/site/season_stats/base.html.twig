@@ -1,0 +1,16 @@
+<h2 class="h4">{% block title %}{% endblock %}</h2>
+
+<div class="table-responsive mb-5">
+    <table class="table table-sm table-striped {{ statTableClass }}">
+        <thead class="thead-dark">
+        <tr>
+            {% block head %}
+            {% endblock %}
+        </tr>
+        </thead>
+        <tbody>
+            {% block body %}
+            {% endblock %}
+        </tbody>
+    </table>
+</div>

@@ -19,6 +19,35 @@ class RedCardRepository extends ServiceEntityRepository
         parent::__construct($registry, RedCard::class);
     }
 
+    public function findByLeagueSeasonPart($league, $season, $part)
+    {
+        $leaguesQB = $this->getEntityManager()->createQueryBuilder();
+        $redcardsQB = $this->createQueryBuilder('rc');
+
+        $leaguesQB->select('l')
+            ->from('App\Admin\Entity\League', 'l')
+            ->where($leaguesQB->expr()->eq('l.shortName',':league'));
+
+        $redcardsQB->join('rc.game', 'g')
+            ->where($redcardsQB->expr()->andX(
+                $redcardsQB->expr()->eq('g.season', ':season'),
+                $redcardsQB->expr()->in('g.league',  $leaguesQB->getDQL())
+            ))
+            ->orderBy('g.round')
+            ->setParameter('league', $league)
+            ->setParameter('season', $season);
+
+        if($part !== null) {
+            $isAutumn = 1;
+            if ($part === 'jaro') $isAutumn = 0;
+
+            $redcardsQB->andWhere($redcardsQB->expr()->eq('g.isAutumn', ':isAutumn'))
+                ->setParameter('isAutumn', $isAutumn);
+        }
+
+        return $redcardsQB->getQuery()->getResult();
+    }
+
     // /**
     //  * @return RedCard[] Returns an array of RedCard objects
     //  */

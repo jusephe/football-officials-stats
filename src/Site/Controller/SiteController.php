@@ -5,6 +5,7 @@ namespace App\Site\Controller;
 use App\Admin\Repository\AssessorRepository;
 use App\Admin\Repository\OfficialRepository;
 use App\Admin\Repository\PostRepository;
+use App\Admin\Repository\RedCardRepository;
 use App\Site\Repository\StatsRepository;
 use App\Site\Service\SeasonsListMaker;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
@@ -73,7 +74,8 @@ class SiteController extends AbstractController
      *     "part"="podzim|jaro"
      * })
      */
-    public function seasonStats(StatsRepository $statsRepository, $league, $season, $part = null)
+    public function seasonStats(StatsRepository $statsRepository, RedCardRepository $redCardRepository,
+                                $league, $season, $part = null)
     {
         switch ($league) {
             case 'prebor':
@@ -95,12 +97,15 @@ class SiteController extends AbstractController
         $redOffenceChart->getOptions()->setPieSliceText('value');
         $redOffenceChart->getOptions()->getChartArea()->setWidth('90%');
 
+        $redCards = $redCardRepository->findByLeagueSeasonPart($league, $season, $part);
+
         return $this->render('site/season_stats.html.twig', [
             'league' => $league,
             'season' => $season,
             'part' => $part,
             'stats' => $stats,
             'redOffenceChart' => $redOffenceChart,
+            'redCards' => $redCards,
         ]);
     }
 
