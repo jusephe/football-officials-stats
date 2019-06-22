@@ -59,6 +59,91 @@ class StatsRepository
         return $stats;
     }
 
+    public function getOfficialStats($id)
+    {
+        $stats = array();
+
+        $stats['RefereeMatches'] = $this->getOfficialStatRefereeMatches($id);
+        /*$stats['Ar1Matches'] = $this->getOfficialStatAr1Matches($id);
+        $stats['Ar2Matches'] = $this->getOfficialStatAr2Matches($id);
+        $stats['Ar1AndAr2Matches'] = $this->getOfficialStatAr1AndAr2Matches($id);
+        $stats['OfficialMatches'] = $this->getOfficialStatOfficialMatches($id);
+
+        $stats['RefereeYellow'] = $this->getOfficialStatRefereeYellow($id);
+        $stats['RefereeYellowAvg'] = $this->getOfficialStatRefereeYellowAvg($id);
+        $stats['RefereeYellowFirst'] = $this->getOfficialStatRefereeYellowFirst($id);
+        $stats['RefereeRed'] = $this->getOfficialStatRefereeRed($id);
+        $stats['RefereeRedAvg'] = $this->getOfficialStatRefereeRedAvg($id);
+        $stats['RefereeRedOffence'] = $this->transformStatRefereeRedOffence(
+            $this->getOfficialStatRefereeRedOffence($id)
+        );
+
+        $stats['RefereeAr'] = $this->getOfficialStatRefereeAr($id);
+        $stats['OfficialOfficial'] = $this->getOfficialStatOfficialOfficial($id);
+        $stats['RefereeAssessor'] = $this->getOfficialStatRefereeAssessor($id);
+        $stats['OfficialAssessor'] = $this->getOfficialStatOfficialAssessor($id);
+        $stats['OfficialTeam'] = $this->getOfficialStatOfficialTeam($id);
+        $stats['OfficialHomeTeam'] = $this->getOfficialStatOfficialHomeTeam($id);*/
+
+        return $stats;
+    }
+
+    private function getOfficialStatRefereeMatches($id)
+    {
+        return $this->connection->fetchAll('SELECT t1.season, t1.prebor, t2.atrida, t1.prebor + IFNULL(t2.atrida, 0) AS total
+                                            FROM
+                                            (
+                                                (SELECT stat.season, SUM(stat.number_of_matches) AS prebor
+                                                FROM stat_referee_matches AS stat
+                                                JOIN league
+                                                ON stat.league_id = league.id
+                                                WHERE stat.official_id = ?
+                                                AND league.short_name = "Přebor"
+                                                GROUP BY league.short_name,
+                                                stat.season) t1
+                                                LEFT OUTER JOIN
+                                                (SELECT stat.season, SUM(stat.number_of_matches) AS atrida
+                                                FROM stat_referee_matches AS stat
+                                                JOIN league
+                                                ON stat.league_id = league.id
+                                                WHERE stat.official_id = ?
+                                                AND league.short_name = "1.A třída"
+                                                GROUP BY league.short_name,
+                                                stat.season) t2
+                                                ON t1.season = t2.season
+                                            )
+                                            UNION
+                                            SELECT t4.season, t3.prebor, t4.atrida, IFNULL(t3.prebor, 0) + t4.atrida AS total
+                                            FROM
+                                            (
+                                                (SELECT stat.season, SUM(stat.number_of_matches) AS prebor
+                                                FROM stat_referee_matches AS stat
+                                                JOIN league
+                                                ON stat.league_id = league.id
+                                                WHERE stat.official_id = ?
+                                                AND league.short_name = "Přebor"
+                                                GROUP BY league.short_name,
+                                                stat.season) t3
+                                                RIGHT OUTER JOIN
+                                                (SELECT stat.season, SUM(stat.number_of_matches) AS atrida
+                                                FROM stat_referee_matches AS stat
+                                                JOIN league
+                                                ON stat.league_id = league.id
+                                                WHERE stat.official_id = ?
+                                                AND league.short_name = "1.A třída"
+                                                GROUP BY league.short_name,
+                                                stat.season) t4
+                                                ON t3.season = t4.season
+                                            )
+                                            ORDER BY season',
+                                            [$id, $id, $id, $id],
+                                            [ParameterType::STRING, ParameterType::STRING, ParameterType::STRING, ParameterType::STRING]);
+    }
+
+
+
+    // --------------------------------------------------------------------------------
+
     private function getSeasonStatRefereeMatches($leaguesIds, $season, $part)
     {
         if ($part === null) {

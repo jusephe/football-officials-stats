@@ -124,13 +124,16 @@ class SiteController extends AbstractController
     /**
      * @Route("/rozhodci/{id}", name="official_profile")
      */
-    public function officialProfile(OfficialRepository $officialRepository, $id)
+    public function officialProfile(OfficialRepository $officialRepository, StatsRepository $statsRepository, $id)
     {
         $official = $officialRepository->find($id);
         if ($official === null) throw $this->createNotFoundException('Takový rozhodčí neexistuje!');
 
+        $stats = $statsRepository->getOfficialStats($id);
+
         return $this->render('site/official_profile.html.twig', [
-            'official' => $official
+            'official' => $official,
+            'stats' => $stats,
         ]);
     }
 
