@@ -1,0 +1,17 @@
+{% extends 'site/official_stats/stat_table_base.html.twig' %}
+
+{% set statTableClass = 'stat-table-official-simple' %}
+
+{% block title %}Průměrný počet žlutých karet na utkání{% endblock %}
+
+{% block head %}
+    {{ include('site/official_stats/stat_avg_head.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    {{ include('site/official_stats/stat_avg_body.html.twig', {stat_key: 'RefereeYellowAvg', precision: 2}) }}
+{% endblock %}
+
+{% block foot %}
+    {{ include('site/official_stats/stat_avg_foot.html.twig', {totals: 'RefereeYellowAvgTotals', precision: 2}) }}
+{% endblock %}

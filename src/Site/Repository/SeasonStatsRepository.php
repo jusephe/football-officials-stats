@@ -5,7 +5,7 @@ namespace App\Site\Repository;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\ParameterType;
 
-class StatsRepository
+class SeasonStatsRepository
 {
     private $connection;
 
@@ -27,124 +27,40 @@ class StatsRepository
         
         $stats = array();
 
-        $stats['RefereeMatches'] = $this->getSeasonStatRefereeMatches($leaguesIds, $season, $part);
-        $stats['Ar1Matches'] = $this->getSeasonStatAr1Matches($leaguesIds, $season, $part);
-        $stats['Ar2Matches'] = $this->getSeasonStatAr2Matches($leaguesIds, $season, $part);
-        $stats['Ar1AndAr2Matches'] = $this->getSeasonStatAr1AndAr2Matches($leaguesIds, $season, $part);
-        $stats['OfficialMatches'] = $this->getSeasonStatOfficialMatches($leaguesIds, $season, $part);
+        $stats['RefereeMatches'] = $this->getStatRefereeMatches($leaguesIds, $season, $part);
+        $stats['Ar1Matches'] = $this->getStatAr1Matches($leaguesIds, $season, $part);
+        $stats['Ar2Matches'] = $this->getStatAr2Matches($leaguesIds, $season, $part);
+        $stats['Ar1AndAr2Matches'] = $this->getStatAr1AndAr2Matches($leaguesIds, $season, $part);
+        $stats['OfficialMatches'] = $this->getStatOfficialMatches($leaguesIds, $season, $part);
 
-        $stats['RefereeYellow'] = $this->getSeasonStatRefereeYellow($leaguesIds, $season, $part);
-        $stats['RefereeYellowAvg'] = $this->getSeasonStatRefereeYellowAvg($leaguesIds, $season, $part);
-        $stats['RefereeYellowFirst'] = $this->getSeasonStatRefereeYellowFirst($leaguesIds, $season, $part);
-        $stats['RefereeRed'] = $this->getSeasonStatRefereeRed($leaguesIds, $season, $part);
-        $stats['RefereeRedAvg'] = $this->getSeasonStatRefereeRedAvg($leaguesIds, $season, $part);
+        $stats['RefereeYellow'] = $this->getStatRefereeYellow($leaguesIds, $season, $part);
+        $stats['RefereeYellowAvg'] = $this->getStatRefereeYellowAvg($leaguesIds, $season, $part);
+        $stats['RefereeYellowFirst'] = $this->getStatRefereeYellowFirst($leaguesIds, $season, $part);
+        $stats['RefereeRed'] = $this->getStatRefereeRed($leaguesIds, $season, $part);
+        $stats['RefereeRedAvg'] = $this->getStatRefereeRedAvg($leaguesIds, $season, $part);
         $stats['RefereeRedOffence'] = $this->transformStatRefereeRedOffence(
-            $this->getSeasonStatRefereeRedOffence($leaguesIds, $season, $part)
+            $this->getStatRefereeRedOffence($leaguesIds, $season, $part)
         );
 
-        $stats['RefereeAr'] = $this->getSeasonStatRefereeAr($leaguesIds, $season, $part);
-        $stats['OfficialOfficial'] = $this->getSeasonStatOfficialOfficial($leaguesIds, $season, $part);
-        $stats['RefereeAssessor'] = $this->getSeasonStatRefereeAssessor($leaguesIds, $season, $part);
-        $stats['OfficialAssessor'] = $this->getSeasonStatOfficialAssessor($leaguesIds, $season, $part);
-        $stats['OfficialTeam'] = $this->getSeasonStatOfficialTeam($leaguesIds, $season, $part);
-        $stats['OfficialHomeTeam'] = $this->getSeasonStatOfficialHomeTeam($leaguesIds, $season, $part);
+        $stats['RefereeAr'] = $this->getStatRefereeAr($leaguesIds, $season, $part);
+        $stats['OfficialOfficial'] = $this->getStatOfficialOfficial($leaguesIds, $season, $part);
+        $stats['RefereeAssessor'] = $this->getStatRefereeAssessor($leaguesIds, $season, $part);
+        $stats['OfficialAssessor'] = $this->getStatOfficialAssessor($leaguesIds, $season, $part);
+        $stats['OfficialTeam'] = $this->getStatOfficialTeam($leaguesIds, $season, $part);
+        $stats['OfficialHomeTeam'] = $this->getStatOfficialHomeTeam($leaguesIds, $season, $part);
 
-        $stats['AssessorMatches'] = $this->getSeasonStatAssessorMatches($leaguesIds, $season, $part);
-        $stats['AssessorYellow'] = $this->getSeasonStatAssessorYellow($leaguesIds, $season, $part);
-        $stats['AssessorYellowAvg'] = $this->getSeasonStatAssessorYellowAvg($leaguesIds, $season, $part);
-        $stats['AssessorRed'] = $this->getSeasonStatAssessorRed($leaguesIds, $season, $part);
-        $stats['AssessorRedAvg'] = $this->getSeasonStatAssessorRedAvg($leaguesIds, $season, $part);
-        $stats['AssessorTeam'] = $this->getSeasonStatAssessorTeam($leaguesIds, $season, $part);
+        $stats['AssessorMatches'] = $this->getStatAssessorMatches($leaguesIds, $season, $part);
+        $stats['AssessorYellow'] = $this->getStatAssessorYellow($leaguesIds, $season, $part);
+        $stats['AssessorYellowAvg'] = $this->getStatAssessorYellowAvg($leaguesIds, $season, $part);
+        $stats['AssessorRed'] = $this->getStatAssessorRed($leaguesIds, $season, $part);
+        $stats['AssessorRedAvg'] = $this->getStatAssessorRedAvg($leaguesIds, $season, $part);
+        $stats['AssessorTeam'] = $this->getStatAssessorTeam($leaguesIds, $season, $part);
 
         return $stats;
     }
 
-    public function getOfficialStats($id)
-    {
-        $stats = array();
 
-        $stats['RefereeMatches'] = $this->getOfficialStatRefereeMatches($id);
-        /*$stats['Ar1Matches'] = $this->getOfficialStatAr1Matches($id);
-        $stats['Ar2Matches'] = $this->getOfficialStatAr2Matches($id);
-        $stats['Ar1AndAr2Matches'] = $this->getOfficialStatAr1AndAr2Matches($id);
-        $stats['OfficialMatches'] = $this->getOfficialStatOfficialMatches($id);
-
-        $stats['RefereeYellow'] = $this->getOfficialStatRefereeYellow($id);
-        $stats['RefereeYellowAvg'] = $this->getOfficialStatRefereeYellowAvg($id);
-        $stats['RefereeYellowFirst'] = $this->getOfficialStatRefereeYellowFirst($id);
-        $stats['RefereeRed'] = $this->getOfficialStatRefereeRed($id);
-        $stats['RefereeRedAvg'] = $this->getOfficialStatRefereeRedAvg($id);
-        $stats['RefereeRedOffence'] = $this->transformStatRefereeRedOffence(
-            $this->getOfficialStatRefereeRedOffence($id)
-        );
-
-        $stats['RefereeAr'] = $this->getOfficialStatRefereeAr($id);
-        $stats['OfficialOfficial'] = $this->getOfficialStatOfficialOfficial($id);
-        $stats['RefereeAssessor'] = $this->getOfficialStatRefereeAssessor($id);
-        $stats['OfficialAssessor'] = $this->getOfficialStatOfficialAssessor($id);
-        $stats['OfficialTeam'] = $this->getOfficialStatOfficialTeam($id);
-        $stats['OfficialHomeTeam'] = $this->getOfficialStatOfficialHomeTeam($id);*/
-
-        return $stats;
-    }
-
-    private function getOfficialStatRefereeMatches($id)
-    {
-        return $this->connection->fetchAll('SELECT t1.season, t1.prebor, t2.atrida, t1.prebor + IFNULL(t2.atrida, 0) AS total
-                                            FROM
-                                            (
-                                                (SELECT stat.season, SUM(stat.number_of_matches) AS prebor
-                                                FROM stat_referee_matches AS stat
-                                                JOIN league
-                                                ON stat.league_id = league.id
-                                                WHERE stat.official_id = ?
-                                                AND league.short_name = "Přebor"
-                                                GROUP BY league.short_name,
-                                                stat.season) t1
-                                                LEFT OUTER JOIN
-                                                (SELECT stat.season, SUM(stat.number_of_matches) AS atrida
-                                                FROM stat_referee_matches AS stat
-                                                JOIN league
-                                                ON stat.league_id = league.id
-                                                WHERE stat.official_id = ?
-                                                AND league.short_name = "1.A třída"
-                                                GROUP BY league.short_name,
-                                                stat.season) t2
-                                                ON t1.season = t2.season
-                                            )
-                                            UNION
-                                            SELECT t4.season, t3.prebor, t4.atrida, IFNULL(t3.prebor, 0) + t4.atrida AS total
-                                            FROM
-                                            (
-                                                (SELECT stat.season, SUM(stat.number_of_matches) AS prebor
-                                                FROM stat_referee_matches AS stat
-                                                JOIN league
-                                                ON stat.league_id = league.id
-                                                WHERE stat.official_id = ?
-                                                AND league.short_name = "Přebor"
-                                                GROUP BY league.short_name,
-                                                stat.season) t3
-                                                RIGHT OUTER JOIN
-                                                (SELECT stat.season, SUM(stat.number_of_matches) AS atrida
-                                                FROM stat_referee_matches AS stat
-                                                JOIN league
-                                                ON stat.league_id = league.id
-                                                WHERE stat.official_id = ?
-                                                AND league.short_name = "1.A třída"
-                                                GROUP BY league.short_name,
-                                                stat.season) t4
-                                                ON t3.season = t4.season
-                                            )
-                                            ORDER BY season',
-                                            [$id, $id, $id, $id],
-                                            [ParameterType::STRING, ParameterType::STRING, ParameterType::STRING, ParameterType::STRING]);
-    }
-
-
-
-    // --------------------------------------------------------------------------------
-
-    private function getSeasonStatRefereeMatches($leaguesIds, $season, $part)
+    private function getStatRefereeMatches($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name, SUM(stat.number_of_matches) AS number_of_matches
@@ -174,7 +90,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatAr1Matches($leaguesIds, $season, $part)
+    private function getStatAr1Matches($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name, SUM(stat.number_of_matches) AS number_of_matches
@@ -204,7 +120,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatAr2Matches($leaguesIds, $season, $part)
+    private function getStatAr2Matches($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name, SUM(stat.number_of_matches) AS number_of_matches
@@ -234,7 +150,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatAr1AndAr2Matches($leaguesIds, $season, $part)
+    private function getStatAr1AndAr2Matches($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name, SUM(stat.number_of_matches) AS number_of_matches
@@ -264,7 +180,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatOfficialMatches($leaguesIds, $season, $part)
+    private function getStatOfficialMatches($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name, SUM(stat.number_of_matches) AS number_of_matches
@@ -295,7 +211,7 @@ class StatsRepository
     }
 
 
-    private function getSeasonStatRefereeYellow($leaguesIds, $season, $part)
+    private function getStatRefereeYellow($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name, SUM(stat.number_of_cards) AS number_of_cards
@@ -325,7 +241,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatRefereeYellowAvg($leaguesIds, $season, $part)
+    private function getStatRefereeYellowAvg($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name, (IFNULL(c.number_of_cards, 0 )/m.number_of_matches) AS cards_avg
@@ -378,7 +294,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatRefereeYellowFirst($leaguesIds, $season, $part)
+    private function getStatRefereeYellowFirst($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name, AVG(stat.minute) AS first_avg_min
@@ -408,7 +324,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatRefereeRed($leaguesIds, $season, $part)
+    private function getStatRefereeRed($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name, SUM(stat.number_of_cards) AS number_of_cards
@@ -438,7 +354,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatRefereeRedAvg($leaguesIds, $season, $part)
+    private function getStatRefereeRedAvg($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name, (IFNULL(c.number_of_cards, 0 )/m.number_of_matches) AS cards_avg
@@ -491,7 +407,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatRefereeRedOffence($leaguesIds, $season, $part)
+    private function getStatRefereeRedOffence($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT offence.short_name, SUM(stat.number_of_cards) AS number_of_cards
@@ -537,7 +453,7 @@ class StatsRepository
     }
 
 
-    private function getSeasonStatRefereeAr($leaguesIds, $season, $part)
+    private function getStatRefereeAr($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT referee.name AS referee_name, ar.name AS ar_name, SUM(stat.number_of_matches) AS number_of_matches
@@ -571,7 +487,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatOfficialOfficial($leaguesIds, $season, $part)
+    private function getStatOfficialOfficial($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official1.name AS official1_name, official2.name AS official2_name, SUM(stat.number_of_matches) AS number_of_matches
@@ -605,7 +521,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatRefereeAssessor($leaguesIds, $season, $part)
+    private function getStatRefereeAssessor($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name AS referee_name, assessor.name AS assessor_name, SUM(stat.number_of_matches) AS number_of_matches
@@ -639,7 +555,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatOfficialAssessor($leaguesIds, $season, $part)
+    private function getStatOfficialAssessor($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name AS official_name, assessor.name AS assessor_name, SUM(stat.number_of_matches) AS number_of_matches
@@ -673,7 +589,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatOfficialTeam($leaguesIds, $season, $part)
+    private function getStatOfficialTeam($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name AS official_name, team.short_name AS team_name, SUM(stat.number_of_matches) AS number_of_matches
@@ -707,7 +623,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatOfficialHomeTeam($leaguesIds, $season, $part)
+    private function getStatOfficialHomeTeam($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT official.name AS official_name, team.short_name AS team_name, SUM(stat.number_of_matches) AS number_of_matches
@@ -742,7 +658,7 @@ class StatsRepository
     }
 
 
-    private function getSeasonStatAssessorMatches($leaguesIds, $season, $part)
+    private function getStatAssessorMatches($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT assessor.name, SUM(stat.number_of_matches) AS number_of_matches
@@ -772,7 +688,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatAssessorYellow($leaguesIds, $season, $part)
+    private function getStatAssessorYellow($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT assessor.name, SUM(stat.number_of_cards) AS number_of_cards
@@ -802,7 +718,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatAssessorYellowAvg($leaguesIds, $season, $part)
+    private function getStatAssessorYellowAvg($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT assessor.name, (IFNULL(c.number_of_cards, 0 )/m.number_of_matches) AS cards_avg
@@ -855,7 +771,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatAssessorRed($leaguesIds, $season, $part)
+    private function getStatAssessorRed($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT assessor.name, SUM(stat.number_of_cards) AS number_of_cards
@@ -885,7 +801,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatAssessorRedAvg($leaguesIds, $season, $part)
+    private function getStatAssessorRedAvg($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT assessor.name, (IFNULL(c.number_of_cards, 0 )/m.number_of_matches) AS cards_avg
@@ -938,7 +854,7 @@ class StatsRepository
         }
     }
 
-    private function getSeasonStatAssessorTeam($leaguesIds, $season, $part)
+    private function getStatAssessorTeam($leaguesIds, $season, $part)
     {
         if ($part === null) {
             return $this->connection->fetchAll('SELECT assessor.name AS assessor_name, team.short_name AS team_name, SUM(stat.number_of_matches) AS number_of_matches

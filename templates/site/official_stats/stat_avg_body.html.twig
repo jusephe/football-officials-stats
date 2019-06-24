@@ -1,0 +1,10 @@
+{% for key, stat in stats[stat_key] %}
+    {% set seasonEndYear = (key+1)|split('', 2) %}
+    <tr>
+        <td>{{ key }}/{{ seasonEndYear.1 }}</td>
+        {% for league in leagues %}
+            <td>{% if stat[league] is defined and stat[league] is not null %}{{ stat[league]|number_format(precision) }}{% endif %}</td>
+        {% endfor %}
+        <td class="font-weight-bold">{{ stat.total|number_format(precision) }}</td>
+    </tr>
+{% endfor %}

@@ -6,8 +6,10 @@ use App\Admin\Repository\AssessorRepository;
 use App\Admin\Repository\OfficialRepository;
 use App\Admin\Repository\PostRepository;
 use App\Admin\Repository\RedCardRepository;
-use App\Site\Repository\StatsRepository;
+use App\Site\Repository\OfficialStatsRepository;
+use App\Site\Repository\SeasonStatsRepository;
 use App\Site\Service\SeasonsListMaker;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\LineChart;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -74,7 +76,7 @@ class SiteController extends AbstractController
      *     "part"="podzim|jaro"
      * })
      */
-    public function seasonStats(StatsRepository $statsRepository, RedCardRepository $redCardRepository,
+    public function seasonStats(SeasonStatsRepository $statsRepository, RedCardRepository $redCardRepository,
                                 $league, $season, $part = null)
     {
         switch ($league) {
@@ -124,16 +126,41 @@ class SiteController extends AbstractController
     /**
      * @Route("/rozhodci/{id}", name="official_profile")
      */
-    public function officialProfile(OfficialRepository $officialRepository, StatsRepository $statsRepository, $id)
+    public function officialProfile(OfficialRepository $officialRepository, OfficialStatsRepository $statsRepository, $id)
     {
         $official = $officialRepository->find($id);
         if ($official === null) throw $this->createNotFoundException('Takový rozhodčí neexistuje!');
 
-        $stats = $statsRepository->getOfficialStats($id);
+        $currentYear = date('Y');
+        $seasons = [$currentYear-4, $currentYear-3, $currentYear-2, $currentYear-1]; // which seasons display in interaction stats tables
+        $leagues = ['Přebor', '1.A třída']; // which leagues display in basic stats tables
+
+        $stats = $statsRepository->getOfficialStats($id, $seasons, $leagues);
+
+        $redOffenceChart = new PieChart();
+        $redOffenceChart->getData()->setArrayToDataTable($stats['RefereeRedOffence']);
+        $redOffenceChart->getOptions()->setPieSliceText('value');
+        $redOffenceChart->getOptions()->getChartArea()->setWidth('90%');
+
+        $cardsMinutesChart = new LineChart();
+        $cardsMinutesChart->getData()->setArrayToDataTable($stats['RefereeCardsMinutes']);
+        $cardsMinutesChart->getOptions()->getChartArea()->setWidth('90%');
+        $cardsMinutesChart->getOptions()->getChartArea()->setTop('10%');
+        $cardsMinutesChart->getOptions()->getLegend()->setPosition('bottom');
+        $cardsMinutesChart->getOptions()->getHAxis()->setTicks([5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90]);
+        $cardsMinutesChart->getOptions()->getVAxis()->getGridlines()->setCount(
+            $stats['RefereeCardsMinutesMaxNumberOfCards'] + 1 );
+        $cardsMinutesChart->getOptions()->getVAxis()->getMinorGridlines()->setCount(0);
+        $cardsMinutesChart->getOptions()->setColors(['gold', 'crimson']);
+        $cardsMinutesChart->getOptions()->setLineWidth(3);
 
         return $this->render('site/official_profile.html.twig', [
             'official' => $official,
             'stats' => $stats,
+            'redOffenceChart' => $redOffenceChart,
+            'cardsMinutesChart' => $cardsMinutesChart,
+            'seasons' => $seasons,
+            'leagues' => $leagues,
         ]);
     }
 

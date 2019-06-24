@@ -10,56 +10,43 @@
 
 {% block main %}
 
-    <h2 class="h4">Nominační listiny</h2>
+    {{ include('site/official_stats/nomination_lists.html.twig') }}
 
-    {% if official.nominationLists is not empty %}
-        <table class="table">
-            <tbody>
-            {% for nominationList in official.nominationLists %}
-                <tr>
-                    <td style="width: 10em">{{ nominationList.year }} - {{ nominationList.partOfSeason }}</td>
-                    <td class="font-weight-bold">{{ nominationList.leagueLevelName }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>U tohoto rozhodčího nejsou vedeny žádné nominační listiny.</p>
-    {% endif %}
+    {{ include('site/official_stats/referee_matches.html.twig') }}
 
+    {{ include('site/official_stats/ar1_matches.html.twig') }}
 
-    <h2 class="h4">Zápasy v roli hlavního rozhodčího</h2>
-    <div class="table-responsive mb-5">
-        <table class="table table-sm table-striped stat-table-official">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">Sezóna</th>
-                <th scope="col" class="sum">Přebor</th>
-                <th scope="col" class="sum">1.A třída</th>
-                <th scope="col" class="sum">Celkem</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for stat in stats.RefereeMatches %}
-                {% set seasonEndYear = (stat.season+1)|split('', 2) %}
-                <tr>
-                    <td>{{ stat.season }}/{{ seasonEndYear.1 }}</td>
-                    <td>{{ stat.prebor }}</td>
-                    <td>{{ stat.atrida }}</td>
-                    <td class="font-weight-bold">{{ stat.total }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-            <tfoot>
-            <tr>
-                <th>Celkem</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            </tfoot>
-        </table>
-    </div>
+    {{ include('site/official_stats/ar2_matches.html.twig') }}
+
+    {{ include('site/official_stats/ar1_and_ar2_matches.html.twig') }}
+
+    {{ include('site/official_stats/official_matches.html.twig') }}
+
+    {{ include('site/official_stats/referee_yellow.html.twig') }}
+
+    {{ include('site/official_stats/referee_yellow_avg.html.twig') }}
+
+    {{ include('site/official_stats/referee_yellow_first.html.twig') }}
+
+    {{ include('site/official_stats/referee_red.html.twig') }}
+
+    {{ include('site/official_stats/referee_red_avg.html.twig') }}
+
+    {{ include('site/official_stats/referee_red_offence.html.twig') }}
+
+    {{ include('site/official_stats/referee_cards_minutes.html.twig') }}
+
+    {{ include('site/official_stats/referee_ar.html.twig') }}
+
+    {{ include('site/official_stats/official_official.html.twig') }}
+
+    {{ include('site/official_stats/referee_assessor.html.twig') }}
+
+    {{ include('site/official_stats/official_assessor.html.twig') }}
+
+    {{ include('site/official_stats/official_team.html.twig') }}
+
+    {{ include('site/official_stats/official_home_team.html.twig') }}
 
 {% endblock %}
 
@@ -67,4 +54,8 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('scripts/site/official_datatables.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        {{ gc_draw([redOffenceChart, cardsMinutesChart], ['red_offence_chart', 'cards_minutes_chart']) }}
+    </script>
 {% endblock %}

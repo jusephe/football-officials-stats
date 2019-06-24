@@ -1,0 +1,13 @@
+<tfoot>
+<tr>
+    <th>Celkem</th>
+    {% for league in leagues %}
+        <th>
+            {% if stats[totals][league] is not empty %}{{ stats[totals][league]|number_format(precision) }}{% endif %}
+        </th>
+    {% endfor %}
+    <th>
+        {% if stats[totals]['total'] is not empty %}{{ stats[totals]['total']|number_format(precision) }}{% endif %}
+    </th>
+</tr>
+</tfoot>

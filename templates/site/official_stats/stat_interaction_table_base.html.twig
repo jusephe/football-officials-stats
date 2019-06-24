@@ -1,0 +1,32 @@
+{% extends 'site/official_stats/stat_table_base.html.twig' %}
+
+{% set statTableClass = 'stat-table-official-inter' %}
+
+{% set season1EndYear = (seasons.0 + 1)|split('', 2) %}
+{% set season2EndYear = (seasons.1 + 1)|split('', 2) %}
+{% set season3EndYear = (seasons.2 + 1)|split('', 2) %}
+{% set season4EndYear = (seasons.3 + 1)|split('', 2) %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block head %}
+    <th scope="col">{{ entity_name }}</th>
+    <th scope="col">{{ seasons.0 }}/{{ season1EndYear.1 }}</th>
+    <th scope="col">{{ seasons.1 }}/{{ season2EndYear.1 }}</th>
+    <th scope="col">{{ seasons.2 }}/{{ season3EndYear.1 }}</th>
+    <th scope="col">{{ seasons.3 }}/{{ season4EndYear.1 }}</th>
+    <th scope="col">Celkem</th>
+{% endblock %}
+
+{% block body %}
+    {% for key, stat in stats[stat_key] %}
+        <tr>
+            <td>{{ key }}</td>
+            <td>{% if stat[seasons.0] is defined %}{{ stat[seasons.0] }}{% endif %}</td>
+            <td>{% if stat[seasons.1] is defined %}{{ stat[seasons.1] }}{% endif %}</td>
+            <td>{% if stat[seasons.2] is defined %}{{ stat[seasons.2] }}{% endif %}</td>
+            <td>{% if stat[seasons.3] is defined %}{{ stat[seasons.3] }}{% endif %}</td>
+            <td class="font-weight-bold">{{ stat.total }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

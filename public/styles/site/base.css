@@ -53,13 +53,13 @@ ul {
     background-color: #007bff;
 }
 
-.pie-chart {
+.pie-chart, .line-chart {
     height: 24em;
 }
 
-*[data-toggle="collapse"] *:before {
+a[data-toggle="collapse"] *:before {
     content: "\25BE";
 }
-*[data-toggle="collapse"].collapsed *:before {
+a[data-toggle="collapse"].collapsed *:before {
     content: "\25B8";
 }
