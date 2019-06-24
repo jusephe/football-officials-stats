@@ -1,9 +1,31 @@
 {% extends 'site/base.html.twig' %}
 
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+
 {% set page_title = assessor.name %}
 
 {% block heading %}{{ page_title }}{% endblock %}
 
 {% block main %}
 
+    {{ include('site/official_stats/assessor_matches.html.twig') }}
+
+    {{ include('site/official_stats/assessor_yellow.html.twig') }}
+
+    {{ include('site/official_stats/assessor_yellow_avg.html.twig') }}
+
+    {{ include('site/official_stats/assessor_red.html.twig') }}
+
+    {{ include('site/official_stats/assessor_red_avg.html.twig') }}
+
+    {{ include('site/official_stats/assessor_team.html.twig') }}
+
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ asset('scripts/site/official_datatables.js') }}"></script>
 {% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'site/official_stats/stat_table_base.html.twig' %}
+
+{% set statTableClass = 'stat-table-official-simple' %}
+
+{% block title %}Zápasy delegáta celkem{% endblock %}
+
+{% block head %}
+    {{ include('site/official_stats/stat_quantity_head.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    {{ include('site/official_stats/stat_quantity_body.html.twig', {stat_key: 'AssessorMatches'}) }}
+{% endblock %}
+
+{% block foot %}
+    {{ include('site/official_stats/stat_quantity_foot.html.twig') }}
+{% endblock %}

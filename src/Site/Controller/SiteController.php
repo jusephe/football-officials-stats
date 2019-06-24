@@ -6,6 +6,7 @@ use App\Admin\Repository\AssessorRepository;
 use App\Admin\Repository\OfficialRepository;
 use App\Admin\Repository\PostRepository;
 use App\Admin\Repository\RedCardRepository;
+use App\Site\Repository\AssessorStatsRepository;
 use App\Site\Repository\OfficialStatsRepository;
 use App\Site\Repository\SeasonStatsRepository;
 use App\Site\Service\SeasonsListMaker;
@@ -179,13 +180,22 @@ class SiteController extends AbstractController
     /**
      * @Route("/delegati/{id}", name="assessor_profile")
      */
-    public function assessorProfile(AssessorRepository $assessorRepository, $id)
+    public function assessorProfile(AssessorRepository $assessorRepository, AssessorStatsRepository $statsRepository, $id)
     {
         $assessor = $assessorRepository->find($id);
         if ($assessor === null) throw $this->createNotFoundException('Takový delegát neexistuje!');
 
+        $currentYear = date('Y');
+        $seasons = [$currentYear-4, $currentYear-3, $currentYear-2, $currentYear-1]; // which seasons display in interaction stats tables
+        $leagues = ['Přebor', '1.A třída']; // which leagues display in basic stats tables
+
+        $stats = $statsRepository->getAssessorStats($id, $seasons, $leagues);
+
         return $this->render('site/assessor_profile.html.twig', [
-            'assessor' => $assessor
+            'assessor' => $assessor,
+            'stats' => $stats,
+            'seasons' => $seasons,
+            'leagues' => $leagues,
         ]);
     }
 
