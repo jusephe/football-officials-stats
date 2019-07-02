@@ -2,8 +2,8 @@ $.extend( $.fn.dataTable.defaults, {
     order: [ 0, 'asc' ],
     language: {
         "sEmptyTable":     "Tabulka neobsahuje žádná data",
-        "sInfo":           "Zobrazuji _START_ až _END_ z celkem _TOTAL_ záznamů",
-        "sInfoEmpty":      "Zobrazuji 0 až 0 z 0 záznamů",
+        "sInfo":           "_START_ až _END_ z celkem _TOTAL_ záznamů",
+        "sInfoEmpty":      "",
         "sInfoFiltered":   "(filtrováno z celkem _MAX_ záznamů)",
         "sInfoPostFix":    "",
         "sInfoThousands":  " ",
@@ -15,8 +15,8 @@ $.extend( $.fn.dataTable.defaults, {
         "oPaginate": {
             "sFirst":    "První",
             "sLast":     "Poslední",
-            "sNext":     "Další",
-            "sPrevious": "Předchozí"
+            "sNext":     ">",
+            "sPrevious": "<"
         },
         "oAria": {
             "sSortAscending":  ": aktivujte pro řazení sloupce vzestupně",

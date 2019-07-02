@@ -64,3 +64,7 @@ ul {
 .dropdown-item.active, .dropdown-item:active {
     background-color: #007bff;
 }
+
+.modal-body {
+    font-size: 1.2em;
+}

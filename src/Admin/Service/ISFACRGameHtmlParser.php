@@ -200,6 +200,7 @@ class ISFACRGameHtmlParser
                 }
                 if ($firstYellowMinute !== '') {  // with yellow card
                     $yellow1 = new YellowCard();
+                    if ($firstYellowMinute > 90) $firstYellowMinute = 90;
                     $yellow1->setMinute($firstYellowMinute);
                     $game->addYellowCard($yellow1);
 
@@ -210,6 +211,7 @@ class ISFACRGameHtmlParser
                     }
                     if ($secondYellowMinute !== '') {  // with second yellow card
                         $yellow2 = new YellowCard();
+                        if ($secondYellowMinute > 90) $secondYellowMinute = 90;
                         $yellow2->setMinute($secondYellowMinute);
                         $game->addYellowCard($yellow2);
                     }
@@ -232,6 +234,7 @@ class ISFACRGameHtmlParser
                 if (strpos($minute, '+')) {  // something like 45+2, need to convert to 45
                     $minute = substr($minute, 0, 2);
                 }
+                if ($minute > 90) $minute = 90;
 
                 $fullDescription = trim($crawler_part->filter('tr')->eq($i+1)->text());
                 $partsOfFullDescription = preg_split('/,([^,]*),/', $fullDescription, 2, PREG_SPLIT_DELIM_CAPTURE);
