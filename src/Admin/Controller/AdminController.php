@@ -12,6 +12,7 @@ use App\Admin\Entity\Team;
 use App\Admin\Exception\LeagueNotFound;
 use App\Admin\Exception\TeamNotFound;
 use App\Admin\Form\AssessorType;
+use App\Admin\Form\ChangePasswordType;
 use App\Admin\Form\GamePunishmentsType;
 use App\Admin\Form\GameType;
 use App\Admin\Form\LeagueType;
@@ -39,6 +40,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Validator\Constraints\Valid;
 
@@ -634,6 +636,32 @@ class AdminController extends AbstractController
         $this->addFlash('alert alert-success', 'Novinka byla úspěšně smazána.');
 
         return $this->redirectToRoute('posts');
+    }
+
+
+    /**
+     * @Route("/admin/change-password", name="change_password")
+     */
+    public function changePassword(Request $request, UserPasswordEncoderInterface $encoder)
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(ChangePasswordType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($encoder->encodePassword($user, $form->get('newPassword')->getData()));
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('alert alert-success', 'Heslo bylo úspěšně změněno.');
+
+            return $this->render('admin/change_password.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        }
+
+        return $this->render('admin/change_password.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 }
