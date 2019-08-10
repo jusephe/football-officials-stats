@@ -1,6 +1,6 @@
 {% extends 'site/base.html.twig' %}
 
-{% set page_title = 'Přebor' %}
+{% set page_title = league %}
 
 {% block heading %}{{ page_title }}{% endblock %}
 
@@ -16,16 +16,16 @@
                         {{ season.season }}/{{ seasonEndYear.1 }}
                     </td>
                     <td style="width: 7.3em">
-                        <a href="{{ path('season_stats', {'league': 'prebor', 'season': season.season}) }}">Celá sezóna</a>
+                        <a href="{{ path('season_stats', {'league': slug, 'season': season.season}) }}">Celá sezóna</a>
                     </td>
                     <td style="width: 4em">
                         {% if season.autumn == true %}
-                            <a href="{{ path('season_stats', {'league': 'prebor', 'season': season.season, 'part': 'podzim'}) }}">Podzim</a>
+                            <a href="{{ path('season_stats', {'league': slug, 'season': season.season, 'part': 'podzim'}) }}">Podzim</a>
                         {% endif %}
                     </td>
                     <td>
                         {% if season.spring == true %}
-                            <a href="{{ path('season_stats', {'league': 'prebor', 'season': season.season, 'part': 'jaro'}) }}">Jaro</a>
+                            <a href="{{ path('season_stats', {'league': slug, 'season': season.season, 'part': 'jaro'}) }}">Jaro</a>
                         {% endif %}
                     </td>
                 </tr>

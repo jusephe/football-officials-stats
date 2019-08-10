@@ -51,23 +51,30 @@ class SiteController extends AbstractController
     }
 
     /**
-     * @Route("/prebor", name="prebor")
+     * @Route("/{league}", name="league", requirements={
+     *     "league"="prebor|a-trida"
+     * })
      */
-    public function prebor(SeasonsListMaker $seasonsListMaker)
+    public function league(SeasonsListMaker $seasonsListMaker, $league)
     {
-        $seasonsWithParts = $seasonsListMaker->createSeasonsList('Přebor');
+        $slug = $league;
 
-        return $this->render('site/prebor.html.twig', ['seasons' => $seasonsWithParts]);
-    }
+        switch ($league) {
+            case 'prebor':
+                $league = 'Přebor';
+                break;
+            case 'a-trida':
+                $league = '1.A třída';
+                break;
+        }
 
-    /**
-     * @Route("/a-trida", name="a_trida")
-     */
-    public function aTrida(SeasonsListMaker $seasonsListMaker)
-    {
-        $seasonsWithParts = $seasonsListMaker->createSeasonsList('1.A třída');
+        $seasonsWithParts = $seasonsListMaker->createSeasonsList($league);
 
-        return $this->render('site/a_trida.html.twig', ['seasons' => $seasonsWithParts]);
+        return $this->render('site/league.html.twig', [
+            'seasons' => $seasonsWithParts,
+            'league' => $league,
+            'slug' => $slug,
+        ]);
     }
 
     /**
