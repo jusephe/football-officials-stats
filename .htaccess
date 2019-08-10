@@ -1,5 +1,12 @@
 <IfModule mod_rewrite.c>
 RewriteEngine on
+
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTP_USER_AGENT} !(BlackBerry)
+RewriteCond %{HTTP_USER_AGENT} !(Windows\sNT\s5\.[12])
+RewriteCond %{HTTP_HOST} ^(www\.)?rozhodci.ledosvetleni-slovacko.cz
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L]
+
 RewriteCond %{REQUEST_URI} !^/public/
 RewriteRule ^(.*)$ /public/$1 [L]
 </IfModule>
