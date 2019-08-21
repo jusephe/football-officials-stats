@@ -15,6 +15,8 @@
 
 {% block main %}
 
+    <h2 class="h4 mb-3">Zápasy</h2>
+
     {{ include('site/season_stats/referee_matches.html.twig') }}
 
     {{ include('site/season_stats/ar1_matches.html.twig') }}
@@ -24,6 +26,8 @@
     {{ include('site/season_stats/ar1_and_ar2_matches.html.twig') }}
 
     {{ include('site/season_stats/official_matches.html.twig') }}
+
+    <h2 class="h4 mb-3">Karty</h2>
 
     {{ include('site/season_stats/referee_yellow.html.twig') }}
 
@@ -39,6 +43,8 @@
 
     {{ include('site/season_stats/red_cards_punishments.html.twig') }}
 
+    <h2 class="h4 mb-3">Interakce</h2>
+
     {{ include('site/season_stats/referee_ar.html.twig') }}
 
     {{ include('site/season_stats/official_official.html.twig') }}
@@ -50,6 +56,8 @@
     {{ include('site/season_stats/official_team.html.twig') }}
 
     {{ include('site/season_stats/official_home_team.html.twig') }}
+
+    <h2 class="h4 mb-3">Delegáti</h2>
 
     {{ include('site/season_stats/assessor_matches.html.twig') }}
 
@@ -72,5 +80,8 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         {{ gc_draw(redOffenceChart, 'red_offence_chart') }}
+        $(document).ready(function() {
+            $('#red_offence_chart').collapse('hide')
+        } );
     </script>
 {% endblock %}
