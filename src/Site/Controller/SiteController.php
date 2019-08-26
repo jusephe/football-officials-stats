@@ -140,7 +140,12 @@ class SiteController extends AbstractController
         if ($official === null) throw $this->createNotFoundException('Takový rozhodčí neexistuje!');
 
         $currentYear = date('Y');
-        $seasons = [$currentYear-4, $currentYear-3, $currentYear-2, $currentYear-1]; // which seasons display in interaction stats tables
+        $currentMonth = date('n');
+        if($currentMonth < 8) {
+            $seasons = [$currentYear-4, $currentYear-3, $currentYear-2, $currentYear-1]; // which seasons display in interaction stats tables
+        }
+        else $seasons = [$currentYear-3, $currentYear-2, $currentYear-1, $currentYear];
+
         $leagues = ['Přebor', '1.A třída']; // which leagues display in basic stats tables
 
         $stats = $statsRepository->getOfficialStats($id, $seasons, $leagues);
@@ -193,7 +198,12 @@ class SiteController extends AbstractController
         if ($assessor === null) throw $this->createNotFoundException('Takový delegát neexistuje!');
 
         $currentYear = date('Y');
-        $seasons = [$currentYear-4, $currentYear-3, $currentYear-2, $currentYear-1]; // which seasons display in interaction stats tables
+        $currentMonth = date('n');
+        if($currentMonth < 8) {
+            $seasons = [$currentYear-4, $currentYear-3, $currentYear-2, $currentYear-1]; // which seasons display in interaction stats tables
+        }
+        else $seasons = [$currentYear-3, $currentYear-2, $currentYear-1, $currentYear];
+
         $leagues = ['Přebor', '1.A třída']; // which leagues display in basic stats tables
 
         $stats = $statsRepository->getAssessorStats($id, $seasons, $leagues);

@@ -12,6 +12,8 @@
 
     {{ include('site/official_stats/nomination_lists.html.twig') }}
 
+    <h2 class="h4 mb-3">Zápasy</h2>
+
     {{ include('site/official_stats/referee_matches.html.twig') }}
 
     {{ include('site/official_stats/ar1_matches.html.twig') }}
@@ -21,6 +23,8 @@
     {{ include('site/official_stats/ar1_and_ar2_matches.html.twig') }}
 
     {{ include('site/official_stats/official_matches.html.twig') }}
+
+    <h2 class="h4 mb-3">Karty</h2>
 
     {{ include('site/official_stats/referee_yellow.html.twig') }}
 
@@ -35,6 +39,8 @@
     {{ include('site/official_stats/referee_red_offence.html.twig') }}
 
     {{ include('site/official_stats/referee_cards_minutes.html.twig') }}
+
+    <h2 class="h4 mb-3">Interakce</h2>
 
     {{ include('site/official_stats/referee_ar.html.twig') }}
 
@@ -57,5 +63,9 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         {{ gc_draw([redOffenceChart, cardsMinutesChart], ['red_offence_chart', 'cards_minutes_chart']) }}
+        $(document).ready(function() {
+            $('#red_offence_chart').collapse('hide');
+            $('#cards_minutes_chart').collapse('hide');
+        } );
     </script>
 {% endblock %}

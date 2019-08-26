@@ -1,18 +1,21 @@
-<h2 class="h4">{% block title %}{% endblock %}</h2>
-
-<div class="table-responsive mb-5">
-    <table class="table table-sm table-striped {{ statTableClass }}">
-        <thead class="thead-dark">
-        <tr>
-            {% block head %}
-            {% endblock %}
-        </tr>
-        </thead>
-        <tbody>
+<div class="mb-4">
+    <a class="collapsed" data-toggle="collapse" href="#{% block div_id %}{% endblock %}" aria-expanded="false" aria-controls="{{ block('div_id') }}">
+        <h3 class="h5"> {% block title %}{% endblock %}</h3>
+    </a>
+    <div class="collapse table-responsive mb-5" id="{{ block('div_id') }}">
+        <table class="table table-sm table-striped {{ statTableClass }}">
+            <thead class="thead-dark">
+            <tr>
+                {% block head %}
+                {% endblock %}
+            </tr>
+            </thead>
+            <tbody>
             {% block body %}
             {% endblock %}
-        </tbody>
-        {% block foot %}
-        {% endblock %}
-    </table>
+            </tbody>
+            {% block foot %}
+            {% endblock %}
+        </table>
+    </div>
 </div>

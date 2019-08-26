@@ -1,16 +1,21 @@
-<h2 class="h4">Nominační listiny</h2>
-
-{% if official.nominationLists is not empty %}
-    <table class="table">
-        <tbody>
-        {% for nominationList in official.nominationLists %}
-            <tr>
-                <td style="width: 10em">{{ nominationList.year }} - {{ nominationList.partOfSeason }}</td>
-                <td class="font-weight-bold">{{ nominationList.leagueLevelName }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>U tohoto rozhodčího nejsou vedeny žádné nominační listiny.</p>
-{% endif %}
+<div class="mb-4">
+    <a class="collapsed" data-toggle="collapse" href="#nominationLists" aria-expanded="false" aria-controls="nominationLists">
+        <h3 class="h5"> Nominační listiny</h3>
+    </a>
+    <div id="nominationLists" class="collapse">
+        {% if official.nominationLists is not empty %}
+            <table class="table">
+                <tbody>
+                {% for nominationList in official.nominationLists %}
+                    <tr>
+                        <td style="width: 10em">{{ nominationList.year }} - {{ nominationList.partOfSeason }}</td>
+                        <td class="font-weight-bold">{{ nominationList.leagueLevelName }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>U tohoto rozhodčího nejsou vedeny žádné nominační listiny.</p>
+        {% endif %}
+    </div>
+</div>
