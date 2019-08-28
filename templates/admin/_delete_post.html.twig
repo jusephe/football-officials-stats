@@ -17,7 +17,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Zrušit</button>
-                <form action="{{ url('delete_post', {id: post.id}) }}" method="POST">
+                <form action="{{ path('delete_post', {id: post.id}) }}" method="POST">
                     <input type="hidden" name="token" value="{{ csrf_token('post_delete') }}" />
                     <button type="submit" class="btn btn-danger">
                         Ano, smazat
