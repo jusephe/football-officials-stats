@@ -17,8 +17,12 @@
         {{ form_end(form) }}
     </div>
 
-    <div class="mb-4 mb-md-5">
+    <div class="mb-2 mb-md-3">
         <a href="{{ path('add_game_form') }}">Přidat zápas ručně</a>
+    </div>
+
+    <div class="mb-3 mb-md-4">
+        <a href="{{ path('games') }}">Seznam přidaných zápasů</a>
     </div>
 
     <p>
@@ -28,9 +32,12 @@
     </p>
 
     <button type="button" class="btn btn-primary mb-1" id="update_stats">Aktualizovat statistiky</button>
-    <p class="text-muted">
+    <p class="text-muted mb-4 mb-md-4">
         (Operace může chvíli trvat, mějte prosím strpení.)
     </p>
+
+    <div id="new_season" class="alert alert-warning">Na začátku nové sezóny je potřeba zkontrolovat, jestli některý tým
+        nepozměnil svůj název (který se objevuje v&nbsp;zápisech) a případně ho aktualizovat na stránce Správa&nbsp;->&nbsp;Týmy.</div>
 
 {% endblock %}
 

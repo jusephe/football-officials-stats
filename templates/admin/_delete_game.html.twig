@@ -1,10 +1,10 @@
 <!-- Button trigger modal -->
-<a href="" role="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteConfirm{{ post.id }}">
+<a href="" role="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteConfirm{{ game.id }}">
     Smazat
 </a>
 
 <!-- Modal -->
-<div class="modal fade" id="deleteConfirm{{ post.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmLabel" aria-hidden="true">
+<div class="modal fade" id="deleteConfirm{{ game.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,12 +13,12 @@
                 </button>
             </div>
             <div class="modal-body text-left">
-                Opravdu chcete novinku smazat?
+                Opravdu chcete zápas smazat?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Zrušit</button>
-                <form action="{{ url('delete_post', {id: post.id}) }}" method="POST">
-                    <input type="hidden" name="token" value="{{ csrf_token('post_delete') }}" />
+                <form action="{{ url('delete_game', {id: game.id}) }}" method="POST">
+                    <input type="hidden" name="token" value="{{ csrf_token('game_delete') }}" />
                     <button type="submit" class="btn btn-danger">
                         Ano, smazat
                     </button>

@@ -143,6 +143,41 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/admin/games", name="games")
+     */
+    public function games(GameRepository $gameRepository)
+    {
+        $games = $gameRepository->findAllOrderByAdded();
+
+        return $this->render('admin/games.html.twig', [
+            'games' => $games
+        ]);
+    }
+
+    /**
+     * @Route("/admin/games/{id}/delete", methods={"POST"}, name="delete_game", requirements={"id"="\d+"})
+     */
+    public function deleteGame(Request $request, EntityManagerInterface $entityManager, $id) {
+
+        $game = $entityManager->getRepository(Game::class)->find($id);
+        if ( $game === null ) {
+            throw $this->createNotFoundException('Takový zápas neexistuje!');
+        }
+
+        if (!$this->isCsrfTokenValid('game_delete', $request->request->get('token'))) {
+            return $this->redirectToRoute('games');
+        }
+
+        $entityManager->remove($game);
+        $entityManager->flush();
+
+        $this->addFlash('alert alert-success',
+            'Zápas byl úspěšně smazán. (Nezapomeňte aktualizovat statistiky!)');
+
+        return $this->redirectToRoute('games');
+    }
+
+    /**
      * @Route("/admin/update-stats", name="update_stats")
      */
     public function updateStats(StatsRepository $statsRepository)
@@ -170,7 +205,8 @@ class AdminController extends AbstractController
                 "label" => "Sezóna:",
                 "choices" => $gameFunctionality->getDistinctSeasons(),
                 'choice_label' => function ($choice) {
-                    return $choice;  // pure season
+                    $seasonEndYear = substr($choice+1, 2);
+                    return "$choice/$seasonEndYear";  // pure season
                 },
             ])
             ->add("round", ChoiceType::class, [

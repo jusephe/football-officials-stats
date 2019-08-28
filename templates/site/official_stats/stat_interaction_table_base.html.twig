@@ -9,10 +9,10 @@
 {% block head %}
     <th scope="col">{{ entity_name }}</th>
     {% for season in seasons %}
-        {% set seasonEndYear = (season + 1)|split('', 2) %}
-        <th scope="col">{{ season }}/{{ seasonEndYear.1 }}</th>
+        {% set seasonEndYear = (season + 1)|slice(2, 2) %}
+        <th scope="col" class="text-center">{{ season }}/{{ seasonEndYear }}</th>
     {% endfor %}
-    <th scope="col">Celkem</th>
+    <th scope="col" class="text-center">Celkem</th>
 {% endblock %}
 
 {% block body %}
@@ -20,9 +20,9 @@
         <tr>
             <td>{{ key }}</td>
             {% for season in seasons %}
-                <td>{% if stat[season] is defined %}{{ stat[season] }}{% endif %}</td>
+                <td class="text-center">{% if stat[season] is defined %}{{ stat[season] }}{% endif %}</td>
             {% endfor %}
-            <td class="font-weight-bold">{{ stat.total }}</td>
+            <td class="font-weight-bold text-center">{{ stat.total }}</td>
         </tr>
     {% endfor %}
 {% endblock %}

@@ -4,9 +4,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 {% endblock %}
 
-{% set seasonEndYear = (season+1)|split('', 2) %}
+{% set seasonEndYear = (season+1)|slice(2, 2) %}
 
-{% set page_title = league ~ ' ' ~ season ~ '/' ~ seasonEndYear.1 %}
+{% set page_title = league ~ ' ' ~ season ~ '/' ~ seasonEndYear %}
 {% if part is not null %}
     {% set page_title = page_title ~ ' - ' ~ part|capitalize %}
 {% endif %}
@@ -74,11 +74,11 @@
 {% endblock %}
 
 {% block scripts %}
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('scripts/site/season_datatables.js') }}"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
         {{ gc_draw(redOffenceChart, 'red_offence_chart') }}
         $(document).ready(function() {
             $('#red_offence_chart').collapse('hide')

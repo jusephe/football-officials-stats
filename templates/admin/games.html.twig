@@ -1,0 +1,41 @@
+{% extends 'admin/base.html.twig' %}
+
+{% set page_title = 'Seznam zápasů' %}
+
+{% block heading %}{{ page_title }}{% endblock %}
+
+{% block main %}
+
+    <p>
+        Zápasy jsou řazeny dle pořadí vložení do systému, nejvýše se nacházejí zápasy přidané jako poslední.
+    </p>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Soutěž</th>
+                <th scope="col">Sezóna</th>
+                <th scope="col">Kolo</th>
+                <th scope="col">Domácí – Hosté</th>
+                <th scope="col" style="width: 5em;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for game in games %}
+                <tr>
+                    <td class="align-middle">{{ game.league.shortName }}</td>
+                    {% set seasonEndYear = (game.season+1)|slice(2, 2) %}
+                    <td class="align-middle">{{ game.season }}/{{ seasonEndYear }}</td>
+                    <td class="align-middle">{{ game.round }}.</td>
+                    <td class="align-middle">{{ game.homeTeam.shortName }} – {{ game.awayTeam.shortName }}</td>
+                    <td class="text-right">
+                        {{ include('admin/_delete_game.html.twig', {game: game}, with_context = false) }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

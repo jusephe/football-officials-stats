@@ -39,7 +39,7 @@ class YellowCard
      *
      * @ORM\ManyToOne(targetEntity="Game", inversedBy="yellowCards")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="game_id", referencedColumnName="id", nullable=false)
+     *   @ORM\JoinColumn(name="game_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * })
      * @Assert\NotBlank
      */

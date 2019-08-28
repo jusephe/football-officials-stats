@@ -19,6 +19,11 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
+    public function findAllOrderByAdded()
+    {
+        return $this->findBy([], ['id' => 'DESC']);
+    }
+
     // /**
     //  * @return Game[] Returns an array of Game objects
     //  */
