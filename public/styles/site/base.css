@@ -1,5 +1,6 @@
 body {
     padding-bottom: 3.125rem;
+    font-family: Verdana, Helvetica, Sans-Serif;
 }
 
 div.container-main > * {
@@ -51,6 +52,10 @@ ul {
 /* fix */
 .dropdown-item.active, .dropdown-item:active {
     background-color: #007bff;
+}
+
+.h-underline {
+    border-bottom: 1px solid #ccc;
 }
 
 .pie-chart, .line-chart {

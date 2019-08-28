@@ -8,14 +8,14 @@
 
 {% set page_title = league ~ ' ' ~ season ~ '/' ~ seasonEndYear %}
 {% if part is not null %}
-    {% set page_title = page_title ~ ' - ' ~ part|capitalize %}
+    {% set page_title = page_title ~ ' – ' ~ part|capitalize %}
 {% endif %}
 
 {% block heading %}{{ page_title }}{% endblock %}
 
 {% block main %}
 
-    <h2 class="h4 mb-3">Zápasy</h2>
+    <h2 class="h4 mb-3 h-underline">Zápasy</h2>
 
     {{ include('site/season_stats/referee_matches.html.twig') }}
 
@@ -27,7 +27,7 @@
 
     {{ include('site/season_stats/official_matches.html.twig') }}
 
-    <h2 class="h4 mb-3">Karty</h2>
+    <h2 class="h4 mb-3 h-underline">Karty</h2>
 
     {{ include('site/season_stats/referee_yellow.html.twig') }}
 
@@ -43,7 +43,7 @@
 
     {{ include('site/season_stats/red_cards_punishments.html.twig') }}
 
-    <h2 class="h4 mb-3">Interakce</h2>
+    <h2 class="h4 mb-3 h-underline">Interakce</h2>
 
     {{ include('site/season_stats/referee_ar.html.twig') }}
 
@@ -57,7 +57,7 @@
 
     {{ include('site/season_stats/official_home_team.html.twig') }}
 
-    <h2 class="h4 mb-3">Delegáti</h2>
+    <h2 class="h4 mb-3 h-underline">Delegáti</h2>
 
     {{ include('site/season_stats/assessor_matches.html.twig') }}
 
