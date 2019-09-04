@@ -1,0 +1,70 @@
+body {
+    padding-bottom: 3.125rem;
+    font-family: Verdana, Helvetica, sans-serif;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* bigger dropdown arrow */
+.dropdown-toggle::after {
+    vertical-align: middle;
+    border-top: 0.4em solid;
+    border-right: 0.4em solid transparent;
+    border-left: 0.4em solid transparent;
+}
+
+/* less rounded corners */
+.dropdown-menu {
+    border-radius: 0.2rem;
+}
+
+/* darker dropdown items background */
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: #f2f2f3;
+}
+/* fix */
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #007bff;
+}
+
+/* ----- loading ----- */
+.loading {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    z-index: 99;
+    background: rgba(255, 255, 255, 1);
+    display: flex;
+    justify-content: center;
+}
+
+.loading.loading-transparent {
+    background: rgba(255, 255, 255, 0.75);
+}
+
+.loading-align {
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    top: 25%;
+}
+
+.loading-animation {
+    display: inline-block;
+    width: 3.125rem;
+    height: 3.125rem;
+    border: 0.4375rem solid rgba(189, 189, 189, 0.25);
+    border-left-color: #007bff;
+    border-top-color: #007bff;
+    border-radius: 50%;
+    animation: my-rotate 600ms infinite linear;
+}
+
+@keyframes my-rotate {
+    to {
+        transform: rotate(1turn)
+    }
+}

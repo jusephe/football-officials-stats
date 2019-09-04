@@ -1,3 +1,5 @@
+// --------------------------- DATATABLES ---------------------------
+
 $.extend( $.fn.dataTable.defaults, {
     order: [ 0, 'asc' ],
     language: {
@@ -57,3 +59,5 @@ $(document).ready(function() {
         order: [ 5, 'desc' ],
     } );
 } );
+
+// ------------------------ END OF DATATABLES ------------------------

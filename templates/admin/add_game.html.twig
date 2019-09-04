@@ -10,7 +10,17 @@
 
 {% block main %}
 
-    <div class="mb-3">
+    <div class="loading d-none">
+        <div class="loading-align">
+            <div class="loading-animation"></div>
+            <div>Aktualizace statistik...</div>
+            <p class="text-muted">
+                Operace může chvíli trvat, mějte prosím strpení.
+            </p>
+        </div>
+    </div>
+
+    <div class="mb-3 mb-md-4">
         {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" class="btn btn-primary btn-send" value="Odeslat"/>
@@ -31,20 +41,16 @@
         Po vložení jednoho či více celých kol je potřeba aktualizovat tabulky se statistikami pomocí tlačítka níže.
     </p>
 
-    <button type="button" class="btn btn-primary mb-1" id="update_stats">Aktualizovat statistiky</button>
-    <p class="text-muted mb-4 mb-md-4">
-        (Operace může chvíli trvat, mějte prosím strpení.)
-    </p>
+    <button type="button" class="btn btn-primary mb-3 mb-md-4" id="update_stats" data-path="{{ path('update_stats') }}">
+        Aktualizovat statistiky
+    </button>
 
-    <div id="new_season" class="alert alert-warning">Na začátku nové sezóny je potřeba zkontrolovat, jestli některý tým
-        nepozměnil svůj název (který se objevuje v&nbsp;zápisech) a případně ho aktualizovat na stránce Správa&nbsp;->&nbsp;Týmy.</div>
+    <div id="new_season" class="alert alert-warning">Na začátku nové sezóny je potřeba zkontrolovat, jestli některý tým nepozměnil
+        svůj název (který se objevuje v&nbsp;zápisech) a případně ho aktualizovat na stránce <a href="{{ path('teams') }}">Týmy</a>.
+    </div>
 
 {% endblock %}
 
 {% block scripts %}
-    <script>
-        $('#update_stats').on('click', function () {
-            location.href = "{{ path('update_stats') }}";
-        });
-    </script>
+    <script src="{{ asset('scripts/admin/add_game.js') }}"></script>
 {% endblock %}

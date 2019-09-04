@@ -1,3 +1,5 @@
+// --------------------------- DATATABLES ---------------------------
+
 $.extend( $.fn.dataTable.defaults, {
     order: [ 1, 'desc' ],
     language: {
@@ -32,4 +34,15 @@ $(document).ready(function() {
     $('.stat-table-3cols').DataTable( {
         order: [ 2, 'desc' ]
     } );
+} );
+
+// ------------------------ END OF DATATABLES ------------------------
+
+// hide chart after its drawing finished + hide loading after chart is hidden
+$(document).ready(function() {
+    $('#red_offence_chart').collapse('hide');
+
+    $("#red_offence_chart").on("hidden.bs.collapse", function(){
+        $('.loading').hide();
+    });
 } );

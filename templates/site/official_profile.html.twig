@@ -10,9 +10,16 @@
 
 {% block main %}
 
+    <div class="loading loading-transparent full-width">
+        <div class="loading-align">
+            <div class="loading-animation"></div>
+            <div>Načítání statistik...</div>
+        </div>
+    </div>
+
     {{ include('site/official_stats/nomination_lists.html.twig') }}
 
-    <h2 class="h4 mb-3 h-underline">Zápasy</h2>
+    <h2 class="h4 mb-3 pt-3 stats-subheading">Zápasy</h2>
 
     {{ include('site/official_stats/referee_matches.html.twig') }}
 
@@ -24,7 +31,7 @@
 
     {{ include('site/official_stats/official_matches.html.twig') }}
 
-    <h2 class="h4 mb-3 h-underline">Karty</h2>
+    <h2 class="h4 mb-3 pt-3 stats-subheading">Karty</h2>
 
     {{ include('site/official_stats/referee_yellow.html.twig') }}
 
@@ -40,7 +47,7 @@
 
     {{ include('site/official_stats/referee_cards_minutes.html.twig') }}
 
-    <h2 class="h4 mb-3 h-underline">Interakce</h2>
+    <h2 class="h4 mb-3 pt-3 stats-subheading">Interakce</h2>
 
     {{ include('site/official_stats/referee_ar.html.twig') }}
 
@@ -59,13 +66,10 @@
 {% block scripts %}
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script src="{{ asset('scripts/site/official_datatables.js') }}"></script>
+    <script src="{{ asset('scripts/site/profile.js') }}"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         {{ gc_draw([redOffenceChart, cardsMinutesChart], ['red_offence_chart', 'cards_minutes_chart']) }}
-        $(document).ready(function() {
-            $('#red_offence_chart').collapse('hide');
-            $('#cards_minutes_chart').collapse('hide');
-        } );
     </script>
+    <script src="{{ asset('scripts/site/official_profile.js') }}"></script>
 {% endblock %}

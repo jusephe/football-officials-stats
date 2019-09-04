@@ -15,7 +15,14 @@
 
 {% block main %}
 
-    <h2 class="h4 mb-3 h-underline">Zápasy</h2>
+    <div class="loading loading-transparent full-width">
+        <div class="loading-align">
+            <div class="loading-animation"></div>
+            <div>Načítání statistik...</div>
+        </div>
+    </div>
+
+    <h2 class="h4 mb-3 stats-subheading">Zápasy</h2>
 
     {{ include('site/season_stats/referee_matches.html.twig') }}
 
@@ -27,7 +34,7 @@
 
     {{ include('site/season_stats/official_matches.html.twig') }}
 
-    <h2 class="h4 mb-3 h-underline">Karty</h2>
+    <h2 class="h4 mb-3 pt-3 stats-subheading">Karty</h2>
 
     {{ include('site/season_stats/referee_yellow.html.twig') }}
 
@@ -43,7 +50,7 @@
 
     {{ include('site/season_stats/red_cards_punishments.html.twig') }}
 
-    <h2 class="h4 mb-3 h-underline">Interakce</h2>
+    <h2 class="h4 mb-3 pt-3 stats-subheading">Interakce</h2>
 
     {{ include('site/season_stats/referee_ar.html.twig') }}
 
@@ -57,7 +64,7 @@
 
     {{ include('site/season_stats/official_home_team.html.twig') }}
 
-    <h2 class="h4 mb-3 h-underline">Delegáti</h2>
+    <h2 class="h4 mb-3 pt-3 stats-subheading">Delegáti</h2>
 
     {{ include('site/season_stats/assessor_matches.html.twig') }}
 
@@ -76,12 +83,9 @@
 {% block scripts %}
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script src="{{ asset('scripts/site/season_datatables.js') }}"></script>
+    <script src="{{ asset('scripts/site/season_stats.js') }}"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         {{ gc_draw(redOffenceChart, 'red_offence_chart') }}
-        $(document).ready(function() {
-            $('#red_offence_chart').collapse('hide')
-        } );
     </script>
 {% endblock %}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/common_base.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('styles/site/base.css') }}">
     {% block css %}{% endblock %}
     <title>Rozhodčí PFS{% if page_title is defined %} | {{ page_title }}{% endif %}</title>
@@ -41,9 +42,9 @@
     </div>
 </nav>
 
-<main role="main" class="pt-2 pt-md-3">
+<main role="main" class="pt-3 pt-md-4">
     <div class="container container-main">
-        <h1 class="h2 mb-3">{% block heading %}{% endblock %}</h1>
+        <h1 class="h3 font-weight-bold mb-4">{% block heading %}{% endblock %}</h1>
 
         {% block main %}
 
