@@ -2,3 +2,8 @@ main img {
     max-width: 100%;
     height: auto;
 }
+
+/* less space after heading */
+div.container-main h1 {
+    margin-bottom: 0.5rem !important;
+}

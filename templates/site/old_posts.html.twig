@@ -1,0 +1,17 @@
+{% extends 'site/base.html.twig' %}
+
+{% set page_title = 'Archiv novinek' %}
+
+{% block heading %}{{ page_title }}{% endblock %}
+
+{% block main %}
+
+    {{ include('site/_posts.html.twig', {posts: pagination}) }}
+
+    {{ knp_pagination_render(pagination) }}
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('scripts/site/old_posts.js') }}"></script>
+{% endblock %}

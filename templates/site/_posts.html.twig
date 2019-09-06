@@ -1,0 +1,26 @@
+{% if posts|length > 0 %}
+    <div class="table-responsive">
+        <table class="table table-posts">
+            <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td class="font-weight-bold"><a href="{{ path('post', {'id': post.id}) }}">{{ post.title }}</a></td>
+                    <td class="text-right text-nowrap text-muted">{{ post.published|date("j. n. Y") }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {% if post.contentsHtml|striptags|length > 190 %}
+                            {{ post.contentsHtml|striptags|slice(0, 190)|split(' ')|slice(0, -1)|join(' ') }}&nbsp;…
+                            <a href="{{ path('post', {'id': post.id}) }}">Celý&nbsp;příspěvek →</a>
+                        {% else %}
+                            {{ post.contentsHtml|striptags }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p>Nenalezeny žádné novinky.</p>
+{% endif %}

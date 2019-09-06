@@ -606,7 +606,7 @@ class AdminController extends AbstractController
      */
     public function posts(PostRepository $postRepository)
     {
-        $posts = $postRepository->findAllOrderByPublished();
+        $posts = $postRepository->findBy([], ['id' => 'DESC']); // order by published
 
         return $this->render('admin/posts.html.twig', [
             'posts' => $posts

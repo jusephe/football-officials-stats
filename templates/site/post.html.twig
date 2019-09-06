@@ -8,7 +8,10 @@
 
 {% block main %}
 
-    {{ post.published|date("j. n. Y") }}
+    <div class="text-muted mb-4">
+        {{ post.published|date("j. n. Y") }}
+    </div>
+
     {{ post.contentsHtml|markdown }}
 
 {% endblock %}

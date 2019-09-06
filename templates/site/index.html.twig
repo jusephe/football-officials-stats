@@ -2,23 +2,20 @@
 
 {% block main %}
 
-    <p class="mb-4">
-        Vítejte na stránkách projektu Rozhodčí Pražského fotbalového svazu, který poskytuje detailní statistiky o&nbsp;rozhodčích a delegátech PFS.
+    <p>
+        Vítejte na stránkách projektu <b>Rozhodčí PFS</b>, který poskytuje detailní statistiky
+        o&nbsp;rozhodčích a delegátech Pražského fotbalového svazu působících v soutěžích Přeboru a 1.A třídy.
+        Bližší informace nalezenete na stránce <a href="{{ path('about') }}">O projektu</a>.
     </p>
 
-    <h2 class="h4">Novinky</h2>
+    <h2 class="h4 font-weight-bold pt-4 mb-3">Novinky</h2>
 
-    <div class="table-responsive">
-        <table class="table">
-            <tbody>
-            {% for post in posts %}
-                <tr>
-                    <td><a href="{{ path('post', {'id': post.id}) }}">{{ post.title }}</a></td>
-                    <td class="text-right text-nowrap">{{ post.published|date("j. n. Y") }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    {{ include('site/_posts.html.twig') }}
+
+    {% if posts|length > 4 %}
+        <div class="text-right">
+            <a href="{{ path('old_posts') }}" class="font-weight-bold">Starší novinky »</a>
+        </div>
+    {% endif %}
 
 {% endblock %}

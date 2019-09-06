@@ -12,7 +12,9 @@ use App\Site\Repository\SeasonStatsRepository;
 use App\Site\Service\SeasonsListMaker;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\LineChart;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SiteController extends AbstractController
@@ -22,10 +24,28 @@ class SiteController extends AbstractController
      */
     public function index(PostRepository $postRepository)
     {
-        $posts = $postRepository->findAllOrderByPublished();
+        $posts = $postRepository->findBy([], ['id' => 'DESC'], 5);  // order by published
 
         return $this->render('site/index.html.twig', [
             'posts' => $posts
+        ]);
+    }
+
+    /**
+     * @Route("/novinky", name="old_posts")
+     */
+    public function oldPosts(PostRepository $postRepository, Request $request, PaginatorInterface $paginator)
+    {
+        $queryBuilder = $postRepository->getWithSearchQueryBuilderOrderByPublished();
+
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 2),
+            5
+        );
+
+        return $this->render('site/old_posts.html.twig', [
+            'pagination' => $pagination,
         ]);
     }
 

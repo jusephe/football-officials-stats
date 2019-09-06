@@ -4,6 +4,7 @@ namespace App\Admin\Repository;
 
 use App\Admin\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,9 +20,12 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
-    public function findAllOrderByPublished()
+    // for pagination
+    public function getWithSearchQueryBuilderOrderByPublished(): QueryBuilder
     {
-        return $this->findBy([], ['id' => 'DESC']);
+        $qb = $this->createQueryBuilder('p');
+        return $qb
+            ->orderBy('p.id', 'DESC');
     }
 
     // /**

@@ -38,3 +38,17 @@ a[data-toggle="collapse"] *:before {
 a[data-toggle="collapse"].collapsed *:before {
     content: "\25B8";
 }
+
+/* table with list of posts */
+.table.table-posts td {
+    border-top: none;
+}
+
+.table.table-posts tr:nth-child(2n+1) {
+    border-top: 1px solid #dee2e6;
+}
+
+.table.table-posts tr:nth-child(2n) td {
+    padding-top: 0;
+    padding-bottom: 2em;
+}

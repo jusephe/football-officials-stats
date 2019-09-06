@@ -4,7 +4,7 @@ $.extend( $.fn.dataTable.defaults, {
     order: [ 1, 'desc' ],
     language: {
         "sEmptyTable":     "Tabulka neobsahuje žádná data",
-        "sInfo":           "_START_ až _END_ z celkem _TOTAL_ záznamů",
+        "sInfo":           "_START_ až _END_ z _TOTAL_ záznamů",
         "sInfoEmpty":      "",
         "sInfoFiltered":   "(filtrováno z celkem _MAX_ záznamů)",
         "sInfoPostFix":    "",
