@@ -11,7 +11,7 @@
                     <td colspan="2">
                         {% if post.contentsHtml|striptags|length > 190 %}
                             {{ post.contentsHtml|striptags|slice(0, 190)|split(' ')|slice(0, -1)|join(' ') }}&nbsp;…
-                            <a href="{{ path('post', {'id': post.id}) }}">Celý&nbsp;příspěvek →</a>
+                            <a href="{{ path('post', {'id': post.id}) }}">Celý&nbsp;příspěvek&nbsp;→</a>
                         {% else %}
                             {{ post.contentsHtml|striptags }}
                         {% endif %}

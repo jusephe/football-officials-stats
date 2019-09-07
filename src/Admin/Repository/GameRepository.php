@@ -24,6 +24,14 @@ class GameRepository extends ServiceEntityRepository
         return $this->findBy([], ['id' => 'DESC']);
     }
 
+    public function getTotalGames()
+    {
+        return $this->createQueryBuilder('g')
+            ->select('count(g.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     // /**
     //  * @return Game[] Returns an array of Game objects
     //  */

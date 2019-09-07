@@ -37,9 +37,11 @@ class ISFACRGameHtmlParser
         $round = $crawler_part->filter('td')->eq(2)->text();
         $game->setRound(trim($round));
 
+        $code = $crawler_part->filter('td')->eq(5)->text();
+        $game->setCode(trim($code));
+
         $season = $crawler_part->filter('td')->eq(6)->text();
-        $season = trim($season);
-        $game->setSeason($season);
+        $game->setSeason(trim($season));
 
         // date of game for info about part of the season
         $date = $crawler_part->filter('td')->eq(8)->text();

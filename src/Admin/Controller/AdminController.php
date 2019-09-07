@@ -149,8 +149,11 @@ class AdminController extends AbstractController
     {
         $games = $gameRepository->findAllOrderByAdded();
 
+        $totalGames = $gameRepository->getTotalGames();
+
         return $this->render('admin/games.html.twig', [
-            'games' => $games
+            'games' => $games,
+            'totalGames' => $totalGames,
         ]);
     }
 

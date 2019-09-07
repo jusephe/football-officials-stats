@@ -4,11 +4,13 @@ namespace App\Admin\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Table(name="admin", uniqueConstraints={@UniqueConstraint(name="admin__un", columns={"email"})})
  * @ORM\Entity(repositoryClass="App\Admin\Repository\AdminRepository")
+ * @UniqueEntity("email")
  */
 class Admin implements UserInterface
 {

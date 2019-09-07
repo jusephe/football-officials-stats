@@ -5,13 +5,28 @@ namespace App\Admin\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Game
  *
- * @ORM\Table(name="game", indexes={@ORM\Index(name="game_ar2_official_id_fk", columns={"ar2_official_id"}), @ORM\Index(name="game_away_team_id_fk", columns={"away_team_id"}), @ORM\Index(name="game_league_id_fk", columns={"league_id"}), @ORM\Index(name="game_ar1_official_id_fk", columns={"ar1_official_id"}), @ORM\Index(name="game_assessor_id_fk", columns={"assessor_id"}), @ORM\Index(name="game_home_team_id_fk", columns={"home_team_id"}), @ORM\Index(name="game_referee_official_id_fk", columns={"referee_official_id"})})
+ * @ORM\Table(name="game",
+ *     indexes={
+ *     @ORM\Index(name="game_ar2_official_id_fk", columns={"ar2_official_id"}),
+ *     @ORM\Index(name="game_away_team_id_fk", columns={"away_team_id"}),
+ *     @ORM\Index(name="game_league_id_fk", columns={"league_id"}),
+ *     @ORM\Index(name="game_ar1_official_id_fk", columns={"ar1_official_id"}),
+ *     @ORM\Index(name="game_assessor_id_fk", columns={"assessor_id"}),
+ *     @ORM\Index(name="game_home_team_id_fk", columns={"home_team_id"}),
+ *     @ORM\Index(name="game_referee_official_id_fk", columns={"referee_official_id"})},
+ *     uniqueConstraints={@UniqueConstraint(name="game__un", columns={"code"})})
  * @ORM\Entity(repositoryClass="App\Admin\Repository\GameRepository")
+ * @UniqueEntity(
+ *     fields={"code"},
+ *     message="Zápas s tímto číslem byl již do systému přidán."
+ * )
  */
 class Game
 {
@@ -23,6 +38,18 @@ class Game
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=20, nullable=false, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 14,
+     *      max = 14
+     * )
+     */
+    private $code;
 
     /**
      * @var int
@@ -157,6 +184,18 @@ class Game
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
     }
 
     public function getSeason(): ?int
