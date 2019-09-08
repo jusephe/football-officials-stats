@@ -236,4 +236,12 @@ class SiteController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/vzdelavani", name="education")
+     */
+    public function education()
+    {
+        return $this->render('site/education.html.twig');
+    }
+
 }

@@ -8,13 +8,27 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('styles/common_base.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('styles/site/base.css') }}">
     {% block css %}{% endblock %}
+
+    {# ------- favicon ------- #}
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ asset('safari-pinned-tab.svg') }}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#00a300">
+    <meta name="theme-color" content="#ffffff">
+    {# ---- end of favicon ---- #}
+
     <title>Rozhodčí PFS{% if page_title is defined %} | {{ page_title }}{% endif %}</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ path('index') }}">Rozhodčí PFS</a>
+            <a class="navbar-brand" href="{{ path('index') }}">
+                <img src="{{ asset('images/site/white_whistle.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+                Rozhodčí PFS
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"
                     aria-controls="menu" aria-expanded="false" aria-label="Menu">
                 <span class="navbar-toggler-icon"></span>
@@ -36,6 +50,11 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('site_assessors') }}">Delegáti</a>
+                    </li>
+                    <div class="my-nav-divider"></div>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('education') }}">Vzdělávání</a>
                     </li>
                 </ul>
             </div>

@@ -2,18 +2,20 @@
 
 {% block main %}
 
-    <p>
-        Projekt <b>Rozhodčí PFS</b> poskytuje detailní statistiky o&nbsp;rozhodčích a delegátech Pražského fotbalového svazu působících
-        v soutěžích Přeboru a 1.A třídy. Bližší informace nalezenete na stránce <a href="{{ path('about') }}">O&nbsp;projektu</a>.
-    </p>
+    <div class="jumbotron">
+        <p class="h5">Projekt <b>Rozhodčí PFS</b> poskytuje detailní statistiky o&nbsp;rozhodčích a delegátech Pražského fotbalového svazu působících
+            v soutěžích Přeboru a 1.A třídy.</p>
+        <hr class="my-4">
+        <p class="mb-0">Bližší informace nalezenete na stránce <a href="{{ path('about') }}">O&nbsp;projektu</a>.</p>
+    </div>
 
-    <h2 class="h4 font-weight-bold pt-3 pt-md-4 mb-3">Novinky</h2>
+    <h2 class="h4 font-weight-bold pt-2 mb-3">Novinky</h2>
 
     {{ include('site/_posts.html.twig') }}
 
     {% if posts|length > 4 %}
         <div class="text-right">
-            <a href="{{ path('old_posts') }}" class="font-weight-bold">Starší novinky »</a>
+            <a class="btn btn-outline-primary font-weight-bold" href="{{ path('old_posts') }}" role="button">Starší novinky »</a>
         </div>
     {% endif %}
 

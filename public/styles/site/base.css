@@ -14,13 +14,31 @@ div.container-main > .full-width {
     color: rgba(255, 255, 255, 0.85);
 }
 
-.navbar-dark .navbar-brand:hover, .navbar-light .navbar-brand:focus {
+/* brand link hover */
+.navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
     color: rgba(255, 255, 255, 0.85);
+}
+/* brand image like brand link */
+.navbar-dark .navbar-brand:hover img, .navbar-dark .navbar-brand:focus img {
+    -webkit-filter: invert(15%);
+    filter: invert(15%);
 }
 
 /* fix for dropdown links */
 .navbar-dark .navbar-nav .show > .nav-link {
     color: #fff;
+}
+
+/* menu dividers */
+.my-nav-divider {
+    width: 0;
+    margin: 0 0.5rem;
+    overflow: hidden;
+    border-left: 1px solid #96989a;
+}
+/* color fix */
+.dropdown-divider {
+    border-top: 1px solid #87888a;
 }
 
 .stats-subheading {
@@ -39,6 +57,17 @@ a[data-toggle="collapse"].collapsed *:before {
     content: "\25B8";
 }
 
+.jumbotron {
+    padding: 2rem 1rem;
+    border-radius: 0.2rem;
+}
+
+@media (min-width: 576px) {
+    .jumbotron {
+        padding: 3rem 2rem;
+    }
+}
+
 /* table with list of posts */
 .table.table-posts td {
     border-top: none;
@@ -51,4 +80,8 @@ a[data-toggle="collapse"].collapsed *:before {
 .table.table-posts tr:nth-child(2n) td {
     padding-top: 0;
     padding-bottom: 2em;
+}
+
+.pl-2_5 {
+    padding-left: 0.75rem !important;
 }
