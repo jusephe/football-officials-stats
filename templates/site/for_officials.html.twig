@@ -1,0 +1,72 @@
+{% extends 'site/base.html.twig' %}
+
+{% set page_title = 'Pro rozhodčí' %}
+
+{% block heading %}{{ page_title }}{% endblock %}
+
+{% block main %}
+
+    <p>
+        Tato stránka je věnována zajímavostem v oblasti vzdělávání rozhodčích. Jedná se převážně o témata z psychologie nebo pravidel fotbalu. Bude-li v budoucnu více
+        materiálů, tak bude stránka průběžně doplňována. Nebojte se nás případně za tímto účelem <a href="{{ path('about', {'_fragment': 'contact'}) }}">kontaktovat</a>.
+    </p>
+
+    <hr class="ml-0 my-4">
+
+    <h2 class="h6 font-weight-bold">Stránky FAČR pro rozhodčí</h2>
+
+    <ul class="pl-1">
+        <li class="mb-1">
+            <a href="https://rozhodci.fotbal.cz/" target="_blank" rel="noopener" aria-describedby="new-window">rozhodci.fotbal.cz
+                <svg class="icon" focusable="false" aria-hidden="true"> <use href="{{ asset('icons/icons.svg') }}#new-window"></use> </svg>
+            </a>
+        </li>
+        <li>
+            <a href="https://rozhodci.fotbal.cz/ke-stazeni/p15" target="_blank" rel="noopener" aria-describedby="new-window">rozhodci.fotbal.cz/ke-stazeni
+                <svg class="icon" focusable="false" aria-hidden="true"> <use href="{{ asset('icons/icons.svg') }}#new-window"></use> </svg>
+            </a>
+        </li>
+    </ul>
+
+    <hr class="ml-0 my-4">
+
+    <h2 class="h6 font-weight-bold">Zajímavá brožura především pro začínající rozhodčí zabývající se komunikací s hráči a působením v roli rozhodčího k aktérům utkání</h2>
+
+    <ul class="pl-1">
+        <li class="mb-1">
+            <a href="{{ asset('documents/Effective-Communication-for-Referees.pdf') }}" target="_blank" rel="noopener" aria-describedby="new-window">Effective Communication for Referees
+                <svg class="icon" focusable="false" aria-hidden="true"> <use href="{{ asset('icons/icons.svg') }}#new-window"></use> </svg>
+            </a>
+            (anglický originál)
+        </li>
+        <li>
+            <a href="{{ asset('documents/Effective-Communication-for-Referees_CZ.pdf') }}" target="_blank" rel="noopener" aria-describedby="new-window">Efektivní komunikace pro rozhodčí
+                <svg class="icon" focusable="false" aria-hidden="true"> <use href="{{ asset('icons/icons.svg') }}#new-window"></use> </svg>
+            </a>
+            (český překlad)
+        </li>
+    </ul>
+
+    <hr class="ml-0 my-4">
+
+    <h2 class="h6 font-weight-bold">Oficiální informace IFAB k pozičnímu postavení a řeči těla rozhodčího</h2>
+
+    <ul class="pl-1">
+        <li>
+            <a href="{{ asset('documents/Practical-Guidelines-for-Match-Officials.pdf') }}" target="_blank" rel="noopener" aria-describedby="new-window">Practical Guidelines for Match Officials
+                <svg class="icon" focusable="false" aria-hidden="true"> <use href="{{ asset('icons/icons.svg') }}#new-window"></use> </svg>
+            </a>
+        </li>
+    </ul>
+
+    <hr class="ml-0 my-4">
+
+    <h2 class="h6 font-weight-bold">Zpracované otázky k ústnímu přezkušování v rámci seminářů rozhodčích</h2>
+
+    <ul class="pl-1">
+        <li>
+            <a href="{{ path('oral_exam') }}">Ústní zkoušení – otázky</a>
+        </li>
+    </ul>
+
+{% endblock %}

@@ -1,0 +1,259 @@
+{% extends 'site/base.html.twig' %}
+
+{% set page_title = 'Ústní zkoušení – otázky' %}
+
+{% block heading %}{{ page_title }}{% endblock %}
+
+{% block main %}
+
+    <ol>
+
+        <li class="h5 font-weight-bold mb-4">Vyjmenovat pravidla fotbalu a popsat členění jednotlivých pravidel
+            <ol class="reset pt-2 pl-0 lst-none">
+                <li>Pravidlo 1 – Hrací plocha</li>
+                <li>Pravidlo 2 – Míč</li>
+                <li>Pravidlo 3 – Hráči</li>
+                <li>Pravidlo 4 – Výstroj hráčů</li>
+                <li>Pravidlo 5 – Rozhodčí</li>
+                <li>Pravidlo 6 – Ostatní rozhodčí</li>
+                <li>Pravidlo 7 – Doba hry</li>
+                <li>Pravidlo 8 – Zahájení a navazování hry</li>
+                <li>Pravidlo 9 – Míč ve hře a míč ze hry</li>
+                <li>Pravidlo 10 – Určení výsledku utkání</li>
+                <li>Pravidlo 11 – Ofsajd (diagramy k ofsajdovým situacím)</li>
+                <li>Pravidlo 12 – Přestupky a provinění</li>
+                <li>Pravidlo 13 – Volné kopy</li>
+                <li>Pravidlo 14 – Pokutový kop</li>
+                <li>Pravidlo 15 – Vhazování</li>
+                <li>Pravidlo 16 – Kop od branky</li>
+                <li>Pravidlo 17 – Kop z rohu</li>
+            </ol>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Vyznačení hrací plochy, nezpůsobilost hrací plochy
+        <p class="reset pt-2"><b>Hrací plocha</b> musí být obdélníková (45-90 x 90-120) a vyznačena nepřerušenými čárami, které nesmí být nebezpečné. Čáry patří k tomu území, které ohraničují. <b>Všechny čáry</b> musí být stejně široké a mohou mít šířku 10-12 cm. Vzdálenost se měří od vnějších stran čar, které patří k&nbsp;území, které ohraničují.<br />
+            <b>Brankové území</b> = 5,5 metrů<br />
+            <b>Pokutové území</b> = 16,5 metrů<br />
+            <b>Pokutová značka</b> = 11 metrů<br />
+            <b>Rohový čtvrtkruh</b> = 1 metr<br />
+            <b>Praporek</b> = 1,5 metrů dlouhá a nahoře zaoblená tyč<br />
+            <b>Branka</b> = 7,32 x 2,44 (tyč = čtverec, obdélník, kruh, elipsa)<br />
+            <b>Středová a pokutová značka</b> = průměr 22 cm<br />
+            O způsobilosti hrací plochy rozhoduje jedině rozhodčí. Nehraje se, když neumožňuje regulérní průběh utkání nebo by mohla přivodit zranění hráčů. <b>Max.</b> <b>20 min. čekací doba</b> po začátku na upravení HP. Nesmí se na ní hrát žádné jiné utkání.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Doplňování družstva, střídání, výměna
+        <p class="reset pt-2"><b>Výměna brankáře</b> – kterýkoli hráč si smí vyměnit místo s brankářem, jestliže R bude o výměně předem informován a výměna se provede v přerušené hře.<br />
+            <b>Doplňování družstva</b> – když družstvo zahájí utkání s menším počtem hráčů než 11, má právo kdykoli v průběhu utkání doplnit počet hráčů na 11. Hráči, kteří doplňují družstvo, se považují za osoby na hře zúčastněné, i když se do hry ještě nezapojili. Doplňující hráč smí nastoupit do hry jen v době, kdy je míč ze hry. V přerušené hře se od středové čáry ohlásí R a vyčká, až R zkontroluje jeho výstroj. Na hrací plochu vstoupí až poté, co mu R udělí ke vstupu souhlas. Při porušení ŽK a neovlivnění NVK, jinak PVK.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Procedura střídání hráčů
+        <p class="reset pt-2">Jména náhradníků musí být R oznámena před zahájením utkání. R musí být o střídání předem informován. Střídá se jen v době, kdy je míč ze hry.<br />
+            <b>Střídaný hráč</b> obdrží souhlas rozhodčího k opuštění hrací plochy, pokud již není mimo hrací plochu. Nemusí hrací plochu opustit u středové čáry, pokud se již nechce zúčastnit další hry. Vyjma případů, kdy je povoleno opakované střídání. Pokud střídaný hráč odmítne opustit hrací plochu, hra pokračuje.<br />
+            <b>Náhradník</b> smí na hrací plochu vstoupit jenom: v přerušené hře, od středové čáry, až střídaný hráč opustí hrací plochu, poté co obdržel signál (souhlas) od rozhodčího.<br />
+            Vstupem náhradníka na hrací plochu je střídání ukončeno. Tímto okamžikem se z náhradníka stává hráč a z hráče se stává vystřídaný hráč.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Výstroj hráčů (základní, zdravotní, zakázaná)
+        <p class="reset pt-2"><b>Základní</b> – dres (čísla min. 25 cm), trenýrky, stulpny, kopačky, chrániče holení, kap. páska (min. 5 cm)<br />
+            <b>Zdravotní a ostatní</b> – pokrývky hlavy, obličejové masky, chrániče kolen a loktů, brankářské čepice, sportovní brýle (musí být bezpečné, nic nesmí přečuhovat, v souladu s vzhledem a barvou)<br />
+            <b>Zakázaná</b> – nebezpečné předměty (prsten, čelenka, vlasová síťka, protéza, sádra, náramek, hodinky, řetízek, náušnice, nákrčník), politické, náboženské a osobní hesla nebo obrázky.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Definice a aplikace výhody ve hře
+        <p class="reset pt-2">Umožňuje pokračovat ve hře, pokud došlo k porušení pravidel nebo k přestupku, a družstvo, které se neprovinilo, může z výhody získat prospěch. R musí výhodu naznačit. Pokud ponechaná výhoda neměla předpokládaný účinek (do několika vteřin), potrestá R původní porušení pravidel nebo přestupek. Výhoda nemá být uplatňována v situacích, kdy se jedná o surovou hru, hrubé nesportovní chování nebo druhé napomínání, vyjma případů, kdy existuje zjevná příležitost ke vstřelení branky.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Postup rozhodčího při zranění hráče (hráčů)
+        <p class="reset pt-2">Pokud je rozhodčí přesvědčený, že je zranění vážné, přeruší hru a zajistí odnesení zraněného hráče z hrací plochy. Hráč nemá být ošetřován na HP. Vracet se smí až po navázání hry. Opouštět nemusí brankář, 2 stejní hráči, hráč a brankář, vážně zranění, po zákroku za který byla udělena ŽK.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Povinnost rozhodčího nezahájit nebo předčasně ukončit utkání (musí)
+            <ul class="reset lst-disc pt-2 pl-3">
+                <li>Klesne-li počet hráčů pod sedm.</li>
+                <li>Při inzultaci někoho z rozhodčích.</li>
+                <li>Při úmrtí rozhodčích, delegátů, příslušníků družstev.</li>
+                <li>Opustí-li družstvo HP jako projev nesouhlasu s rozhodnutím R.</li>
+                <li>Na úřední zákrok Policie ČR.</li>
+                <li>V dalších případech dle pravidla 1 a Soutěžního řádu.</li>
+            </ul>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Právo rozhodčího nezahájit nebo předčasně ukončit utkání (může)
+            <ul class="reset lst-disc pt-2 pl-3">
+                <li>Pro tmu.</li>
+                <li>Pro špatné povětrnostní podmínky.</li>
+                <li>Pro nezpůsobilý stav hrací plochy.</li>
+                <li>Pro neuposlechnutí R příslušníkem družstva (2 min.).</li>
+                <li>Pro vniknutí obecenstva do prostoru hřiště.</li>
+                <li>Pro hrubé nesportovní projevy obecenstva.</li>
+                <li>Při poruše světel (dohromady max. 60 minut).</li>
+            </ul>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Situace, které je AR povinen signalizovat
+            <ul class="reset lst-disc pt-2 pl-3">
+                <li>Že míč celým objemem opustí hrací plochu.</li>
+                <li>Které družstvo je oprávněno provést kop z&nbsp;rohu, kop od branky, vhazování.</li>
+                <li>Kdy hráč v ofsajdové pozici má být potrestán za ofsajd.</li>
+                <li>Když je připraveno střídání.</li>
+                <li>Při provádění PK, že brankář předčasně opustil brankovou čáru.</li>
+                <li>Míč celým objemem přešel přes brankovou čáru (branka).</li>
+            </ul>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Oddílový pomezní rozhodčí – práva a povinnosti
+        <p class="reset pt-2">Musí být členem FAČR. Starší 18ti let (u mládeže alespoň stejně jako hráči, jejichž zápas rozhoduje). Nesmí být příslušníkem družstva.<br />
+            Má dále stejná práva a povinnosti jako rozhodčí, kromě oblečení a odměny. Musí ovládat pravidla a být fyzicky zdatný. Signalizuje, že míč přešel pomezní čáru. R ho může jejich informace brát do zřetele i víc.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Nastavení a prodloužení doby hry
+        <p class="reset pt-2"><b>Nastavení</b> – za dobu promeškanou při střídání, ošetřování nebo odchodu zraněných hráčů. Zdržování hry, přijímání disciplinárních opatření, přestávky k občerstvení hráčů, která by neměla přesáhnout jednu minutu nebo z jiných důvodů, včetně významných zdržení při navazování hry (např. oslavy dosažení branky). Oprava branky, sítí, rohových praporků, vyznačení nebo výměna míče. Vyklízení hrací plochy po divácích nebo prostoru hřiště po vykázáních. Dočasné povětrnostní podmínky a jiné. Přezkoumání opakovaného záznamu videorozhodčím nebo rozhodčím.<br />
+            <b>Prodloužení</b> – provedení nebo opakování PK, případně prodloužení k určení vítěze – 2&#215;15 minut.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Procedura provádění „míče rozhodčího“
+            <p class="reset pt-2">Rozhodčí pustí míč na zem v místě, kde byl míč v okamžiku přerušení hry. Jestliže míč byl v okamžiku přerušení hry v brankovém území, provede rozhodčí míč rozhodčího z čáry brankového území rovnoběžné s brankovou čárou a to v místě, které je nejblíže místu, kde byl míč v okamžiku přerušení hry. Míč je ve hře, když se dotkne země. Míče rozhodčího se může zúčastnit kdokoliv. Při míči rozhodčího nemůže být hráč v ofsajdu.<br />
+            Míč rozhodčího se opakuje, jestliže se míč dotkne některého hráče dříve než země nebo míč opustil hrací plochu poté, co se dotkl země, aniž by se ho předtím dotkl některý z hráčů.<br />
+            Pokud se míč dostane do branky, aniž by se ho předtím dotkli alespoň dva hráči, naváže rozhodčí hru kopem od branky, pokud se míč dostane do soupeřovy branky nebo kopem z rohu, pokud se míč dostane do vlastní branky.
+            </p>
+            <p class="reset"><b>Kdy je míč rozhodčího:</b> Když se hra přerušila jinak než vhazováním nebo volným kopem, např. povětrnostní podmínky, které neumožňují pokračovat ve hře; došlo k poškození vybavení hrací plochy; hrací plocha nebo míč se staly nezpůsobilými ke hře, osoba cizí nebo vnější vliv buď na hrací ploše zasáhli míč, nebo ovlivnili hru, rozhodčí považoval za nutné ihned zkontrolovat výstroj hráče, hráč byl vážně zraněn, aniž přitom došlo k porušení pravidel, rozhodčí ihned po přerušení hry poznal, že se přerušením hry dopustil omylu, nastaly okolnosti, které sice přímo nesouvisely se hrou, ale podle názoru rozhodčího bylo nutno hru přerušit.
+            </p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Definice ofsajdu a ofsajdové pozice
+        <p class="reset pt-2"><b>Ofsajdová pozice</b> – Hráč je v ofsajdové pozici, když kterákoliv část hlavy, těla nebo nohy je na polovině soupeře (vyjma středové čáry) a kterákoliv část hlavy, těla nebo nohy je blíže k brankové čáře soupeře než míč a než předposlední bránící hráč soupeře. Ruce a paže všech hráčů, včetně brankářů, nejsou brány v úvahu.<br />
+            <b>Ofsajd</b> – Hráč, který je v ofsajdové pozici, bude potrestán za ofsajd jen tehdy, jestliže v okamžiku, kdy míčem zahraje nebo se míče dotkne některý z jeho spoluhráčů, je aktivně zapojen do hry.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Aktivní zapojení hráče do hry z&nbsp;pohledu P11 (ofsajd)
+        <p class="reset pt-2">Hráč ovlivní hru tak, že zahraje míč nebo se dotkne míče, který mu přihrál spoluhráč.<br />
+            Hráč ovlivní soupeře tím, že mu zabrání v hraní míče nebo v možnosti hrát míčem tím, že mu zjevně brání ve výhledu, svádí se soupeřem souboj o míč, nebo se zjevně pokusí zahrát míč, který je v jeho blízkosti, přičemž ovlivní soupeře, nebo provede jasnou akci, která má zjevný vliv na možnost soupeře hrát míčem.<br />
+            Hráč získá výhodu tím, že zahraje míč nebo ovlivní soupeře, jestliže míč odskočil nebo se odrazil od brankové tyče, břevna nebo soupeře byl úmyslně zahrán soupeřem při obranném zákroku.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Vyjmenujte přestupky, za které se nařizuje přímý volný kop
+        <p class="reset pt-2">Přímý volný kop rozhodčí nařídí, jestliže se hráč dopustí některého z následujících přestupků vůči soupeři způsobem, který je podle názoru rozhodčího nedbalý, bezohledný nebo který je proveden s použitím nepřiměřené síly:</p>
+        <ul class="reset lst-disc">
+            <li>Vrazí do soupeře</li>
+            <li>Skočí na soupeře</li>
+            <li>Kopne nebo se pokusí kopnout soupeře</li>
+            <li>Strčí do soupeře</li>
+            <li>Udeří nebo se pokusí udeřit soupeře (vč. udeření hlavou)</li>
+            <li>Nedovolené zastaví soupeře</li>
+            <li>Podrazí nebo se pokusí podrazit soupeře</li>
+            <li>Úmyslně zahraje míč rukou (vyjma brankáře v jeho vlastním pokutovém území)</li>
+            <li>Drží soupeře</li>
+            <li>Brání soupeři v pohybu, přičemž dojde ke kontaktu</li>
+            <li>Někoho kousne nebo na někoho plivne</li>
+            <li>Hodí předmět na míč, soupeře nebo rozhodčího, nebo předmětem, který drží v ruce, se dotkne míče</li>
+        </ul>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Členění přestupků, za které se nařizuje přímý volný kop, z&nbsp;pohledu jejich &#8220;míry surovosti&#8221;
+        <p class="reset pt-2"><b>Nedbalost</b> – nepozornost nebo nedostatečná předvídavost následků boje o míč, ale stále ještě ve sportovním duchu, udělení osobního trestu není nutné.<br />
+            <b>Bezohlednost</b> – jestliže se hráč chová bez ohledu na možné důsledky pro soupeře, proto musí být napomenut.<br />
+            <b>Použití nepřiměřené síly</b> – když hráč použije nepřiměřenou sílu a ohrozí zdraví a bezpečnost soupeře, proto musí být vyloučen.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Taktické fauly
+        <p class="reset pt-2">Hráč se dopustí přestupku (vč. úmyslného zahrání míče rukou), aby narušil nebo zastavil slibně se rozvíjející útočnou akci.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Zmaření zjevné brankové možnosti vně pokutového území a v pokutovém území
+        <p class="reset pt-2">Pokud hráč úmyslným hraním míče rukou zabrání soupeřovu družstvu dosažení branky nebo zmaří jeho zjevnou brankovou možnost, bude vyloučen bez ohledu na to, kde došlo k provedení přestupku.<br />
+            Pokud se hráč ve vlastním pokutovém území vůči soupeři dopustí přestupku, kterým dojde ke zmaření jeho zjevné brankové možnosti a rozhodčí nařídí pokutový kop, bude provinivší se hráč napomenut, vyjma případů, kdy:</p>
+        <ul class="reset lst-disc">
+            <li>se jedná o držení (tahání) nebo strčení nebo</li>
+            <li>se provinivší hráč nepokusí hrát míčem nebo nemá možnost míčem hrát, nebo</li>
+            <li>se jedná o přestupky v kterékoliv části hrací plochy (surová hra, hrubé nesportovní chování atd.) trestané vyloučením</li>
+        </ul>
+        <p class="reset pt-2">Ve všech třech výše uvedených případech musí být hráč vyloučen.<br />
+            Přitom je třeba vzít v úvahu vzdálenost místa přestupku od branky, směr útočné akce, pravděpodobnost udržení či získání kontroly nad míčem, postavení a počet bránících hráčů.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Přestupky, za které se nařizuje nepřímý volný kop
+        <ul class="reset lst-disc pt-2 pl-3">
+            <li>Hráč hraje nebezpečným způsobem</li>
+            <li>Hráč braní soupeři v pohybu, aniž by došlo ke kontaktu</li>
+            <li>Hráč brání brankáři v rozehrání míče nebo kopne či pokusí se kopnout do míče v okamžiku, kdy jej brankář rozehrává</li>
+            <li>Hráč se dopustí jiného přestupku neuvedeného v Pravidlech fotbalu, pro který byla hra přerušen k napomenutí nebo vyloučení hráče.</li>
+            <li>Brankář má míč v rukou pod kontrolou déle než šest sekund před tím, než se ho zbaví.</li>
+            <li>Brankář se dotkne míče rukou poté, co se ho zbavil a dříve, než se ho dotkl jiný hráč, co mu ho úmyslně nohou přihrál jeho spoluhráč, nebo co ho obdržel přímo po vhazování spoluhráče</li>
+            <li>Vstoupí do prostoru vyhrazeného pro přezkoumávání videa rozhodčím</li>
+            <li>Nepřiměřeným použitím signálu rozhodčího (TV obrazovka) se domáhá přezkoumání videozáznamu</li>
+        </ul>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Přestupky, za které rozhodčí napomene hráče
+        <ul class="reset lst-disc pt-2 pl-3">
+            <li>Zdržování navazování hry</li>
+            <li>Protesty slovy nebo gesty</li>
+            <li>Vstup, úmyslné opuštění hrací plochy nebo vracení bez souhlasu rozhodčího</li>
+            <li>Nedodržení předepsané vzdálenosti při provádění volného kopu, kopu z rohu nebo vhazování míče</li>
+            <li>Soustavně porušuje pravidla</li>
+            <li>Chová se nesportovně (bezohledný způsob provedení přestupku na PVK – pokus o oklamání R – výměna místa s brankářem bez souhlasu R – zmaření slibné akce taktickým přestupkem – úmyslná hra rukou při snaze dosáhnout branky – udělání značek na hrací ploše – obejití pravidla o malé domů – verbální rozptylování soupeře – oslava branky (svlékání dresu, skákání na oplocení, apod.)</li>
+        </ul>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Přestupky, za které rozhodčí vyloučí hráče
+        <p class="reset pt-2">Rozhodčí vyloučí hráče, náhradníka nebo vystřídaného hráče, který se dopustí jednoho z následujících přestupků:</p>
+        <ul class="reset lst-disc">
+            <li>Zabrání soupeřovu družstvu v dosažení branky nebo zmaří jeho zjevnou brankovou příležitost tím, že úmyslně zahraje míč rukou (netýká se brankáře v jeho vlastním pokutovém území)</li>
+            <li>Zmaří soupeři zjevnou možnosti dosáhnout branky tím, že soupeře útočícího na branku zastaví přestupkem, za který se nařizuje přímý volný kop</li>
+            <li>Hraje surově (ohrožena bezpečnost soupeře, použití nepřiměřené síly nebo brutality)</li>
+            <li>Kousne nebo plivne na soupeře nebo na jinou osobu</li>
+            <li>Chová se hrubě nesportovně (použije-li hráč nebo se pokusí použít nepřiměřenou sílu nebo brutalitu vůči soupeři mimo boj o míč, nebo vůči spoluhráči, členovi realizačního týmu, rozhodčímu divákovi nebo jiné osobě, bez ohledu na to, zda dojde nebo nedojde ke kontaktu)</li>
+            <li>Použije pohoršující, urážlivé nebo ponižující výroky nebo gesta</li>
+            <li>Je podruhé napomínán v témže utkání</li>
+            <li>Vstoupí na pracoviště videoasistenta rozhodčího a jeho asistenta</li>
+        </ul>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Navázání hry po přestupcích a proviněních a přestupky na vzdálenost
+            <p class="reset pt-2">Je-li míč ze hry, je hra navázána z&nbsp;důvodu, pro který byla přerušena.</p>
+
+            <p class="reset">
+            Je-li míč ve hře a hráč se dopustí přestupku na hrací ploše vůči:<br />
+            <b>Soupeři</b> = NVK nebo PVK nebo pokutový kop<br />
+            <b>Spoluhráči, náhradníkovi vlastního družstva nebo vyloučenému hráči, vystřídanému hráči, členovi realizačního týmu nebo rozhodčímu</b> = PVK nebo PK<br />
+            <b>Jiné osobě</b> – míč rozhodčího</p>
+
+            <p class="reset">Je-li míč ve hře:<br />
+            • hráč se dopustí přestupku vůči rozhodčímu nebo protihráči, náhradníkovi, vystřídanému nebo vyloučenému hráči, nebo funkcionáři družstva mimo hrací plochu nebo<br />
+            • náhradník, vystřídaný nebo vyloučený hráč, nebo funkcionář družstva se dopustí přestupku vůči soupeři nebo rozhodčímu, anebo ovlivní protihráče nebo rozhodčího mimo hrací plochu<br />
+            je hra navázána<b> volným kopem</b> na pomezní nebo na brankové čáře nejblíže k&nbsp;místu, kde došlo k&nbsp;přestupku nebo ovlivnění;<br />
+            je nařízen <b>pokutový kop</b>, pokud se jedná o přestupek v&nbsp;pokutovém území provinivšího se hráče.</p>
+
+            <p class="reset">Jde-li o provinění mimo hrací plochu vůči hráči, náhradníkovi, vystřídanému hráči nebo funkcionáři vlastního družstva, je hra navázána nepřímým volným kopem na brankové nebo na pomezní čáře nejblíže k&nbsp;místu, kde k&nbsp;provinění došlo.</p>
+
+            <p class="reset">Pokud hráč stojící na hrací ploše nebo mimo hrací plochu hodí předmět (vč. míče) na protihráče, náhradníka, vystřídaného nebo vyloučeného hráče, nebo funkcionáře družstva, rozhodčího nebo na míč, je hra navázána <b>přímým volným kopem</b> z&nbsp;místa, kde předmět zasáhnul nebo měl zasáhnout osobu nebo míč.<br />
+            Pokud se takové místo nachází mimo hrací plochu, je volný kop proveden na nejbližším místě na pomezní nebo brankové čáře;<br />
+            <b>pokutový kop</b> je nařízen, pokud se místo nachází v&nbsp;pokutovém území provinivšího se hráče.<br />
+            Pokud náhradník, vystřídaný nebo vyloučený hráč, nebo funkcionář družstva hodí nebo kopne předmět na hrací plochu a ovlivní tím hru, protihráče nebo rozhodčího, je hra navázána <b>přímým volným kopem (nebo pokutovým kopem)</b> tam, kde předmět ovlivnil hru nebo kde zasáhnul nebo měl zasáhnout protihráče, rozhodčího nebo míč.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Procedura provádění nepřímého volného kopu v pokutovém území soupeře
+        <p class="reset pt-2">NVK útočícího družstva nařízený za přestupek v brankovém území musí být proveden na té čáře brankového území, která probíhá rovnoběžně s brankovou čárou a to v místě, které je nejblíže místu přestupku.</p>
+        </li>
+
+        <li class="h5 font-weight-bold mb-4">Procedura provádění pokutového kopu
+        <p class="reset pt-2">Míč musí nehybně leže na pokutové značce.<br />
+            Hráč provádějící pokutový kop musí být jasně a zřetelně určen.<br />
+            Brankář bránícího družstva musí být obrácen tváří k hráči provádějícímu pokutový kop a musí zůstat na vlastní brankové čáře mezi brankovými tyčemi, dokud míč nebyl kopnut.<br />
+            Ostatní hráči kromě hráče provádějícího pokutový kop musí být na hrací ploše, mimo pokutové území, nejméně 9,15 metru od pokutové značky a za pokutovou značkou.<br />
+            Poté, co hráči zaujmou postavení předepsané tímto pravidlem, dá rozhodčí znamení k provedení pokutového kopu.<br />
+            Hráč provádějící pokutový kop musí kopnout míč dopředu. Rozehrání míče patou je povoleno, ale míč se musí pohnout směrem dopředu.<br />
+            Míč je ve hře, jestliže byl kopnut a zjevně se pohnul.<br />
+            Hráč provádějící pokutový kop nesmí míčem hrát podruhé dříve, než se ho dotkne jiný hráč.<br />
+            Akce pokutového kopu skončila, jestliže se pohyb míče zastavil nebo míč opustil hrací plochu nebo rozhodčí přerušil hru pro jakékoliv porušení pravidel fotbalu.<br />
+            Rozhodčí prodlouží dobu hry na konci každého poločasu nebo v době hry k určení vítěze utkání, jestliže pokutový kop byl nařízen v normální době hry a ta uplynula dříve, než pokutový kop mohl být proveden.</p>
+        </li>
+
+        <li class="h5 font-weight-bold">Procedura provádění vhazování
+        <p class="reset pt-2">V okamžiku, kdy vhazuje míč, musí vhazující hráč být vestoje obrácen obličejem k hrací ploše, alespoň části obou nohou stát buď na pomezní čáře nebo za pomezní čárou mimo hrací plochu a vhodit míč oběma rukama zezadu a přes hlavu z místa, kde míč opustil hrací plochu.</p>
+        </li>
+
+    </ol>
+
+{% endblock %}

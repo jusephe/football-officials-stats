@@ -237,11 +237,19 @@ class SiteController extends AbstractController
     }
 
     /**
-     * @Route("/vzdelavani", name="education")
+     * @Route("/pro-rozhodci", name="for_officials")
      */
-    public function education()
+    public function forOfficials()
     {
-        return $this->render('site/education.html.twig');
+        return $this->render('site/for_officials.html.twig');
+    }
+
+    /**
+     * @Route("/pro-rozhodci/ustni-zkouseni", name="oral_exam")
+     */
+    public function oralExam()
+    {
+        return $this->render('site/oral_exam.html.twig');
     }
 
 }
