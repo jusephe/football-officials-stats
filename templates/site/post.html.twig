@@ -1,6 +1,6 @@
 {% extends 'site/base.html.twig' %}
 
-{% block css %}<link rel="stylesheet" type="text/css" href="{{ asset('styles/site/post.css') }}">{% endblock %}
+{% block css %}{{ encore_entry_link_tags('site_post') }}{% endblock %}
 
 {% set page_title = post.title %}
 

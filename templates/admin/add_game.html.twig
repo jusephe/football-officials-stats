@@ -2,7 +2,7 @@
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-{% block css %}<link rel="stylesheet" type="text/css" href="{{ asset('styles/admin/add_game.css') }}">{% endblock %}
+{% block css %}{{ encore_entry_link_tags('admin_add_game') }}{% endblock %}
 
 {% set page_title = 'Přidat zápas' %}
 
@@ -54,5 +54,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ asset('scripts/admin/add_game.js') }}"></script>
+    {{ encore_entry_script_tags('admin_add_game') }}
 {% endblock %}

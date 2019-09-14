@@ -126,6 +126,7 @@ class SiteController extends AbstractController
         $redOffenceChart->getData()->setArrayToDataTable($stats['RefereeRedOffence']);
         $redOffenceChart->getOptions()->setPieSliceText('value');
         $redOffenceChart->getOptions()->getChartArea()->setWidth('90%');
+        $redOffenceChart->getOptions()->setBackgroundColor('transparent');
 
         $redCards = $redCardRepository->findByLeagueSeasonPart($league, $season, $part);
 
@@ -174,6 +175,7 @@ class SiteController extends AbstractController
         $redOffenceChart->getData()->setArrayToDataTable($stats['RefereeRedOffence']);
         $redOffenceChart->getOptions()->setPieSliceText('value');
         $redOffenceChart->getOptions()->getChartArea()->setWidth('90%');
+        $redOffenceChart->getOptions()->setBackgroundColor('transparent');
 
         $cardsMinutesChart = new LineChart();
         $cardsMinutesChart->getData()->setArrayToDataTable($stats['RefereeCardsMinutes']);
@@ -185,6 +187,7 @@ class SiteController extends AbstractController
             $stats['RefereeCardsMinutesMaxNumberOfCards'] + 1 );
         $cardsMinutesChart->getOptions()->getVAxis()->getMinorGridlines()->setCount(0);
         $cardsMinutesChart->getOptions()->setColors(['gold', 'crimson']);
+        $cardsMinutesChart->getOptions()->setBackgroundColor('transparent');
         $cardsMinutesChart->getOptions()->setLineWidth(3);
 
         return $this->render('site/official_profile.html.twig', [

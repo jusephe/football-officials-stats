@@ -1,3 +1,7 @@
+const $ = require('jquery');
+
+require( 'datatables.net-bs4' )(window, $);
+
 // --------------------------- DATATABLES ---------------------------
 
 $.extend( $.fn.dataTable.defaults, {

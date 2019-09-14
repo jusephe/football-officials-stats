@@ -1,3 +1,5 @@
+const $ = require('jquery');
+
 // hide charts after their drawing finished + hide loading after charts are hidden
 $(document).ready(function() {
     $('#red_offence_chart').collapse('hide');

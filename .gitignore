@@ -107,3 +107,10 @@ fabric.properties
 .idea/sonarlint
 
 # End of https://www.gitignore.io/api/symfony,phpstorm,composer
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###

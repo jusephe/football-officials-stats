@@ -13,14 +13,16 @@
 
 {% block heading %}{{ page_title }}{% endblock %}
 
-{% block main %}
-
+{% block loading %}
     <div class="loading loading-transparent full-width">
         <div class="loading-align">
             <div class="loading-animation"></div>
             <div>Načítání statistik...</div>
         </div>
     </div>
+{% endblock %}
+
+{% block main %}
 
     <h2 class="h4 mb-3 stats-subheading">Zápasy</h2>
 
@@ -81,9 +83,7 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script src="{{ asset('scripts/site/season_stats.js') }}"></script>
+    {{ encore_entry_script_tags('site_season_stats') }}
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         {{ gc_draw(redOffenceChart, 'red_offence_chart') }}

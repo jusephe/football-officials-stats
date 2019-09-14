@@ -8,14 +8,16 @@
 
 {% block heading %}{{ page_title }}{% endblock %}
 
-{% block main %}
-
+{% block loading %}
     <div class="loading loading-transparent full-width">
         <div class="loading-align">
             <div class="loading-animation"></div>
             <div>Načítání statistik...</div>
         </div>
     </div>
+{% endblock %}
+
+{% block main %}
 
     {{ include('site/official_stats/assessor_matches.html.twig') }}
 
@@ -32,8 +34,6 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script src="{{ asset('scripts/site/profile.js') }}"></script>
-    <script src="{{ asset('scripts/site/assessor_profile.js') }}"></script>
+    {{ encore_entry_script_tags('site_profile') }}
+    {{ encore_entry_script_tags('site_assessor_profile') }}
 {% endblock %}

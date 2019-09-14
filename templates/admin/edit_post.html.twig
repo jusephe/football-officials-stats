@@ -2,7 +2,7 @@
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-{% block css %}<link rel="stylesheet" type="text/css" href="{{ asset('styles/admin/form.css') }}">{% endblock %}
+{% block css %}{{ encore_entry_link_tags('admin_form') }}{% endblock %}
 
 {% if page_title is not defined %}
     {% set page_title = 'Editace novinky' %}

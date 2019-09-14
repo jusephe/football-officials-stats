@@ -1,3 +1,5 @@
+const $ = require('jquery');
+
 // Setup an "add a red card" link
 var $addRedButton = $('<button type="button" class="btn btn-outline-primary btn-sm">+ Přidat</button>');
 var $div_col10_red = $('<div class="col-sm-10"></div>').append($addRedButton);
@@ -5,7 +7,7 @@ var $div_col2_red = $('<div class="col-sm-2"></div>');
 var $newRedLinkDiv = $('<div class="form-group row"></div>').append($div_col2_red);
 $newRedLinkDiv = $newRedLinkDiv.append($div_col10_red);
 
-jQuery(document).ready(function() {
+$(document).ready(function() {
     addDeleteInit($newRedLinkDiv, $addRedButton);
 });
 

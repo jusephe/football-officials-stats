@@ -8,14 +8,16 @@
 
 {% block heading %}{{ page_title }}{% endblock %}
 
-{% block main %}
-
+{% block loading %}
     <div class="loading loading-transparent full-width">
         <div class="loading-align">
             <div class="loading-animation"></div>
             <div>Načítání statistik...</div>
         </div>
     </div>
+{% endblock %}
+
+{% block main %}
 
     {{ include('site/official_stats/nomination_lists.html.twig') }}
 
@@ -64,12 +66,10 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script src="{{ asset('scripts/site/profile.js') }}"></script>
+    {{ encore_entry_script_tags('site_profile') }}
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         {{ gc_draw([redOffenceChart, cardsMinutesChart], ['red_offence_chart', 'cards_minutes_chart']) }}
     </script>
-    <script src="{{ asset('scripts/site/official_profile.js') }}"></script>
+    {{ encore_entry_script_tags('site_official_profile') }}
 {% endblock %}

@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{ asset('styles/common_base.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('styles/site/base.css') }}">
+
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('site_base') }}
     {% block css %}{% endblock %}
 
     {# ------- favicon ------- #}
@@ -23,7 +22,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{{ path('index') }}">
                 <img src="{{ asset('images/site/white_whistle.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -61,8 +60,11 @@
         </div>
     </nav>
 
-    <main role="main" class="pt-3 pt-md-4">
-        <div class="container container-main">
+    <main role="main">
+
+        {% block loading %}{% endblock %}
+
+        <div class="container container-main pt-3 pt-md-4 pl-md-5">
             <h1 class="h3 font-weight-bold mb-4">{% block heading %}{% endblock %}</h1>
 
             {% block main %}
@@ -75,12 +77,7 @@
         <span id="new-window">Otevře stránku v novém okně</span>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="{{ asset('scripts/base.js') }}"></script>
-
+    {{ encore_entry_script_tags('app') }}
     {% block scripts %}{% endblock %}
 
 </body>

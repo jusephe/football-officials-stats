@@ -1,3 +1,14 @@
+body {
+    background-color: lightgrey;
+    background-image: url("../../../public/images/site/background_pattern.png");
+}
+
+div.container-main {
+    background-color: whitesmoke;
+    padding-bottom: 4rem;
+    min-height: 85vh;
+}
+
 div.container-main > * {
     max-width: 40em;
 }
@@ -60,6 +71,7 @@ a[data-toggle="collapse"].collapsed *:before {
 .jumbotron {
     padding: 2rem 1rem;
     border-radius: 0.2rem;
+    background-color: #E2E4E6;
 }
 
 @media (min-width: 576px) {

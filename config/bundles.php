@@ -17,4 +17,5 @@ return [
     Demontpx\ParsedownBundle\DemontpxParsedownBundle::class => ['all' => true],
     CMEN\GoogleChartsBundle\CMENGoogleChartsBundle::class => ['all' => true],
     Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
+    Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
 ];
