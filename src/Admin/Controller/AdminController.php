@@ -145,15 +145,60 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/games", name="games")
      */
-    public function games(GameRepository $gameRepository)
+    public function games(Request $request, GameRepository $gameRepository, GameFunctionality $gameFunctionality)
     {
+        $form = $this->createFormBuilder()
+            ->add('league', EntityType::class, [
+                'label' => 'Soutěž:',
+                'class' => League::class,
+                'choice_label' => 'fullName',
+                'placeholder' => 'Všechny soutěže',
+                'required' => false,
+            ])
+            ->add("season", ChoiceType::class, [
+                "label" => "Sezóna:",
+                "choices" => $gameFunctionality->getDistinctSeasons(),
+                'choice_label' => function ($choice) {
+                    $seasonEndYear = substr($choice+1, 2);
+                    return "$choice/$seasonEndYear";  // pure season
+                },
+                'placeholder' => 'Všechny sezóny',
+                'required' => false,
+            ])
+            ->add("round", ChoiceType::class, [
+                "label" => "Kolo:",
+                "choices" => $gameFunctionality->getDistinctRounds(),
+                'choice_label' => function ($choice) {
+                    return $choice;  // pure round
+                },
+                'placeholder' => 'Všechna kola',
+                'required' => false,
+            ])
+            ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $league = $form['league']->getData();
+            $season = $form['season']->getData();
+            $round = $form['round']->getData();
+
+            $games = $gameRepository->findFilteredOrderByAdded($league, $season, $round);
+
+            if (empty($games)) {
+                $this->addFlash('alert alert-warning', 'Pro zadané údaje nebyly nalezeny žádné zápasy!');
+            }
+
+            return $this->render('admin/games.html.twig', [
+                'form' => $form->createView(),
+                'games' => $games,
+            ]);
+        }
+
         $games = $gameRepository->findAllOrderByAdded();
 
-        $totalGames = $gameRepository->getTotalGames();
-
         return $this->render('admin/games.html.twig', [
+            'form' => $form->createView(),
             'games' => $games,
-            'totalGames' => $totalGames,
         ]);
     }
 

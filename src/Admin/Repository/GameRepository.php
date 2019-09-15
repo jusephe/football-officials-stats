@@ -24,12 +24,36 @@ class GameRepository extends ServiceEntityRepository
         return $this->findBy([], ['id' => 'DESC']);
     }
 
-    public function getTotalGames()
+    public function findFilteredOrderByAdded($league, $season, $round)
     {
-        return $this->createQueryBuilder('g')
-            ->select('count(g.id)')
-            ->getQuery()
-            ->getSingleScalarResult();
+        if ($league) {
+            $qb = $this->getEntityManager()->createQueryBuilder();
+
+            $qb->select('g', 'l')
+                ->from('App:Game', 'g')
+                ->join('g.league', 'l');
+
+            $qb->andWhere('g.league = :league')
+                ->setParameter('league', $league);
+        }
+        else {
+            $qb = $this->createQueryBuilder('g');
+        }
+
+        if ($season) {
+            $qb->andWhere('g.season = :season')
+                ->setParameter('season', $season);
+        }
+
+        if ($round) {
+            $qb->andWhere('g.round = :round')
+                ->setParameter('round', $round);
+        }
+
+        $qb->orderBy('g.id', 'DESC');
+
+        return $qb->getQuery()
+            ->getResult();
     }
 
     // /**
