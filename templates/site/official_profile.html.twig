@@ -9,17 +9,12 @@
 {% block heading %}{{ page_title }}{% endblock %}
 
 {% block loading %}
-    <div class="loading loading-transparent full-width">
-        <div class="loading-align">
-            <div class="loading-animation"></div>
-            <div>Načítání statistik...</div>
-        </div>
-    </div>
+    {{ include('site/_loading_stats.html.twig') }}
 {% endblock %}
 
 {% block main %}
 
-    <button id="show_hide" type="button" class="btn btn-outline-dark btn-sm mb-3">Rozbalit/sbalit vše</button>
+    {{ include('site/_show_hide_buttons.html.twig') }}
 
     {{ include('site/official_stats/nomination_lists.html.twig') }}
 

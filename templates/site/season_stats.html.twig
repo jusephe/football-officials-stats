@@ -14,17 +14,12 @@
 {% block heading %}{{ page_title }}{% endblock %}
 
 {% block loading %}
-    <div class="loading loading-transparent full-width">
-        <div class="loading-align">
-            <div class="loading-animation"></div>
-            <div>Načítání statistik...</div>
-        </div>
-    </div>
+    {{ include('site/_loading_stats.html.twig') }}
 {% endblock %}
 
 {% block main %}
 
-    <button id="show_hide" type="button" class="btn btn-outline-dark btn-sm mb-3">Rozbalit/sbalit vše</button>
+    {{ include('site/_show_hide_buttons.html.twig') }}
 
     <h2 class="h4 mb-3 stats-subheading">Zápasy</h2>
 

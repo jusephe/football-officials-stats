@@ -27,13 +27,9 @@
         {{ form_end(form) }}
     </div>
 
-    <div class="mb-2 mb-md-3">
-        <a href="{{ path('add_game_form') }}">Přidat zápas ručně</a>
-    </div>
-
-    <div class="mb-3 mb-md-4">
-        <a href="{{ path('games') }}">Seznam přidaných zápasů</a>
-    </div>
+    <a class="btn btn-outline-primary btn-sm mb-2 mb-md-3" href="{{ path('add_game_form') }}" role="button">Přidat zápas ručně</a>
+    <br>
+    <a class="btn btn-outline-primary btn-sm mb-3 mb-md-4" href="{{ path('games') }}" role="button">Seznam přidaných zápasů</a>
 
     <p>
         Na této stránce je možné vložit data ze zápasů. Do pole výše vložte zdrojový HTML kód stránky se zápisem
