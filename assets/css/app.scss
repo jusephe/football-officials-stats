@@ -7,8 +7,10 @@ $font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helve
 @import "~bootstrap/scss/bootstrap";
 
 
-body {
-    padding-bottom: 5rem;
+@include media-breakpoint-up(sm) {
+    body {
+        padding-bottom: 5rem;
+    }
 }
 
 ul {
