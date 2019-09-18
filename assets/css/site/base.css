@@ -2,6 +2,11 @@ body {
     background-color: lightgrey;
     background-image: url("../../../public/images/site/background_pattern.svg");
 }
+@media (min-width: 576px) {
+    body {
+        padding-bottom: 5rem;
+    }
+}
 
 div.container-main {
     background-color: whitesmoke;

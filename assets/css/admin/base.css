@@ -1,3 +1,7 @@
+body {
+    padding-bottom: 5rem;
+}
+
 p, ul, .text-width {
     max-width: 40em;
 }
