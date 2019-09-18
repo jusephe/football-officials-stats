@@ -179,7 +179,7 @@ class SiteController extends AbstractController
 
         $cardsMinutesChart = new LineChart();
         $cardsMinutesChart->getData()->setArrayToDataTable($stats['RefereeCardsMinutes']);
-        $cardsMinutesChart->getOptions()->getChartArea()->setWidth('90%');
+        $cardsMinutesChart->getOptions()->getChartArea()->setWidth('88%');
         $cardsMinutesChart->getOptions()->getChartArea()->setTop('10%');
         $cardsMinutesChart->getOptions()->getLegend()->setPosition('bottom');
         $cardsMinutesChart->getOptions()->getHAxis()->setTicks([5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90]);
