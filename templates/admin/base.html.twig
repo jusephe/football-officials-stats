@@ -79,8 +79,11 @@
         </div>
     </nav>
 
-    <main role="main" class="pt-3">
-        <div class="container">
+    <main role="main">
+
+        {% block loading %}{% endblock %}
+
+        <div class="container pt-3">
             <section id="flashes">
                 {% for label, messages in app.flashes %}
                     {% for message in messages %}

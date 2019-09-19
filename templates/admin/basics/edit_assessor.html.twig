@@ -3,14 +3,16 @@
 {% block css %}{{ encore_entry_link_tags('admin_form') }}{% endblock %}
 
 {% if page_title is not defined %}
-    {% set page_title = 'Editace delegáta ' ~ assessor.name %}
+    {% set page_title = 'Editace delegáta' %}
 {% endif %}
 
 {% block heading %}{{ page_title }}{% endblock %}
 
 {% block main %}
 
-    <div class="pt-3">
+    <h2 class="h4 mb-3">{{ assessor.name }}</h2>
+
+    <div class="pt-2 pt-md-3">
         {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" class="btn btn-primary btn-save" value="Uložit"/>

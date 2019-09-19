@@ -6,10 +6,7 @@
 
 {% set page_title = 'Přidat zápas' %}
 
-{% block heading %}{{ page_title }}{% endblock %}
-
-{% block main %}
-
+{% block loading %}
     <div class="loading d-none">
         <div class="loading-align">
             <div class="loading-animation"></div>
@@ -19,6 +16,11 @@
             </p>
         </div>
     </div>
+{% endblock %}
+
+{% block heading %}{{ page_title }}{% endblock %}
+
+{% block main %}
 
     <div class="mb-5">
         {{ form_start(form) }}

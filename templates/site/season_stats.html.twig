@@ -11,11 +11,11 @@
     {% set page_title = page_title ~ ' – ' ~ part|capitalize %}
 {% endif %}
 
-{% block heading %}{{ page_title }}{% endblock %}
-
 {% block loading %}
     {{ include('site/_loading_stats.html.twig') }}
 {% endblock %}
+
+{% block heading %}{{ page_title }}{% endblock %}
 
 {% block main %}
 

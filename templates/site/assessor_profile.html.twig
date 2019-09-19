@@ -6,11 +6,11 @@
 
 {% set page_title = assessor.name %}
 
-{% block heading %}{{ page_title }}{% endblock %}
-
 {% block loading %}
     {{ include('site/_loading_stats.html.twig') }}
 {% endblock %}
+
+{% block heading %}{{ page_title }}{% endblock %}
 
 {% block main %}
 
