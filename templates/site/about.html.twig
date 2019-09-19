@@ -6,7 +6,38 @@
 
 {% block main %}
 
+    <p>
+        Tento projekt má za cíl nabídnout detailní statistické údaje o&nbsp;rozhodčích a delegátech
+        <a href="https://www.fotbalpraha.cz" target="_blank" rel="noopener" aria-describedby="new-window">Pražského fotbalového svazu
+            <svg class="icon" focusable="false" aria-hidden="true"> <use href="{{ asset('images/icons_sprite.svg') }}#new-window"></use> </svg></a>.
+        Jsou vedeny údaje ze zápasů Pražského přeboru a 1.&nbsp;A&nbsp;tříd, a to od sezóny 2015/2016.
+        Na stránkách lze nalézt jak statistické přehledy dle soutěží a sezón, tak i profily jednotlivých rozhodčích a delegátů.
+    </p>
+    <p>
+        V sekci <a href="{{ path('for_officials') }}">Pro&nbsp;rozhodčí</a> naleznou především začínající sudí užitečné informace a studijní materiály
+        pro své další vzdělávání.
+    </p>
+    <p>
+        Portál je vytvářen na základě veřejně dostupných údajů
+        z&nbsp;<a href="https://is.fotbal.cz" target="_blank" rel="noopener" aria-describedby="new-window">Informačního systému Fotbalové asociace České republiky
+            <svg class="icon" focusable="false" aria-hidden="true"> <use href="{{ asset('images/icons_sprite.svg') }}#new-window"></use> </svg></a>.
+    </p>
+
+    <hr class="ml-0 my-4">
+
+    <p class="text-muted">
+        Na základě platnosti obecného nařízení Evropského parlamentu a Rady&nbsp;EU&nbsp;2016/679, o&nbsp;ochraně fyzických osob, v&nbsp;souvislosti se zpracováním
+        osobních údajů – General Data Protection Regulation, neboli GDPR,&nbsp;je možnost osobní data jednotlivých rozhodčích a osob vyskytujících se ve
+        statistikách na žádost obratem vymazat a&nbsp;v&nbsp;případě potřeby poskytnout veškeré detailní informace o&nbsp;shromažďovaných datech o&nbsp;dané osobě.
+        V takovém případě nás kontaktujte pomocí údajů níže.
+    </p>
+
+    <hr class="ml-0 my-4">
 
     <h2 class="h4" id="kontakt">Kontakt</h2>
+    <p>
+    Pokud máte jakékoliv dotazy, podněty, nápady nebo připomínky, budeme rádi pokud nám napíšete.
+    </p>
+    E-mail: <a href="mailto:admin@rozhodci.eu">admin@rozhodci.eu</a>
 
 {% endblock %}
