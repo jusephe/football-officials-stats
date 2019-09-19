@@ -1,3 +1,5 @@
+require('../../css/site/datatables_bootstrap.css');
+
 const $ = require('jquery');
 
 require( 'datatables.net-bs4' )(window, $);
