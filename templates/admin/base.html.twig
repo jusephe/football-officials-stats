@@ -24,16 +24,16 @@
 <body>
     <nav class="navbar sticky-top navbar-expand-md navbar-light bg-light">
         <div class="container">
-            <span class="navbar-brand">
-                <img src="{{ asset('images/admin/black_whistle.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+            <a class="navbar-brand" href="{{ path('add_game') }}">
+                <img src="{{ asset('images/admin/black_whistle.png') }}" width="30" height="30" class="d-inline-block align-top mr-1" alt="">
                 Rozhodčí PFS
-            </span>
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"
                     aria-controls="menu" aria-expanded="false" aria-label="Menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="menu">
+            <div class="collapse navbar-collapse ml-md-1" id="menu">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('add_game') }}">Přidat zápas</a>
@@ -79,7 +79,7 @@
         </div>
     </nav>
 
-    <main role="main" class="pt-2 pt-md-3">
+    <main role="main" class="pt-3">
         <div class="container">
             <section id="flashes">
                 {% for label, messages in app.flashes %}
@@ -89,7 +89,7 @@
                 {% endfor %}
             </section>
 
-            <h1 class="h2">{% block heading %}{% endblock %}</h1>
+            <h1 class="h2 font-weight-bold mb-3">{% block heading %}{% endblock %}</h1>
 
             {% block main %}
 

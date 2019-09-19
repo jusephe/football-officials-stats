@@ -20,16 +20,16 @@
         </div>
     </div>
 
-    <div class="mb-3 mb-md-4">
+    <div class="mb-5">
         {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" class="btn btn-primary btn-send" value="Odeslat"/>
         {{ form_end(form) }}
     </div>
 
-    <a class="btn btn-outline-primary btn-sm mb-2 mb-md-3" href="{{ path('add_game_form') }}" role="button">Přidat zápas ručně</a>
+    <a class="btn btn-outline-primary btn-sm mb-3" href="{{ path('add_game_form') }}" role="button">Přidat zápas ručně</a>
     <br>
-    <a class="btn btn-outline-primary btn-sm mb-3 mb-md-4" href="{{ path('games') }}" role="button">Seznam přidaných zápasů</a>
+    <a class="btn btn-outline-primary btn-sm mb-4" href="{{ path('games') }}" role="button">Seznam přidaných zápasů</a>
 
     <p>
         Na této stránce je možné vložit data ze zápasů. Do pole výše vložte zdrojový HTML kód stránky se zápisem
@@ -39,11 +39,11 @@
         Po vložení jednoho či více celých kol je potřeba aktualizovat tabulky se statistikami pomocí tlačítka níže.
     </p>
 
-    <button type="button" class="btn btn-primary mb-3 mb-md-4" id="update_stats" data-path="{{ path('update_stats') }}">
+    <button type="button" class="btn btn-primary mb-4" id="update_stats" data-path="{{ path('update_stats') }}">
         Aktualizovat statistiky
     </button>
 
-    <div id="new_season" class="alert alert-warning">Na začátku nové sezóny je potřeba zkontrolovat, jestli některý tým nepozměnil
+    <div id="new_season" class="alert alert-warning mb-0">Na začátku nové sezóny je potřeba zkontrolovat, jestli některý tým nepozměnil
         svůj název (který se objevuje v&nbsp;zápisech) a případně ho aktualizovat na stránce <a href="{{ path('teams') }}">Týmy</a>.
     </div>
 

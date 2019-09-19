@@ -10,9 +10,11 @@
 
 {% block main %}
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" class="btn btn-primary btn-save" value="Uložit"/>
-    {{ form_end(form) }}
+    <div class="pt-3">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" class="btn btn-primary btn-save" value="Uložit"/>
+        {{ form_end(form) }}
+    </div>
 
 {% endblock %}

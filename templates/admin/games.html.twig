@@ -10,11 +10,11 @@
 
 {% block main %}
 
-    <p>
+    <p class="mb-4">
         Zápasy jsou řazeny dle pořadí vložení do systému, nejvýše se nacházejí zápasy přidané jako poslední.
     </p>
 
-    <div class="text-width bg-light py-3 px-3 mb-3">
+    <div class="text-width bg-light p-3 mb-3">
         {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" class="btn btn-sm btn-outline-primary btn-save" value="Filtrovat"/>
