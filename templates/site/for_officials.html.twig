@@ -7,7 +7,7 @@
 {% block main %}
 
     <p>
-        Tato stránka je věnována zajímavostem v oblasti vzdělávání rozhodčích. Jedná se převážně o témata z psychologie nebo pravidel fotbalu. Bude-li v budoucnu více
+        Tato stránka je věnována zajímavostem v&nbsp;oblasti vzdělávání rozhodčích. Jedná se převážně o&nbsp;témata z psychologie nebo pravidel fotbalu. Bude-li v budoucnu více
         materiálů, bude stránka průběžně doplňována. Nebojte se nás případně za tímto účelem <a href="{{ path('about', {'_fragment': 'kontakt'}) }}">kontaktovat</a>.
     </p>
 
@@ -17,14 +17,12 @@
 
     <ul class="pl-1">
         <li class="mb-1">
-            <a href="https://rozhodci.fotbal.cz/" target="_blank" rel="noopener" aria-describedby="new-window">rozhodci.fotbal.cz
-                <svg class="icon" focusable="false" aria-hidden="true"> <use href="{{ asset('images/icons_sprite.svg') }}#new-window"></use> </svg>
-            </a>
+            <a href="https://rozhodci.fotbal.cz/" target="_blank" rel="noopener" aria-describedby="new-window"
+            >rozhodci.fotbal.cz{{ include('icon/new_window.html.twig') }}</a>
         </li>
         <li>
-            <a href="https://rozhodci.fotbal.cz/ke-stazeni/p15" target="_blank" rel="noopener" aria-describedby="new-window">rozhodci.fotbal.cz/ke-stazeni
-                <svg class="icon" focusable="false" aria-hidden="true"> <use href="{{ asset('images/icons_sprite.svg') }}#new-window"></use> </svg>
-            </a>
+            <a href="https://rozhodci.fotbal.cz/ke-stazeni/p15" target="_blank" rel="noopener" aria-describedby="new-window"
+            >rozhodci.fotbal.cz/ke-stazeni{{ include('icon/new_window.html.twig') }}</a>
         </li>
     </ul>
 
@@ -34,13 +32,13 @@
 
     <ul class="pl-1">
         <li class="mb-1">
-            <a href="{{ asset('documents/Effective-Communication-for-Referees.pdf') }}" target="_blank" rel="noopener" aria-describedby="new-window">Effective Communication for Referees
-                <svg class="icon-pdf" focusable="false" aria-hidden="true"> <use href="{{ asset('images/icons_sprite.svg') }}#pdf"></use> </svg></a>
+            <a href="{{ asset('documents/Effective-Communication-for-Referees.pdf') }}" target="_blank" rel="noopener" aria-describedby="new-window"
+            >Effective Communication for Referees{{ include('icon/pdf.html.twig') }}</a>
             (anglický originál)
         </li>
         <li>
-            <a href="{{ asset('documents/Effective-Communication-for-Referees_CZ.pdf') }}" target="_blank" rel="noopener" aria-describedby="new-window">Efektivní komunikace pro rozhodčí
-                <svg class="icon-pdf" focusable="false" aria-hidden="true"> <use href="{{ asset('images/icons_sprite.svg') }}#pdf"></use> </svg></a>
+            <a href="{{ asset('documents/Effective-Communication-for-Referees_CZ.pdf') }}" target="_blank" rel="noopener" aria-describedby="new-window"
+            >Efektivní komunikace pro rozhodčí{{ include('icon/pdf.html.twig') }}</a>
             (český překlad)
         </li>
     </ul>
@@ -51,9 +49,8 @@
 
     <ul class="pl-1">
         <li>
-            <a href="{{ asset('documents/Practical-Guidelines-for-Match-Officials.pdf') }}" target="_blank" rel="noopener" aria-describedby="new-window">Practical Guidelines for Match Officials
-                <svg class="icon-pdf" focusable="false" aria-hidden="true"> <use href="{{ asset('images/icons_sprite.svg') }}#pdf"></use> </svg>
-            </a>
+            <a href="{{ asset('documents/Practical-Guidelines-for-Match-Officials.pdf') }}" target="_blank" rel="noopener" aria-describedby="new-window"
+            >Practical Guidelines for Match Officials{{ include('icon/pdf.html.twig') }}</a>
         </li>
     </ul>
 
