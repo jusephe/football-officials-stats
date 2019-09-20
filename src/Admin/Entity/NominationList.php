@@ -17,14 +17,14 @@ class NominationList
     /**
      * @var int
      *
-     * @ORM\Column(name="year", type="smallint", nullable=false, options={"unsigned"=true})
+     * @ORM\Column(name="season", type="smallint", nullable=false, options={"unsigned"=true})
      * @ORM\Id
      * @Assert\NotBlank
      * @Assert\Range(
      *      min = 1950,
      *      max = 2070)
      */
-    private $year;
+    private $season;
 
     /**
      * @var string
@@ -76,14 +76,14 @@ class NominationList
     }
 
 
-    public function getYear(): ?int
+    public function getSeason(): ?int
     {
-        return $this->year;
+        return $this->season;
     }
 
-    public function setYear(int $year): self
+    public function setSeason(int $season): self
     {
-        $this->year = $year;
+        $this->season = $season;
 
         return $this;
     }

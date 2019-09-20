@@ -334,8 +334,9 @@ class AdminController extends AbstractController
     public function nominationLists(Request $request)
     {
         $seasonForm = $this->createFormBuilder()
-            ->add('year', IntegerType::class, [
-                'label' => 'Rok:',
+            ->add('season', IntegerType::class, [
+                'label' => 'Sezóna:',
+                'help' => 'Uveďte rok, kdy sezóna začala. Např. pro sezónu 2019/20 vložte 2019.',
                 'constraints' => [
                     new Range(['min' => 1950, 'max' => 2070]),
                 ],
@@ -350,7 +351,7 @@ class AdminController extends AbstractController
 
         if ($seasonForm->isSubmitted() && $seasonForm->isValid()) {
             return $this->redirectToRoute('add_nomination_lists', [
-                'year' => $seasonForm['year']->getData(),
+                'season' => $seasonForm['season']->getData(),
                 'part' => $seasonForm['partOfSeason']->getData(),
             ]);
         }
@@ -384,14 +385,14 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/nomination-lists/add/{year}/{part}", name="add_nomination_lists")
+     * @Route("/admin/nomination-lists/add/{season}/{part}", name="add_nomination_lists")
      */
-    public function addNominationLists(Request $request, EntityManagerInterface $entityManager, $year, $part)
+    public function addNominationLists(Request $request, EntityManagerInterface $entityManager, $season, $part)
     {
-        $possibleOfficials = $entityManager->getRepository(Official::class)->findWithoutNominationList($year, $part);
+        $possibleOfficials = $entityManager->getRepository(Official::class)->findWithoutNominationList($season, $part);
 
         if (empty($possibleOfficials)) {
-            $this->addFlash('alert alert-info', 'Pro daný půlrok nebyli nalezeni žádní rozhodčí bez zadané listiny.');
+            $this->addFlash('alert alert-info', 'Pro danou půlsezónu nebyli nalezeni žádní rozhodčí bez zadané listiny.');
 
             return $this->redirectToRoute('nomination_lists');
         }
@@ -400,7 +401,7 @@ class AdminController extends AbstractController
         foreach ($possibleOfficials as $official) {
             $list = new NominationList();
             $list->setOfficial($official);
-            $list->setYear($year);
+            $list->setSeason($season);
             $list->setPartOfSeason($part);
             $newLists[] = $list;
         }

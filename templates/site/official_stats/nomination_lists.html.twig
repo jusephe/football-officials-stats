@@ -7,8 +7,9 @@
             <table class="table">
                 <tbody>
                 {% for nominationList in official.nominationLists %}
+                    {% set seasonEndYear = (nominationList.season+1)|slice(2, 2) %}
                     <tr>
-                        <td style="width: 10em">{{ nominationList.year }} - {{ nominationList.partOfSeason }}</td>
+                        <td style="width: 11em">{{ nominationList.season }}/{{ seasonEndYear }} – {{ nominationList.partOfSeason }}</td>
                         <td class="font-weight-bold">{{ nominationList.leagueLevelName }}</td>
                     </tr>
                 {% endfor %}

@@ -24,16 +24,16 @@ class OfficialRepository extends ServiceEntityRepository
         return $this->findBy([], ['name' => 'ASC']);
     }
 
-    public function findWithoutNominationList($year, $part)
+    public function findWithoutNominationList($season, $part)
     {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
             'SELECT IDENTITY (nl.official)
                   FROM App\Admin\Entity\NominationList nl
-                  WHERE (nl.year = :year AND nl.partOfSeason = :part)'
+                  WHERE (nl.season = :season AND nl.partOfSeason = :part)'
         );
-        $query->setParameter('year', $year)
+        $query->setParameter('season', $season)
             ->setParameter('part', $part);
 
         $officialsWithEntry = $query->execute();

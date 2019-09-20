@@ -15,8 +15,8 @@ class EditNominationListType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('year', IntegerType::class, [
-                'label' => 'Rok:',
+            ->add('season', IntegerType::class, [
+                'label' => 'Sezóna:',
                 'disabled' => true,
             ])
             ->add("partOfSeason", ChoiceType::class, [

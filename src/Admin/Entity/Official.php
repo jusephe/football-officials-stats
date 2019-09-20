@@ -44,6 +44,7 @@ class Official
      * @var \NominationList
      *
      * @ORM\OneToMany(targetEntity="NominationList", mappedBy="official", cascade={"persist"})
+     * @ORM\OrderBy({"season" = "ASC", "partOfSeason" = "DESC"})
      * @Assert\Valid
      */
     private $nominationLists;
