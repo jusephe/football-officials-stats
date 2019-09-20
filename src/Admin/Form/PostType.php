@@ -3,7 +3,6 @@
 namespace App\Admin\Form;
 
 use App\Admin\Entity\Post;
-use App\Admin\Functionality\LeagueFunctionality;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -12,13 +11,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PostType extends AbstractType
 {
-    private $leagueFunctionality;
-
-    public function __construct(LeagueFunctionality $leagueFunctionality)
-    {
-        $this->leagueFunctionality = $leagueFunctionality;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

@@ -5,7 +5,7 @@ namespace App\Admin\Service;
 use App\Admin\Entity\Game;
 use Symfony\Component\DomCrawler\Crawler;
 
-class GameBuilder
+class GameFactory
 {
     private $ISFACRGameParser;
 
@@ -14,7 +14,7 @@ class GameBuilder
         $this->ISFACRGameParser = $ISFACRGameHtmlParser;
     }
 
-    public function createGameFromHtml($sourceCode)
+    public function createFromHtml($sourceCode)
     {
         $game = new Game();
 

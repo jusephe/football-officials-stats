@@ -11,17 +11,20 @@ use App\Admin\Entity\Post;
 use App\Admin\Entity\Team;
 use App\Admin\Exception\LeagueNotFound;
 use App\Admin\Exception\TeamNotFound;
+use App\Admin\Form\AddedGamesFilterType;
 use App\Admin\Form\AssessorType;
 use App\Admin\Form\ChangePasswordType;
 use App\Admin\Form\GamePunishmentsType;
 use App\Admin\Form\GameType;
 use App\Admin\Form\LeagueType;
-use App\Admin\Form\AddNominationListType;
-use App\Admin\Form\OfficialNominationListsType;
+use App\Admin\Form\NominationListOfficialType;
+use App\Admin\Form\NominationListSeasonType;
+use App\Admin\Form\OfficialEditNominationListsType;
+use App\Admin\Form\OfficialsAddNominationListType;
 use App\Admin\Form\OfficialType;
 use App\Admin\Form\PostType;
+use App\Admin\Form\PunishmentsGamesFilterType;
 use App\Admin\Form\TeamType;
-use App\Admin\Functionality\GameFunctionality;
 use App\Admin\Repository\AssessorRepository;
 use App\Admin\Repository\GameRepository;
 use App\Admin\Repository\LeagueRepository;
@@ -29,27 +32,21 @@ use App\Admin\Repository\OfficialRepository;
 use App\Admin\Repository\PostRepository;
 use App\Admin\Repository\StatsRepository;
 use App\Admin\Repository\TeamRepository;
-use App\Admin\Service\GameBuilder;
+use App\Admin\Service\GameFactory;
 use Demontpx\ParsedownBundle\Parsedown;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Validator\Constraints\Range;
-use Symfony\Component\Validator\Constraints\Valid;
 
 class AdminController extends AbstractController
 {
     /**
      * @Route("/admin/add-game", name="add_game")
      */
-    public function addGame(Request $request, GameBuilder $gameBuilder)
+    public function addGame(Request $request, GameFactory $gameFactory)
     {
         $sourceCodeForm = $this->createFormBuilder()
             ->add('sourceCode', TextareaType::class, [
@@ -62,7 +59,7 @@ class AdminController extends AbstractController
             $sourceCode = $sourceCodeForm['sourceCode']->getData();
 
             try {
-                $game = $gameBuilder->createGameFromHtml($sourceCode);
+                $game = $gameFactory->createFromHtml($sourceCode);
             }
             catch (\InvalidArgumentException $e) {
                 $this->addFlash('alert alert-danger', $e->getMessage());
@@ -145,42 +142,15 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/games", name="games")
      */
-    public function games(Request $request, GameRepository $gameRepository, GameFunctionality $gameFunctionality)
+    public function games(Request $request, GameRepository $gameRepository)
     {
-        $form = $this->createFormBuilder()
-            ->add('league', EntityType::class, [
-                'label' => 'Soutěž:',
-                'class' => League::class,
-                'choice_label' => 'fullName',
-                'placeholder' => 'Všechny soutěže',
-                'required' => false,
-            ])
-            ->add("season", ChoiceType::class, [
-                "label" => "Sezóna:",
-                "choices" => $gameFunctionality->getDistinctSeasons(),
-                'choice_label' => function ($choice) {
-                    $seasonEndYear = substr($choice+1, 2);
-                    return "$choice/$seasonEndYear";  // pure season
-                },
-                'placeholder' => 'Všechny sezóny',
-                'required' => false,
-            ])
-            ->add("round", ChoiceType::class, [
-                "label" => "Kolo:",
-                "choices" => $gameFunctionality->getDistinctRounds(),
-                'choice_label' => function ($choice) {
-                    return $choice;  // pure round
-                },
-                'placeholder' => 'Všechna kola',
-                'required' => false,
-            ])
-            ->getForm();
-        $form->handleRequest($request);
+        $form = $this->createForm(AddedGamesFilterType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $league = $form['league']->getData();
-            $season = $form['season']->getData();
-            $round = $form['round']->getData();
+            $league = $form->get('league')->getData();
+            $season = $form->get('season')->getData();
+            $round = $form->get('round')->getData();
 
             $games = $gameRepository->findFilteredOrderByAdded($league, $season, $round);
 
@@ -241,37 +211,16 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/punishments", name="punishments")
      */
-    public function punishments(Request $request, GameRepository $gameRepository, GameFunctionality $gameFunctionality)
+    public function punishments(Request $request, GameRepository $gameRepository)
     {
-        $form = $this->createFormBuilder()
-            ->add('league', EntityType::class, [
-                'label' => 'Soutěž:',
-                'class' => League::class,
-                'choice_label' => 'fullName',
-            ])
-            ->add("season", ChoiceType::class, [
-                "label" => "Sezóna:",
-                "choices" => $gameFunctionality->getDistinctSeasons(),
-                'choice_label' => function ($choice) {
-                    $seasonEndYear = substr($choice+1, 2);
-                    return "$choice/$seasonEndYear";  // pure season
-                },
-            ])
-            ->add("round", ChoiceType::class, [
-                "label" => "Kolo:",
-                "choices" => $gameFunctionality->getDistinctRounds(),
-                'choice_label' => function ($choice) {
-                    return $choice;  // pure round
-                },
-            ])
-            ->getForm();
-        $form->handleRequest($request);
+        $form = $this->createForm(PunishmentsGamesFilterType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $games = $gameRepository->findBy([
-                'league' => $form['league']->getData(),
-                'season' => $form['season']->getData(),
-                'round' => $form['round']->getData()
+                'league' => $form->get('league')->getData(),
+                'season' => $form->get('season')->getData(),
+                'round' => $form->get('round')->getData()
             ]);
 
             if (empty($games)) {
@@ -333,54 +282,28 @@ class AdminController extends AbstractController
      */
     public function nominationLists(Request $request)
     {
-        $seasonForm = $this->createFormBuilder()
-            ->add('season', IntegerType::class, [
-                'label' => 'Sezóna:',
-                'help' => 'Uveďte rok, kdy sezóna začala. Např. pro sezónu 2019/20 vložte 2019.',
-                'constraints' => [
-                    new Range(['min' => 1950, 'max' => 2070]),
-                ],
-            ])
-            ->add("partOfSeason", ChoiceType::class, [
-                "label" => "Část:",
-                "choices" => ['Jaro' => 'Jaro', 'Podzim' => 'Podzim'],
-                'placeholder' => 'Vyberte část',
-            ])
-            ->getForm();
-        $seasonForm->handleRequest($request);
+        $seasonForm = $this->createForm(NominationListSeasonType::class)
+            ->handleRequest($request);
 
         if ($seasonForm->isSubmitted() && $seasonForm->isValid()) {
             return $this->redirectToRoute('add_nomination_lists', [
-                'season' => $seasonForm['season']->getData(),
-                'part' => $seasonForm['partOfSeason']->getData(),
+                'season' => $seasonForm->get('season')->getData(),
+                'part' => $seasonForm->get('partOfSeason')->getData(),
             ]);
         }
 
-        $searchForm = $this->createFormBuilder()
-            ->add('official', EntityType::class, [
-                'label' => 'Rozhodčí:',
-                'class' => Official::class,
-                'query_builder' => function (OfficialRepository $or) {
-                    return $or->createQueryBuilder('o')
-                        ->orderBy('o.name', 'ASC');
-                },
-                'choice_label' => function ($official) {
-                    return $official->getNameWithId();
-                },
-                'placeholder' => 'Vyberte rozhodčího',
-            ])
-            ->getForm();
-        $searchForm->handleRequest($request);
+        $officialForm = $this->createForm(NominationListOfficialType::class)
+            ->handleRequest($request);
 
-        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+        if ($officialForm->isSubmitted() && $officialForm->isValid()) {
             return $this->redirectToRoute('edit_nomination_lists', [
-                'officialId' => $searchForm['official']->getData()->getId(),
+                'officialId' => $officialForm->get('official')->getData()->getId(),
             ]);
         }
 
         return $this->render('admin/nomination_lists.html.twig', [
             'seasonForm' => $seasonForm->createView(),
-            'searchForm' => $searchForm->createView(),
+            'officialForm' => $officialForm->createView(),
         ]);
     }
 
@@ -406,21 +329,12 @@ class AdminController extends AbstractController
             $newLists[] = $list;
         }
 
-        $form = $this->createFormBuilder()
-            ->add('nominationLists', CollectionType::class, [
-                'label' => false,
-                'entry_type' => AddNominationListType::class,
-                'data' => $newLists,
-                'entry_options' => ['label' => false],
-                'constraints' => [
-                    new Valid(),
-                ],
-            ])
-            ->getForm();
-        $form->handleRequest($request);
+        $form = $this->createForm(OfficialsAddNominationListType::class, null, [
+            'newLists' => $newLists,
+        ])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $nominationLists = $form['nominationLists']->getData();
+            $nominationLists = $form->get('nominationLists')->getData();
 
             foreach ($nominationLists as $nominationList) {
                 $official = $nominationList->getOfficial();
@@ -455,7 +369,7 @@ class AdminController extends AbstractController
             throw $this->createNotFoundException('Rozhodčí nebyl nalezen!');
         }
 
-        $form = $this->createForm(OfficialNominationListsType::class, $official)
+        $form = $this->createForm(OfficialEditNominationListsType::class, $official)
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -730,8 +644,8 @@ class AdminController extends AbstractController
     public function changePassword(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $user = $this->getUser();
-        $form = $this->createForm(ChangePasswordType::class);
-        $form->handleRequest($request);
+        $form = $this->createForm(ChangePasswordType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($encoder->encodePassword($user, $form->get('newPassword')->getData()));

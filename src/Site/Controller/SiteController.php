@@ -9,9 +9,9 @@ use App\Admin\Repository\RedCardRepository;
 use App\Site\Repository\AssessorStatsRepository;
 use App\Site\Repository\OfficialStatsRepository;
 use App\Site\Repository\SeasonStatsRepository;
+use App\Site\Service\ChartFactory;
+use App\Site\Service\ProfileConfig;
 use App\Site\Service\SeasonsListMaker;
-use CMEN\GoogleChartsBundle\GoogleCharts\Charts\LineChart;
-use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -104,7 +104,7 @@ class SiteController extends AbstractController
      *     "part"="podzim|jaro"
      * })
      */
-    public function seasonStats(SeasonStatsRepository $statsRepository, RedCardRepository $redCardRepository,
+    public function seasonStats(ChartFactory $chartFactory, SeasonStatsRepository $statsRepository, RedCardRepository $redCardRepository,
                                 $league, $season, $part = null)
     {
         switch ($league) {
@@ -117,17 +117,10 @@ class SiteController extends AbstractController
         }
 
         $stats = $statsRepository->getSeasonStats($league, $season, $part);
-
         if (empty($stats['RefereeMatches'])) {
             throw $this->createNotFoundException('Pro tuto sezónu nejsou statistiky k dispozici!');
         }
-
-        $redOffenceChart = new PieChart();
-        $redOffenceChart->getData()->setArrayToDataTable($stats['RefereeRedOffence']);
-        $redOffenceChart->getOptions()->setPieSliceText('value');
-        $redOffenceChart->getOptions()->getChartArea()->setWidth('90%');
-        $redOffenceChart->getOptions()->setBackgroundColor('transparent');
-
+        $redOffenceChart = $chartFactory->createRedOffence($stats['RefereeRedOffence']);
         $redCards = $redCardRepository->findByLeagueSeasonPart($league, $season, $part);
 
         return $this->render('site/season_stats.html.twig', [
@@ -155,40 +148,18 @@ class SiteController extends AbstractController
     /**
      * @Route("/rozhodci/{id}", name="official_profile")
      */
-    public function officialProfile(OfficialRepository $officialRepository, OfficialStatsRepository $statsRepository, $id)
+    public function officialProfile(ProfileConfig $profileConfig, ChartFactory $chartFactory,
+                                    OfficialRepository $officialRepository, OfficialStatsRepository $statsRepository, $id)
     {
         $official = $officialRepository->find($id);
         if ($official === null) throw $this->createNotFoundException('Takový rozhodčí neexistuje!');
 
-        $currentYear = date('Y');
-        $currentMonth = date('n');
-        if($currentMonth < 8) {
-            $seasons = [$currentYear-4, $currentYear-3, $currentYear-2, $currentYear-1]; // which seasons display in interaction stats tables
-        }
-        else $seasons = [$currentYear-3, $currentYear-2, $currentYear-1, $currentYear];
-
-        $leagues = ['Přebor', '1.A třída']; // which leagues display in basic stats tables
-
+        $seasons = $profileConfig->getSeasons();
+        $leagues = $profileConfig->getLeagues();
         $stats = $statsRepository->getOfficialStats($id, $seasons, $leagues);
-
-        $redOffenceChart = new PieChart();
-        $redOffenceChart->getData()->setArrayToDataTable($stats['RefereeRedOffence']);
-        $redOffenceChart->getOptions()->setPieSliceText('value');
-        $redOffenceChart->getOptions()->getChartArea()->setWidth('90%');
-        $redOffenceChart->getOptions()->setBackgroundColor('transparent');
-
-        $cardsMinutesChart = new LineChart();
-        $cardsMinutesChart->getData()->setArrayToDataTable($stats['RefereeCardsMinutes']);
-        $cardsMinutesChart->getOptions()->getChartArea()->setWidth('88%');
-        $cardsMinutesChart->getOptions()->getChartArea()->setTop('10%');
-        $cardsMinutesChart->getOptions()->getLegend()->setPosition('bottom');
-        $cardsMinutesChart->getOptions()->getHAxis()->setTicks([5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90]);
-        $cardsMinutesChart->getOptions()->getVAxis()->getGridlines()->setCount(
-            $stats['RefereeCardsMinutesMaxNumberOfCards'] + 1 );
-        $cardsMinutesChart->getOptions()->getVAxis()->getMinorGridlines()->setCount(0);
-        $cardsMinutesChart->getOptions()->setColors(['gold', 'crimson']);
-        $cardsMinutesChart->getOptions()->setBackgroundColor('transparent');
-        $cardsMinutesChart->getOptions()->setLineWidth(3);
+        $redOffenceChart = $chartFactory->createRedOffence($stats['RefereeRedOffence']);
+        $cardsMinutesChart = $chartFactory->createCardsMinutes(
+            $stats['RefereeCardsMinutes'], $stats['RefereeCardsMinutesMaxNumberOfCards']);
 
         return $this->render('site/official_profile.html.twig', [
             'official' => $official,
@@ -215,20 +186,14 @@ class SiteController extends AbstractController
     /**
      * @Route("/delegati/{id}", name="assessor_profile")
      */
-    public function assessorProfile(AssessorRepository $assessorRepository, AssessorStatsRepository $statsRepository, $id)
+    public function assessorProfile(ProfileConfig $profileConfig,
+                                    AssessorRepository $assessorRepository, AssessorStatsRepository $statsRepository, $id)
     {
         $assessor = $assessorRepository->find($id);
         if ($assessor === null) throw $this->createNotFoundException('Takový delegát neexistuje!');
 
-        $currentYear = date('Y');
-        $currentMonth = date('n');
-        if($currentMonth < 8) {
-            $seasons = [$currentYear-4, $currentYear-3, $currentYear-2, $currentYear-1]; // which seasons display in interaction stats tables
-        }
-        else $seasons = [$currentYear-3, $currentYear-2, $currentYear-1, $currentYear];
-
-        $leagues = ['Přebor', '1.A třída']; // which leagues display in basic stats tables
-
+        $seasons = $profileConfig->getSeasons();
+        $leagues = $profileConfig->getLeagues();
         $stats = $statsRepository->getAssessorStats($id, $seasons, $leagues);
 
         return $this->render('site/assessor_profile.html.twig', [
