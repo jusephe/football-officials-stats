@@ -2,8 +2,6 @@
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-{% block css %}{{ encore_entry_link_tags('admin_form') }}{% endblock %}
-
 {% if page_title is not defined %}
     {% set page_title = 'Editace novinky' %}
 {% endif %}
@@ -20,7 +18,7 @@
 
     {{ form_start(form, { 'attr': { 'class': 'post' } }) }}
     {{ form_widget(form) }}
-    <input type="submit" class="btn btn-primary btn-save" value="Publikovat"/>
+    <input type="submit" class="btn btn-primary px-4" value="Publikovat"/>
     {{ form_end(form) }}
 
 {% endblock %}

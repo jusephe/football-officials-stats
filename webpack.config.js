@@ -36,11 +36,10 @@ Encore
     .addEntry('site_assessor_profile', './assets/js/site/assessor_profile.js')
 
     .addStyleEntry('login', './assets/css/admin/login.css')
-    .addStyleEntry('admin_base', './assets/css/admin/base.css')
-    .addStyleEntry('admin_form', './assets/css/admin/form.css')
+    .addStyleEntry('admin_base', './assets/css/admin/base.scss')
     .addStyleEntry('admin_add_edit_nomination_lists', './assets/css/admin/add_edit_nomination_lists.css')
 
-    .addStyleEntry('site_base', './assets/css/site/base.css')
+    .addStyleEntry('site_base', './assets/css/site/base.scss')
     .addStyleEntry('site_post', './assets/css/site/post.css')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

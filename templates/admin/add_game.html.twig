@@ -25,7 +25,7 @@
     <div class="mb-5">
         {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" class="btn btn-primary btn-send" value="Odeslat"/>
+        <input type="submit" class="btn btn-primary px-4" value="Odeslat"/>
         {{ form_end(form) }}
     </div>
 
@@ -45,7 +45,7 @@
         Aktualizovat statistiky
     </button>
 
-    <div id="new_season" class="alert alert-warning mb-0">Na začátku nové sezóny je potřeba zkontrolovat, jestli některý tým nepozměnil
+    <div class="alert alert-warning mb-0 text-width">Na začátku nové sezóny je potřeba zkontrolovat, jestli některý tým nepozměnil
         svůj název (který se objevuje v&nbsp;zápisech) a případně ho aktualizovat na stránce <a href="{{ path('teams') }}">Týmy</a>.
     </div>
 

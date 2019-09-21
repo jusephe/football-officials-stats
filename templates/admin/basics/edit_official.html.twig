@@ -1,7 +1,5 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block css %}{{ encore_entry_link_tags('admin_form') }}{% endblock %}
-
 {% if page_title is not defined %}
     {% set page_title = 'Editace rozhodčího' %}
 {% endif %}
@@ -10,14 +8,19 @@
 
 {% block main %}
 
-    {% if page_title is not defined %}
+    {% if create is not defined %}
         <h2 class="h4 mb-3">{{ official.name }}</h2>
     {% endif %}
 
     <div class="pt-2 pt-md-3">
         {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" class="btn btn-primary btn-save" value="Uložit"/>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <input type="submit" class="btn btn-primary px-4" value="Uložit"/>
+            </div>
+        </div>
         {{ form_end(form) }}
     </div>
 

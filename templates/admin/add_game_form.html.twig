@@ -1,7 +1,5 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block css %}{{ encore_entry_link_tags('admin_form') }}{% endblock %}
-
 {% set page_title = 'Přidání zápasu' %}
 
 {% block heading %}{{ page_title }}{% endblock %}
@@ -20,7 +18,7 @@
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <input type="submit" class="btn btn-primary btn-save-game" value="Uložit zápas"/>
+    <input type="submit" class="btn btn-primary btn-lg px-4" value="Uložit zápas"/>
     {{ form_end(form) }}
 
 {% endblock %}
