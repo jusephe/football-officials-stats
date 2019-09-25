@@ -19,7 +19,7 @@ class ChangePasswordType extends AbstractType
                 'constraints' => [
                     new UserPassword(),
                 ],
-                'label' => 'Současné heslo',
+                'label' => 'Současné heslo:',
                 'attr' => [
                     'autocomplete' => 'new-password',
                 ],
@@ -34,10 +34,11 @@ class ChangePasswordType extends AbstractType
                     ]),
                 ],
                 'first_options' => [
-                    'label' => 'Nové heslo',
+                    'label' => 'Nové heslo:',
+                    'help' => 'Minimální délka hesla je 7 znaků.',
                 ],
                 'second_options' => [
-                    'label' => 'Nové heslo znovu',
+                    'label' => 'Nové heslo znovu:',
                 ],
                 'invalid_message' => 'Hesla se musí shodovat.',
             ]);
