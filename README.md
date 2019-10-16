@@ -2,7 +2,7 @@
 Předmětem tohoto projektu jsou detailní statistiky o fotbalových rozhodčích a delegátech. Konkrétně se jedná o soutěže 
 Pražského fotbalového svazu (Přebor a 1.A třída), avšak projekt je snadno rozšiřitelný i do dalších krajů a soutěží (viz níže). 
 
-Projekt je rozdělen na dvě části - administrační a veřejnou (prezentační). 
+Webová aplikace je rozdělena na dvě části - administrační a veřejnou (prezentační). 
 V administrační části probíhá vkládání jednotlivých utkání a správa celého projektu. 
 Data ze zápasů jsou čerpána z Informačního systému Fotbalové asociace České republiky, avšak i to lze změnit.
 Veřejná část webu poskytuje jak statistické přehledy dle soutěží a sezón, tak i profily jednotlivých rozhodčích a delegátů.
